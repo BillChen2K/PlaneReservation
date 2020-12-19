@@ -1,5 +1,10 @@
 package cn.edu.ecnu.planereservation.Model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class FlightModel {
     protected long flight_id;
     protected String flight_number;

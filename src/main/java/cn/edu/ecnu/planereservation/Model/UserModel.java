@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true) // 可以连续设置属性
 public class UserModel {
 	/** 数据库对应字段 **/
-	protected int uid;
+	protected long uid;
 	protected String username;
 	protected String password;
 }

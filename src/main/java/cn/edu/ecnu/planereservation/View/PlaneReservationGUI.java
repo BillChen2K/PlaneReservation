@@ -1,6 +1,7 @@
 package cn.edu.ecnu.planereservation.View;
 
 import cn.edu.ecnu.planereservation.Mapper.AirportMapper;
+import cn.edu.ecnu.planereservation.Model.AirportModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -44,7 +45,7 @@ public class PlaneReservationGUI extends JFrame {
 	}
 
 	public void launch() {
-		ArrayList<HashMap<String, String>> airports = airportMapper.selectAllAirports();
+		ArrayList<AirportModel> airports = airportMapper.selectAllAirports();
 		log.info(airports.toString());
 		getContentPane().add(logInPanel);
 

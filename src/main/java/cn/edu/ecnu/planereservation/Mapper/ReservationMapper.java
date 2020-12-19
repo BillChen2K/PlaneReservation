@@ -1,6 +1,9 @@
 package cn.edu.ecnu.planereservation.Mapper;
 
+import cn.edu.ecnu.planereservation.Model.ReservationModel;
+import cn.edu.ecnu.planereservation.Model.UserModel;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * @author billchen
@@ -9,4 +12,8 @@ import org.apache.ibatis.annotations.Mapper;
  **/
 @Mapper
 public interface ReservationMapper {
+
+    @Select("SELECT * FROM reservation WHERE passenger_id=#{1}")
+    ReservationModel selectReservationByPassengerId(long passenger_id);
+
 }

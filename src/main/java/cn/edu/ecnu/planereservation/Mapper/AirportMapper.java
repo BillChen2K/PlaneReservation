@@ -1,5 +1,6 @@
 package cn.edu.ecnu.planereservation.Mapper;
 
+import cn.edu.ecnu.planereservation.Model.AirportModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -17,5 +18,5 @@ import java.util.HashMap;
 public interface AirportMapper {
 
 	@Select("SELECT * FROM airport")
-	ArrayList<HashMap<String, String>> selectAllAirports();
+	ArrayList<AirportModel> selectAllAirports();
 }
