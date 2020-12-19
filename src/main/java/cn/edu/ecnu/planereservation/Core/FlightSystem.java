@@ -1,5 +1,7 @@
 package cn.edu.ecnu.planereservation.Core;
 
+import cn.edu.ecnu.planereservation.Core.Flight.Flight;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,5 +11,7 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class FlightSystem {
+    @Autowired
+    Flight flight;
 
 }
