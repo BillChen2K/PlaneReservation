@@ -7,4 +7,5 @@ package cn.edu.ecnu.planereservation.Core.Payment;
  **/
 public interface Payment {
 	public int confirmPayment();
+
 }

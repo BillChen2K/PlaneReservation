@@ -17,18 +17,37 @@ public class Reservation extends ReservationModel {
     @Autowired
     ReservationMapper reservationMapper;
 
+
+    public static final int Canceled = 0;
+    public static final int Active = 1;
+
     public int save() {
-        return 0;
+        ReservationModel queryReservation = reservationMapper.selectReservationByReservationid(reservation_id);
+        if (queryReservation == null){
+            //不存在
+            return -2;
+        }
+        else{
+            //更改成功
+            reservationMapper.updateReservationAll(datetime, payment, passenger_id, flight_id, state, reservation_id);
+            return 0;
+        }
     }
 
     public int cancel() {
-        if (state == 0) {
+        ReservationModel queryReservation = reservationMapper.selectReservationByReservationid(reservation_id);
+        if (queryReservation == null){
+            //不存在
+            return -2;
+        }
+        else if (queryReservation.getState() == Canceled){
             //想要取消的订单已经被取消
-            return 0;
+            return -1;
         }
         else {
             //取消成功
-            state = 1;
+            state = Canceled;
+            reservationMapper.updateReservationState(state, reservation_id);
             return 1;
         }
     }

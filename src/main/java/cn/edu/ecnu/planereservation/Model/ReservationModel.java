@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ReservationModel {
-    protected long reservaation_id;
+    protected long reservation_id;
     protected String datetime;
-    protected String paymeny;
+    protected String payment;
     protected long passenger_id;
     protected long flight_id;
     protected long state;
