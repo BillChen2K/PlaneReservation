@@ -28,9 +28,6 @@ public class LogInPanel extends JPanel{
 	@Autowired
 	UserController currentUser;
 
-	@Autowired
-	MainPanel0 mainPanel0;
-
 	private JTextField txtUsername = new JTextField();
 	private JTextField txtPassword = new JPasswordField();
 	private JButton btnLogIn = new JButton("Log In");
@@ -85,7 +82,6 @@ public class LogInPanel extends JPanel{
 						break;
 					default:
 						log.info("登录成功。UID = " + currentUser.getUid());
-						Shared.user = currentUser;
 						loggedIn = true;
 						masterFrame.performLoggedIn();
 						labNotif.setText("登录成功。UID = " + currentUser.getUid());

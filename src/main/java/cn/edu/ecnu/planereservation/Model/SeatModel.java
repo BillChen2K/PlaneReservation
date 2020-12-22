@@ -6,12 +6,20 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SeatModel {
-    enum SeatType{
+    public enum SeatType{
         F, C, Y;
     }
-    protected long seat_id;
+    protected long seatId;
     protected SeatType type;
     protected double price;
-    protected long available_count;
-    protected long flight_id;
+    protected long availableCount;
+    protected long flightId;
+
+    public SeatModel(long ac) {
+        availableCount = ac;
+    }
+
+    public SeatModel() {
+
+    }
 }

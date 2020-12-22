@@ -2,6 +2,9 @@ package cn.edu.ecnu.planereservation.Controller;
 
 import cn.edu.ecnu.planereservation.Mapper.UserMapper;
 import cn.edu.ecnu.planereservation.Model.UserModel;
+import cn.edu.ecnu.planereservation.Util.Shared;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +18,9 @@ public class UserController extends UserModel {
 
 	@Autowired
 	UserMapper userMapper;
+
+	@Getter @Setter
+	private UserModel currentUser;
 
 	public static final int LOGGED_OUT = 0;
 	public static final int LOGGED_IN = 1;
@@ -41,6 +47,10 @@ public class UserController extends UserModel {
 		else {
 			loginStatus = LOGGED_IN;
 			uid = queryUser.getUid();
+			currentUser = queryUser;
+			Shared.user = queryUser;
+			Shared.uid = queryUser.getUid();
+			Shared.username = queryUser.getUsername();
 			return 0;
 		}
 	}

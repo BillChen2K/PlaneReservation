@@ -8,7 +8,7 @@ import java.sql.Time;
 @Getter
 @Setter
 public class FlightDescriptionModel {
-    protected long flightId;
+    protected long flightDescriptionId;
     protected String flightNumber;
     protected String model;
     protected long flyToAirportId;

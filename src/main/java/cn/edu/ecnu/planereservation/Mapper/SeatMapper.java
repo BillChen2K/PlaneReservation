@@ -12,9 +12,9 @@ import java.util.HashMap;
 public interface SeatMapper {
 
     @Select("SELECT * FROM seat WHERE flight_id=#{1}")
-    ArrayList<SeatModel> selectSeatByFlight(long flight_id);
+    ArrayList<SeatModel> selectSeatsByFlightId(long flight_id);
 
     @Update("UPDATE seat SET available_count=#{1} WHERE flight_id=#{2}")
-    void updateSeatAvailablecount(long available_count, long flight_id);
+    void updateSeatAvailableCount(long available_count, long flight_id);
 
 }

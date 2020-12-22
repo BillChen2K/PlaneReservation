@@ -22,4 +22,9 @@ public interface AirportMapper {
 
 	@Select("SELECT * FROM airport WHERE airport_id=#{1}")
 	AirportModel selectAirportByAirportId(long airport_id);
+
+	@Select("SELECT * FROM airport WHERE code=#{1}")
+	AirportModel selectAirportByCode(String code);
+
+
 }

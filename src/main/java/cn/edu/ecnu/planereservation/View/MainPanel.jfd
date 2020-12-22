@@ -17,7 +17,7 @@ new FormModel {
 				"text": "HI! You have logged in as: #{username}"
 				"font": &Font0 new java.awt.Font( "SF Pro Display", 0, 14 )
 				auxiliary() {
-					"JavaCodeGenerator.variableLocal": true
+					"JavaCodeGenerator.variableModifiers": 4
 				}
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 35
@@ -29,7 +29,7 @@ new FormModel {
 				"doubleBuffered": true
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
 					name: "panelReservation"
-					"font": #Font0
+					"font": new java.awt.Font( "SF Pro Display", 0, 12 )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "scrollPane1"
 						"font": #Font0
@@ -46,8 +46,10 @@ new FormModel {
 									add( null )
 									add( null )
 									add( null )
+									add( null )
 								} )
 								add( new java.util.Vector {
+									add( null )
 									add( null )
 									add( null )
 									add( null )
@@ -65,8 +67,9 @@ new FormModel {
 								add( "Arrival Airport" )
 								add( "Departure Date" )
 								add( "Departure Time" )
-								add( "F" )
+								add( "Duration" )
 								add( "C" )
+								add( "F" )
 								add( "Y" )
 							}, new java.util.Vector {
 								add( null )
@@ -78,28 +81,31 @@ new FormModel {
 								add( null )
 								add( null )
 								add( null )
-							}, new java.util.Vector {
-								add( null )
-								add( null )
-								add( null )
-								add( null )
-								add( null )
-								add( null )
-								add( null )
-								add( null )
 								add( null )
 							}, new java.util.Vector {
-								add( new com.jformdesigner.model.SwingTableColumn( null, 110, 0, 0, true ) )
-								add( new com.jformdesigner.model.SwingTableColumn( null, 70, 0, 0, true ) )
-								add( new com.jformdesigner.model.SwingTableColumn( null, 120, 0, 0, true ) )
-								add( new com.jformdesigner.model.SwingTableColumn( null, 120, 0, 0, true ) )
-								add( new com.jformdesigner.model.SwingTableColumn( null, 120, 0, 0, true ) )
-								add( new com.jformdesigner.model.SwingTableColumn( null, 120, 0, 0, true ) )
-								add( new com.jformdesigner.model.SwingTableColumn( null, 30, 0, 0, true ) )
-								add( new com.jformdesigner.model.SwingTableColumn( null, 30, 0, 0, true ) )
-								add( new com.jformdesigner.model.SwingTableColumn( null, 30, 0, 0, true ) )
+								add( false )
+								add( false )
+								add( false )
+								add( false )
+								add( false )
+								add( false )
+								add( false )
+								add( false )
+								add( false )
+								add( false )
+							}, new java.util.Vector {
+								add( new com.jformdesigner.model.SwingTableColumn( null, 85, 0, 0, true ) )
+								add( new com.jformdesigner.model.SwingTableColumn( null, 50, 0, 0, true ) )
+								add( new com.jformdesigner.model.SwingTableColumn( null, 90, 0, 0, true ) )
+								add( new com.jformdesigner.model.SwingTableColumn( null, 90, 0, 0, true ) )
+								add( new com.jformdesigner.model.SwingTableColumn( null, 100, 0, 0, true ) )
+								add( new com.jformdesigner.model.SwingTableColumn( null, 90, 0, 0, true ) )
+								add( new com.jformdesigner.model.SwingTableColumn( null, 60, 0, 0, true ) )
+								add( new com.jformdesigner.model.SwingTableColumn( null, 50, 0, 0, true ) )
+								add( new com.jformdesigner.model.SwingTableColumn( null, 50, 0, 0, true ) )
+								add( new com.jformdesigner.model.SwingTableColumn( null, 50, 0, 0, true ) )
 							} )
-							"font": new java.awt.Font( "SF Pro Display", 0, 14 )
+							"font": new java.awt.Font( "SF Pro Display", 0, 12 )
 						} )
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 						"x": 20
@@ -187,7 +193,7 @@ new FormModel {
 						"y": 580
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "button1"
+						name: "btnReserve"
 						"text": "Make Reservation"
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 						"x": 880
@@ -219,7 +225,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "texBeginDate"
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-						"width": 265
+						"width": 260
 						"height": 31
 						"x": 500
 						"y": 25
@@ -234,25 +240,38 @@ new FormModel {
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 						"width": 25
 						"height": 18
-						"x": 790
-						"y": 35
+						"x": 800
+						"y": 30
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "textEndDate"
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-						"width": 280
+						"width": 250
 						"height": 31
-						"x": 835
+						"x": 860
 						"y": 25
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "btnSearch"
 						"text": "Search Now"
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-						"x": 830
-						"y": 60
-						"width": 285
+						"x": 855
+						"y": 65
+						"width": 260
 						"height": 30
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "labelUI8"
+						"text": "C, F, Y indicating different classes of seat and the number beneath is the available seats."
+						"font": #Font0
+						auxiliary() {
+							"JavaCodeGenerator.variableLocal": true
+						}
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 530
+						"height": 18
+						"x": 20
+						"y": 580
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Make Reservations"
@@ -285,7 +304,7 @@ new FormModel {
 						"height": 500
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "btnGithub2"
+						name: "btnCancelReservation"
 						"text": "Cancel Reservation"
 						"font": #Font0
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
@@ -295,7 +314,7 @@ new FormModel {
 						"y": 570
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "btnGithub3"
+						name: "btnRearrange"
 						"text": "Rearrange"
 						"font": #Font0
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
@@ -332,6 +351,16 @@ new FormModel {
 				"height": 30
 				"x": 970
 				"y": 730
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnQuit"
+				"text": "Switch User"
+				"font": #Font0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 960
+				"y": 15
+				"width": 202
+				"height": 30
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )

@@ -2,6 +2,7 @@ package cn.edu.ecnu.planereservation.View;
 
 import cn.edu.ecnu.planereservation.Mapper.AirportMapper;
 import cn.edu.ecnu.planereservation.Model.AirportModel;
+import cn.edu.ecnu.planereservation.Model.UserModel;
 import cn.edu.ecnu.planereservation.Util.SpringContextUtil;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
@@ -50,8 +51,6 @@ public class PlaneReservationGUI extends JFrame {
 	}
 
 	public void launch() {
-		ArrayList<AirportModel> airports = airportMapper.selectAllAirports();
-		log.info(airports.toString());
 		getContentPane().add(logInPanel);
 		logInPanel.setMasterFrame(this);
 		this.setVisible(true);
@@ -61,6 +60,7 @@ public class PlaneReservationGUI extends JFrame {
 	public void performLoggedIn() {
 		mainPanel = SpringContextUtil.getBean(MainPanel.class);
 		logInPanel.setVisible(false);
+		mainPanel.load();
 		this.add(mainPanel);
 	}
 }

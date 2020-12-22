@@ -1,11 +1,13 @@
 package cn.edu.ecnu.planereservation;
 
-import cn.edu.ecnu.planereservation.Controller.FlightSystem;
+import cn.edu.ecnu.planereservation.Controller.FlightSystemFacade;
 import cn.edu.ecnu.planereservation.Mapper.AirportMapper;
 import cn.edu.ecnu.planereservation.Mapper.FlightDescriptionMapper;
 import cn.edu.ecnu.planereservation.Mapper.SeatMapper;
 import cn.edu.ecnu.planereservation.Mapper.UserMapper;
 import cn.edu.ecnu.planereservation.Model.*;
+import cn.edu.ecnu.planereservation.Util.Utils;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +27,19 @@ class PlanereservationApplicationTests {
 	FlightDescriptionMapper flightDescriptionMapper;
 
 	@Autowired
-	FlightSystem flightSystem;
+	FlightSystemFacade flightSystemFacade;
 
 	@Autowired
 	AirportMapper airportMapper;
 
 	@Autowired
 	SeatMapper seatMapper;
+
+	@Test
+	void utilTest() {
+		System.out.println(Utils.minuteToHourFormatter(100));
+	}
+
 	@Test
 	void contextLoads() {
 //		UserModel u = userMapper.selectUserByUsername("admin");
@@ -40,9 +48,9 @@ class PlanereservationApplicationTests {
 		ArrayList<FlightDescriptionModel> f = flightDescriptionMapper.selectFlightByAirport(10001, 10002);
 		UserModel u = new UserModel();
 		u.setUid(10001);
-		ArrayList<ReservationModel> s =  flightSystem.searchPreviousReservation(u);
+		ArrayList<ReservationModel> s =  flightSystemFacade.getPreviousReservation(u);
 		AirportModel a = airportMapper.selectAirportByAirportId(10001);
-		ArrayList<SeatModel> seatt = seatMapper.selectSeatByFlight(100001);
+		ArrayList<SeatModel> seatt = seatMapper.selectSeatsByFlightId(100001);
 		System.out.println();
 		System.out.println("Finished");
 		System.out.println(f.toString());

@@ -1,6 +1,6 @@
 package cn.edu.ecnu.planereservation.Util;
 
-import cn.edu.ecnu.planereservation.Controller.UserController;
+import cn.edu.ecnu.planereservation.Model.UserModel;
 
 /**
  * @author billchen
@@ -8,5 +8,7 @@ import cn.edu.ecnu.planereservation.Controller.UserController;
  * @create 2020-12-19 03:21
  **/
 public class Shared {
-	public static UserController user = new UserController();
+	public static long uid;
+	public static String username;
+	public static UserModel user = new UserModel();
 }

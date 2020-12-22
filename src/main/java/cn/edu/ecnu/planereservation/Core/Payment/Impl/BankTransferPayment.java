@@ -1,6 +1,8 @@
-package cn.edu.ecnu.planereservation.Core.Payment;
+package cn.edu.ecnu.planereservation.Core.Payment.Impl;
 
-public class BankTransferPayment implements Payment{
+import cn.edu.ecnu.planereservation.Core.Payment.Payment;
+
+public class BankTransferPayment implements Payment {
 
     private double amount;
 
