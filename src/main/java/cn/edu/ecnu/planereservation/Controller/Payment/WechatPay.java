@@ -1,4 +1,4 @@
-package cn.edu.ecnu.planereservation.Core.Payment;
+package cn.edu.ecnu.planereservation.Controller.Payment;
 
 public class WechatPay implements Payment {
 

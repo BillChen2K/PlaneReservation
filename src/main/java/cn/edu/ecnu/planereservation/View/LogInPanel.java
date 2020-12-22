@@ -1,6 +1,6 @@
 package cn.edu.ecnu.planereservation.View;
 
-import cn.edu.ecnu.planereservation.Core.User.User;
+import cn.edu.ecnu.planereservation.Controller.User.User;
 import cn.edu.ecnu.planereservation.Util.Shared;
 
 import lombok.Getter;

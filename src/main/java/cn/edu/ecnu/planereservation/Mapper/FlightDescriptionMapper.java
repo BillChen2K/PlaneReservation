@@ -9,6 +9,6 @@ import java.util.ArrayList;
 @Mapper
 public interface FlightDescriptionMapper {
 
-    @Select("SELECT * FROM flight WHERE fly_from_airport_id=#{1} AND fly_to_airport_id=#{2}")
+    @Select("SELECT * FROM flight_description WHERE fly_from_airport_id=#{fly_from_airport_id} AND fly_to_airport_id=#{fly_to_airport_id}")
     ArrayList<FlightDescriptionModel> selectFlightByAirport(long fly_from_airport_id, long fly_to_airport_id);
 }

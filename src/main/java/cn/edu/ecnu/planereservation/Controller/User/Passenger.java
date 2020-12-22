@@ -1,4 +1,4 @@
-package cn.edu.ecnu.planereservation.Core.User;
+package cn.edu.ecnu.planereservation.Controller.User;
 
 import cn.edu.ecnu.planereservation.Mapper.PassengerMapper;
 import cn.edu.ecnu.planereservation.Model.PassengerModel;
@@ -15,6 +15,5 @@ public class Passenger extends PassengerModel {
 
     @Autowired
     PassengerMapper passengerMapper;
-
 
 }

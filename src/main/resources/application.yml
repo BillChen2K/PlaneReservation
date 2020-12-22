@@ -12,3 +12,7 @@ spring:
 dev:
   url: http://dev.bar.com
   name: Developer Setup
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

@@ -1,4 +1,4 @@
-package cn.edu.ecnu.planereservation.Core.Flight;
+package cn.edu.ecnu.planereservation.Controller.Flight;
 
 /**
  * @author billchen

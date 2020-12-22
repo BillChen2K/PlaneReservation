@@ -1,4 +1,4 @@
-package cn.edu.ecnu.planereservation.Core.Reservation;
+package cn.edu.ecnu.planereservation.Controller.Reservation;
 
 import cn.edu.ecnu.planereservation.Mapper.ReservationMapper;
 import cn.edu.ecnu.planereservation.Model.ReservationModel;

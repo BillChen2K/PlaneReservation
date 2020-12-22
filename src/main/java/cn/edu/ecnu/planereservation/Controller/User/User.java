@@ -1,4 +1,4 @@
-package cn.edu.ecnu.planereservation.Core.User;
+package cn.edu.ecnu.planereservation.Controller.User;
 
 import cn.edu.ecnu.planereservation.Mapper.UserMapper;
 import cn.edu.ecnu.planereservation.Model.UserModel;
@@ -24,7 +24,6 @@ public class User extends UserModel {
 	public User() {
 		loginStatus = LOGGED_OUT;
 	}
-
 	/**
 	 * 在设置了 User 中的用户名和密码后进行登录
 	 * @return

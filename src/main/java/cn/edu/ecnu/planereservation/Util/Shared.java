@@ -1,6 +1,6 @@
 package cn.edu.ecnu.planereservation.Util;
 
-import cn.edu.ecnu.planereservation.Core.User.User;
+import cn.edu.ecnu.planereservation.Controller.User.User;
 
 /**
  * @author billchen

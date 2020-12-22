@@ -1,6 +1,6 @@
-package cn.edu.ecnu.planereservation.Core;
+package cn.edu.ecnu.planereservation.Controller;
 
-import cn.edu.ecnu.planereservation.Core.Flight.Flight;
+import cn.edu.ecnu.planereservation.Controller.Flight.Flight;
 import cn.edu.ecnu.planereservation.Mapper.AirportMapper;
 import cn.edu.ecnu.planereservation.Mapper.FlightDescriptionMapper;
 import cn.edu.ecnu.planereservation.Mapper.ReservationMapper;
