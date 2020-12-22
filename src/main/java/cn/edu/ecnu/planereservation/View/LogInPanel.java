@@ -1,6 +1,6 @@
 package cn.edu.ecnu.planereservation.View;
 
-import cn.edu.ecnu.planereservation.Controller.User.User;
+import cn.edu.ecnu.planereservation.Controller.UserController;
 import cn.edu.ecnu.planereservation.Util.Shared;
 
 import lombok.Getter;
@@ -26,10 +26,10 @@ import java.awt.event.ActionListener;
 public class LogInPanel extends JPanel{
 
 	@Autowired
-	User currentUser;
+	UserController currentUser;
 
 	@Autowired
-	MainPanel mainPanel;
+	MainPanel0 mainPanel0;
 
 	private JTextField txtUsername = new JTextField();
 	private JTextField txtPassword = new JPasswordField();
@@ -42,9 +42,9 @@ public class LogInPanel extends JPanel{
 	@Getter Boolean loggedIn = false;
 
 	public LogInPanel() {
-		txtUsername.setColumns(12);
-		txtPassword.setColumns(12);
-		btnLogIn.setPreferredSize(new Dimension(100, 28));
+		txtUsername.setPreferredSize(new Dimension(200,32));
+		txtPassword.setPreferredSize(new Dimension(200, 32));
+		btnLogIn.setPreferredSize(new Dimension(100, 36));
 		labNotif.setForeground(Color.RED);
 		JPanel blank = new JPanel();
 		blank.setPreferredSize(new Dimension(1200, 300));

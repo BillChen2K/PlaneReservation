@@ -1,4 +1,4 @@
-package cn.edu.ecnu.planereservation.Controller.Reservation;
+package cn.edu.ecnu.planereservation.Controller;
 
 import cn.edu.ecnu.planereservation.Mapper.ReservationMapper;
 import cn.edu.ecnu.planereservation.Model.ReservationModel;
@@ -11,11 +11,10 @@ import org.springframework.stereotype.Component;
  * @create 2020-12-19 02:18
  **/
 @Component
-public class Reservation extends ReservationModel {
+public class ReservationController extends ReservationModel {
 
     @Autowired
     ReservationMapper reservationMapper;
-
 
     public static final int Canceled = 0;
     public static final int Active = 1;

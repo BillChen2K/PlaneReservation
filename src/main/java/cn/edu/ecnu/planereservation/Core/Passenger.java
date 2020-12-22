@@ -1,4 +1,4 @@
-package cn.edu.ecnu.planereservation.Controller.User;
+package cn.edu.ecnu.planereservation.Core;
 
 import cn.edu.ecnu.planereservation.Mapper.PassengerMapper;
 import cn.edu.ecnu.planereservation.Model.PassengerModel;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @create 2020-12-19 02:21
  **/
 @Component
-public class Passenger extends PassengerModel {
+public class Passenger {
 
     @Autowired
     PassengerMapper passengerMapper;

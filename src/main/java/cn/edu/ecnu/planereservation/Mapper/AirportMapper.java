@@ -19,4 +19,7 @@ public interface AirportMapper {
 
 	@Select("SELECT * FROM airport")
 	ArrayList<AirportModel> selectAllAirports();
+
+	@Select("SELECT * FROM airport WHERE airport_id=#{1}")
+	AirportModel selectAirportByAirportId(long airport_id);
 }

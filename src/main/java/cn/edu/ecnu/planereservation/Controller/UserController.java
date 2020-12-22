@@ -1,4 +1,4 @@
-package cn.edu.ecnu.planereservation.Controller.User;
+package cn.edu.ecnu.planereservation.Controller;
 
 import cn.edu.ecnu.planereservation.Mapper.UserMapper;
 import cn.edu.ecnu.planereservation.Model.UserModel;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @create 2020-12-19 02:17
  **/
 @Component
-public class User extends UserModel {
+public class UserController extends UserModel {
 
 	@Autowired
 	UserMapper userMapper;
@@ -21,7 +21,7 @@ public class User extends UserModel {
 
 	private int loginStatus;
 
-	public User() {
+	public UserController() {
 		loginStatus = LOGGED_OUT;
 	}
 	/**

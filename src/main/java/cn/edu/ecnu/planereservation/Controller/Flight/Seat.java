@@ -17,43 +17,43 @@ public class Seat extends SeatModel {
     @Autowired
     SeatMapper seatMapper;
 
-    public int reserve(){
-        SeatModel querySeat = seatMapper.selectSeatByFlight(flight_id);
-        if (querySeat == null){
-            //不存在
-            return -2;
-        }
-        if (querySeat.getAvailable_count() == 0){
-            //没有空余座位
-            return -1;
-        }
-        else{
-            //预定座位成功
-            seat_id = querySeat.getSeat_id();
-            type = querySeat.getType();
-            price = querySeat.getPrice();
-            available_count = querySeat.getAvailable_count();
-            available_count--;
-            seatMapper.updateSeatAvailablecount(available_count, flight_id);
-            return 0;
-        }
-    }
-
-    public int cancel(){
-        SeatModel querySeat = seatMapper.selectSeatByFlight(flight_id);
-        if (querySeat == null){
-            //不存在
-            return -2;
-        }
-        else {
-            //取消成功
-            seat_id = querySeat.getSeat_id();
-            type = querySeat.getType();
-            price = querySeat.getPrice();
-            available_count = querySeat.getAvailable_count();
-            available_count++;
-            seatMapper.updateSeatAvailablecount(available_count, flight_id);
-            return 0;
-        }
-    }
+//    public int reserve(){
+//        SeatModel querySeat = seatMapper.selectSeatByFlight(flight_id);
+//        if (querySeat == null){
+//            //不存在
+//            return -2;
+//        }
+//        if (querySeat.getAvailable_count() == 0){
+//            //没有空余座位
+//            return -1;
+//        }
+//        else{
+//            //预定座位成功
+//            seat_id = querySeat.getSeat_id();
+//            type = querySeat.getType();
+//            price = querySeat.getPrice();
+//            available_count = querySeat.getAvailable_count();
+//            available_count--;
+//            seatMapper.updateSeatAvailablecount(available_count, flight_id);
+//            return 0;
+//        }
+//    }
+//
+//    public int cancel(){
+//        SeatModel querySeat = seatMapper.selectSeatByFlight(flight_id);
+//        if (querySeat == null){
+//            //不存在
+//            return -2;
+//        }
+//        else {
+//            //取消成功
+//            seat_id = querySeat.getSeat_id();
+//            type = querySeat.getType();
+//            price = querySeat.getPrice();
+//            available_count = querySeat.getAvailable_count();
+//            available_count++;
+//            seatMapper.updateSeatAvailablecount(available_count, flight_id);
+//            return 0;
+//        }
+//    }
 }

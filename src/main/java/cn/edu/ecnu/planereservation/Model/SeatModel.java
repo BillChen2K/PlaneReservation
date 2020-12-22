@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class SeatModel {
     enum SeatType{
-        F, C, Y, B, K, H, L, M, Q, X, E;
+        F, C, Y;
     }
     protected long seat_id;
     protected SeatType type;

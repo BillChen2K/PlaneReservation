@@ -26,9 +26,8 @@ public class FlightSystem {
     @Autowired
     Flight flight;
 
-
-    public ReservationModel searchPreviousReservation(UserModel user) {
-        ReservationModel queryReservation = reservationMapper.selectReservationByPassengerId(user.getUid());
+    public ArrayList<ReservationModel> searchPreviousReservation(UserModel user) {
+        ArrayList<ReservationModel> queryReservation = reservationMapper.selectReservationByUid(user.getUid());
         return queryReservation;
     }
 
@@ -37,7 +36,7 @@ public class FlightSystem {
         return queryFlight;
     }
 
-    public ArrayList<AirportModel> SearchAllAirport(){
+    public ArrayList<AirportModel> SearchAllAirports(){
         return airportMapper.selectAllAirports();
     }
 }

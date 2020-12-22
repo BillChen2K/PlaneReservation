@@ -1,4 +1,4 @@
-package cn.edu.ecnu.planereservation.Controller.Payment;
+package cn.edu.ecnu.planereservation.Core.Payment;
 
 /**
  * @author billchen

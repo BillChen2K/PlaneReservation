@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
  * @create 2020-12-19 02:20
  **/
 @Component
-public class Flight extends FlightDescriptionModel {
+public class Flight {
 
 }

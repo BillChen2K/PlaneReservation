@@ -4,10 +4,11 @@ import cn.edu.ecnu.planereservation.Mapper.AirportMapper;
 import cn.edu.ecnu.planereservation.Model.AirportModel;
 import cn.edu.ecnu.planereservation.Util.SpringContextUtil;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -33,6 +34,13 @@ public class PlaneReservationGUI extends JFrame {
 
 	private JLabel lableLoading;
 	public PlaneReservationGUI() {
+		try {
+//			UIManager.setLookAndFeel(new FlatLightLaf());
+		}
+		catch (Exception e) {
+			log.error(e.toString());
+		}
+
 		this.setSize(new Dimension(1200, 800));
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
