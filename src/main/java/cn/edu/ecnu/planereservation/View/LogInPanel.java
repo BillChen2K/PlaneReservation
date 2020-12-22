@@ -3,8 +3,9 @@ package cn.edu.ecnu.planereservation.View;
 import cn.edu.ecnu.planereservation.Core.User.User;
 import cn.edu.ecnu.planereservation.Util.Shared;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,10 +28,18 @@ public class LogInPanel extends JPanel{
 	@Autowired
 	User currentUser;
 
-	JTextField txtUsername = new JTextField();
-	JTextField txtPassword = new JPasswordField();
-	JButton btnLogIn = new JButton("Log In");
-	JLabel labNotif = new JLabel("");
+	@Autowired
+	MainPanel mainPanel;
+
+	private JTextField txtUsername = new JTextField();
+	private JTextField txtPassword = new JPasswordField();
+	private JButton btnLogIn = new JButton("Log In");
+	private JLabel labNotif = new JLabel("");
+
+	@Getter @Setter
+	private PlaneReservationGUI masterFrame;
+
+	@Getter Boolean loggedIn = false;
 
 	public LogInPanel() {
 		txtUsername.setColumns(12);
@@ -60,7 +69,6 @@ public class LogInPanel extends JPanel{
 		this.add(btnLogIn);
 		this.add(pnotif);
 
-
 		btnLogIn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -77,10 +85,14 @@ public class LogInPanel extends JPanel{
 						break;
 					default:
 						log.info("登录成功。UID = " + currentUser.getUid());
+						Shared.user = currentUser;
+						loggedIn = true;
+						masterFrame.performLoggedIn();
 						labNotif.setText("登录成功。UID = " + currentUser.getUid());
 				}
 			}
 		});
+
 		this.setVisible(true);
 	}
 

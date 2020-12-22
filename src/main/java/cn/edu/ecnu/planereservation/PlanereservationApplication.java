@@ -1,6 +1,4 @@
 package cn.edu.ecnu.planereservation;
-
-import cn.edu.ecnu.planereservation.Mapper.AirportMapper;
 import cn.edu.ecnu.planereservation.Util.SpringContextUtil;
 import cn.edu.ecnu.planereservation.View.PlaneReservationGUI;
 
@@ -17,7 +15,6 @@ public class PlanereservationApplication {
 
 
 	public static void main(String[] args) {
-
 		// Set font globally
 		FontUIResource fontRes = new FontUIResource(new Font("Helvetica", Font.PLAIN, 14));
 		for (Enumeration<Object> keys = UIManager.getDefaults().keys(); keys.hasMoreElements();) {

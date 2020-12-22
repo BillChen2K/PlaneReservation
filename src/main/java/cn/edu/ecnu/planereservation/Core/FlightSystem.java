@@ -2,13 +2,12 @@ package cn.edu.ecnu.planereservation.Core;
 
 import cn.edu.ecnu.planereservation.Core.Flight.Flight;
 import cn.edu.ecnu.planereservation.Mapper.AirportMapper;
-import cn.edu.ecnu.planereservation.Mapper.FlightMapper;
+import cn.edu.ecnu.planereservation.Mapper.FlightDescriptionMapper;
 import cn.edu.ecnu.planereservation.Mapper.ReservationMapper;
 import cn.edu.ecnu.planereservation.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +20,7 @@ public class FlightSystem {
     @Autowired
     ReservationMapper reservationMapper;
     @Autowired
-    FlightMapper flightMapper;
+    FlightDescriptionMapper flightDescriptionMapper;
     @Autowired
     AirportMapper airportMapper;
     @Autowired
@@ -33,8 +32,8 @@ public class FlightSystem {
         return queryReservation;
     }
 
-    public ArrayList<FlightModel> searchAvailableFlight(AirportModel from, AirportModel to) {
-        ArrayList<FlightModel> queryFlight = flightMapper.selectFlightByAirport(from.getAirport_id(), to.getAirport_id());
+    public ArrayList<FlightDescriptionModel> searchAvailableFlight(AirportModel from, AirportModel to) {
+        ArrayList<FlightDescriptionModel> queryFlight = flightDescriptionMapper.selectFlightByAirport(from.getAirportId(), to.getAirportId());
         return queryFlight;
     }
 

@@ -11,7 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AirportModel {
-	protected long airport_id;
+	protected long airportId;
 	protected String city;
 	protected String code;
+	protected String airportName;
 }

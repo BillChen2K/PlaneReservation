@@ -2,7 +2,6 @@ package cn.edu.ecnu.planereservation.Core.Reservation;
 
 import cn.edu.ecnu.planereservation.Mapper.ReservationMapper;
 import cn.edu.ecnu.planereservation.Model.ReservationModel;
-import com.sun.codemodel.internal.JStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,20 +21,20 @@ public class Reservation extends ReservationModel {
     public static final int Active = 1;
 
     public int save() {
-        ReservationModel queryReservation = reservationMapper.selectReservationByReservationid(reservation_id);
+        ReservationModel queryReservation = reservationMapper.selectReservationByReservationid(reservationId);
         if (queryReservation == null){
             //不存在
             return -2;
         }
         else{
             //更改成功
-            reservationMapper.updateReservationAll(datetime, payment, passenger_id, flight_id, state, reservation_id);
+            reservationMapper.updateReservationAll(datetime, payment, passengerId, flightId, state, reservationId);
             return 0;
         }
     }
 
     public int cancel() {
-        ReservationModel queryReservation = reservationMapper.selectReservationByReservationid(reservation_id);
+        ReservationModel queryReservation = reservationMapper.selectReservationByReservationid(reservationId);
         if (queryReservation == null){
             //不存在
             return -2;
@@ -47,7 +46,7 @@ public class Reservation extends ReservationModel {
         else {
             //取消成功
             state = Canceled;
-            reservationMapper.updateReservationState(state, reservation_id);
+            reservationMapper.updateReservationState(state, reservationId);
             return 1;
         }
     }

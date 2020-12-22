@@ -3,13 +3,17 @@ package cn.edu.ecnu.planereservation.Model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
+
+/**
+ * @author billchen
+ * @version 1.0
+ * @create 2020-12-22 2:13 下午
+ **/
 @Getter
 @Setter
 public class FlightModel {
-    protected long flight_id;
-    protected String flight_number;
-    protected String model;
-    protected long fly_to_airport_id;
-    protected long fly_from_airport_id;
-    protected String datetime;
+    protected int flightId;
+    protected int flightDescriptionId;
+    protected Date departureDate;
 }

@@ -16,6 +16,8 @@ class PlanereservationApplicationTests {
 	@Autowired
 	UserMapper userMapper;
 
+	@Autowired
+
 	@Test
 	void contextLoads() {
 		System.setProperty("java.awt.headless", "false");
