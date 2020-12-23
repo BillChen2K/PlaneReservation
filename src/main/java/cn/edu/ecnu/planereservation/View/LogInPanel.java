@@ -41,7 +41,7 @@ public class LogInPanel extends JPanel{
 	public LogInPanel() {
 		txtUsername.setPreferredSize(new Dimension(200,32));
 		txtPassword.setPreferredSize(new Dimension(200, 32));
-		btnLogIn.setPreferredSize(new Dimension(100, 36));
+		btnLogIn.setPreferredSize(new Dimension(120, 32));
 		labNotif.setForeground(Color.RED);
 		JPanel blank = new JPanel();
 		blank.setPreferredSize(new Dimension(1200, 300));

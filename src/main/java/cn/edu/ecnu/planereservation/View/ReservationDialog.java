@@ -4,10 +4,31 @@
 
 package cn.edu.ecnu.planereservation.View;
 
+import javax.swing.event.*;
 import javax.swing.table.*;
+
+import cn.edu.ecnu.planereservation.Controller.AirportController;
+import cn.edu.ecnu.planereservation.Controller.PassengerController;
+import cn.edu.ecnu.planereservation.Controller.ReservationController;
+import cn.edu.ecnu.planereservation.Model.Joined.FlightTableItem;
+import cn.edu.ecnu.planereservation.Model.PassengerModel;
+import cn.edu.ecnu.planereservation.Model.PaymentModel;
+import cn.edu.ecnu.planereservation.Model.SeatModel;
+import cn.edu.ecnu.planereservation.Util.SpringContextUtil;
+import cn.edu.ecnu.planereservation.Util.Utils;
+import cn.edu.ecnu.planereservation.View.Components.InfoDialogue;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -15,6 +36,7 @@ import javax.swing.border.*;
  * @author unknown
  */
 @Component
+@Slf4j
 public class ReservationDialog extends JDialog {
     public ReservationDialog() {
         initComponents();
@@ -26,31 +48,32 @@ public class ReservationDialog extends JDialog {
         dialogPane = new JPanel();
         contentPanel = new JPanel();
         panel4 = new JPanel();
-        labUI = new JLabel();
+        var labUI = new JLabel();
         scrollPane1 = new JScrollPane();
-        table1 = new JTable();
-        labUI9 = new JLabel();
-        labUI10 = new JLabel();
+        tableSummary = new JTable();
+        var labUI10 = new JLabel();
+        labPrice = new JLabel();
         panel6 = new JPanel();
         panel3 = new JPanel();
-        labUI2 = new JLabel();
+        var labUI2 = new JLabel();
         tabPassenger = new JTabbedPane();
         panel1 = new JPanel();
-        textField1 = new JTextField();
-        labUI3 = new JLabel();
-        labUI4 = new JLabel();
-        textField2 = new JTextField();
-        textField3 = new JTextField();
-        labUI5 = new JLabel();
-        labUI6 = new JLabel();
+        txtPassengerName = new JTextField();
+        var labUI3 = new JLabel();
+        var labUI4 = new JLabel();
+        txtPassengerID = new JTextField();
+        txtPassengerPhone = new JTextField();
+        var labUI5 = new JLabel();
+        labHintPassenger = new JLabel();
         panel2 = new JPanel();
         scrollPane2 = new JScrollPane();
-        table2 = new JTable();
+        tablePassenger = new JTable();
         panel5 = new JPanel();
-        labUI7 = new JLabel();
+        var labUI7 = new JLabel();
         comboSeatSelect = new JComboBox();
+        labHintSeat = new JLabel();
         buttonBar = new JPanel();
-        btnConfirm = new JButton();
+        btnPay = new JButton();
         btnCancel = new JButton();
 
         //======== this ========
@@ -63,12 +86,12 @@ public class ReservationDialog extends JDialog {
         {
             dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
             dialogPane.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            dialogPane.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.
-            border.EmptyBorder(0,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax.swing.border.TitledBorder.CENTER
-            ,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog",java.awt.Font
-            .BOLD,12),java.awt.Color.red),dialogPane. getBorder()));dialogPane. addPropertyChangeListener(
-            new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062ord\u0065r"
-            .equals(e.getPropertyName()))throw new RuntimeException();}});
+            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder
+            ( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing. border
+            . TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt
+            . Color. red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void
+            propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException( )
+            ; }} );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -91,41 +114,39 @@ public class ReservationDialog extends JDialog {
                     {
                         scrollPane1.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
 
-                        //---- table1 ----
-                        table1.setModel(new DefaultTableModel(
+                        //---- tableSummary ----
+                        tableSummary.setModel(new DefaultTableModel(
                             new Object[][] {
-                                {null, null},
-                                {"Flight Number", null},
-                                {"Departure Date", null},
                             },
                             new String[] {
                                 "Key", "Value"
                             }
                         ));
                         {
-                            TableColumnModel cm = table1.getColumnModel();
-                            cm.getColumn(0).setPreferredWidth(100);
+                            TableColumnModel cm = tableSummary.getColumnModel();
+                            cm.getColumn(0).setPreferredWidth(80);
                             cm.getColumn(1).setPreferredWidth(100);
                         }
-                        table1.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                        scrollPane1.setViewportView(table1);
+                        tableSummary.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                        tableSummary.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                        scrollPane1.setViewportView(tableSummary);
                     }
                     panel4.add(scrollPane1);
                     scrollPane1.setBounds(5, 35, 370, 280);
 
-                    //---- labUI9 ----
-                    labUI9.setText("You'll need to pay:");
-                    labUI9.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                    labUI9.setHorizontalAlignment(SwingConstants.TRAILING);
-                    panel4.add(labUI9);
-                    labUI9.setBounds(245, 335, 123, 16);
-
                     //---- labUI10 ----
-                    labUI10.setText("\uffe51023.23");
-                    labUI10.setFont(new Font("SF Pro Rounded", Font.BOLD, 26));
+                    labUI10.setText("You'll need to pay:");
+                    labUI10.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
                     labUI10.setHorizontalAlignment(SwingConstants.TRAILING);
                     panel4.add(labUI10);
-                    labUI10.setBounds(215, 355, 155, 41);
+                    labUI10.setBounds(245, 335, 123, 16);
+
+                    //---- labPrice ----
+                    labPrice.setText("\uffe51023.23");
+                    labPrice.setFont(new Font("SF Pro Text", Font.BOLD, 26));
+                    labPrice.setHorizontalAlignment(SwingConstants.TRAILING);
+                    panel4.add(labPrice);
+                    labPrice.setBounds(215, 360, 155, 41);
 
                     {
                         // compute preferred size
@@ -170,10 +191,10 @@ public class ReservationDialog extends JDialog {
                                 panel1.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
                                 panel1.setLayout(null);
 
-                                //---- textField1 ----
-                                textField1.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                                panel1.add(textField1);
-                                textField1.setBounds(95, 10, 255, 30);
+                                //---- txtPassengerName ----
+                                txtPassengerName.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                                panel1.add(txtPassengerName);
+                                txtPassengerName.setBounds(95, 10, 255, 30);
 
                                 //---- labUI3 ----
                                 labUI3.setText("Name:");
@@ -187,15 +208,15 @@ public class ReservationDialog extends JDialog {
                                 panel1.add(labUI4);
                                 labUI4.setBounds(15, 52, 90, 16);
 
-                                //---- textField2 ----
-                                textField2.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                                panel1.add(textField2);
-                                textField2.setBounds(95, 45, 255, 30);
+                                //---- txtPassengerID ----
+                                txtPassengerID.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                                panel1.add(txtPassengerID);
+                                txtPassengerID.setBounds(95, 45, 255, 30);
 
-                                //---- textField3 ----
-                                textField3.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                                panel1.add(textField3);
-                                textField3.setBounds(95, 80, 255, 30);
+                                //---- txtPassengerPhone ----
+                                txtPassengerPhone.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                                panel1.add(txtPassengerPhone);
+                                txtPassengerPhone.setBounds(95, 80, 255, 30);
 
                                 //---- labUI5 ----
                                 labUI5.setText("Phone:");
@@ -203,11 +224,13 @@ public class ReservationDialog extends JDialog {
                                 panel1.add(labUI5);
                                 labUI5.setBounds(15, 89, 90, 16);
 
-                                //---- labUI6 ----
-                                labUI6.setText("*All fields are required.");
-                                labUI6.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                                panel1.add(labUI6);
-                                labUI6.setBounds(15, 130, 150, 16);
+                                //---- labHintPassenger ----
+                                labHintPassenger.setText("*All fields are required.");
+                                labHintPassenger.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                                labHintPassenger.setForeground(new Color(204, 0, 51));
+                                labHintPassenger.setVerticalAlignment(SwingConstants.TOP);
+                                panel1.add(labHintPassenger);
+                                labHintPassenger.setBounds(15, 130, 330, 100);
 
                                 {
                                     // compute preferred size
@@ -235,9 +258,25 @@ public class ReservationDialog extends JDialog {
                                 {
                                     scrollPane2.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
 
-                                    //---- table2 ----
-                                    table2.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                                    scrollPane2.setViewportView(table2);
+                                    //---- tablePassenger ----
+                                    tablePassenger.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                                    tablePassenger.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                                    tablePassenger.setModel(new DefaultTableModel(
+                                        new Object[][] {
+                                            {"\u9648\u67d0\u67d0", "510402000000008888", "18888888888"},
+                                            {null, null, null},
+                                        },
+                                        new String[] {
+                                            "Name", "Identity ID", "Phone"
+                                        }
+                                    ));
+                                    {
+                                        TableColumnModel cm = tablePassenger.getColumnModel();
+                                        cm.getColumn(0).setPreferredWidth(50);
+                                        cm.getColumn(1).setPreferredWidth(150);
+                                        cm.getColumn(2).setPreferredWidth(100);
+                                    }
+                                    scrollPane2.setViewportView(tablePassenger);
                                 }
                                 panel2.add(scrollPane2);
                                 scrollPane2.setBounds(0, 0, 375, 240);
@@ -289,13 +328,19 @@ public class ReservationDialog extends JDialog {
                         labUI7.setText("Select Seat Class:");
                         labUI7.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
                         panel5.add(labUI7);
-                        labUI7.setBounds(new Rectangle(new Point(15, 10), labUI7.getPreferredSize()));
+                        labUI7.setBounds(new Rectangle(new Point(15, 15), labUI7.getPreferredSize()));
 
                         //---- comboSeatSelect ----
                         comboSeatSelect.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
                         comboSeatSelect.setPreferredSize(new Dimension(85, 36));
                         panel5.add(comboSeatSelect);
-                        comboSeatSelect.setBounds(150, 5, 225, comboSeatSelect.getPreferredSize().height);
+                        comboSeatSelect.setBounds(140, 5, 245, comboSeatSelect.getPreferredSize().height);
+
+                        //---- labHintSeat ----
+                        labHintSeat.setText("Current seat is unavailable. Please select another one.");
+                        labHintSeat.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                        panel5.add(labHintSeat);
+                        labHintSeat.setBounds(15, 50, 360, 18);
                     }
                     panel6.add(panel5, BorderLayout.SOUTH);
                 }
@@ -311,10 +356,10 @@ public class ReservationDialog extends JDialog {
                 ((GridBagLayout)buttonBar.getLayout()).columnWidths = new int[] {0, 85, 80};
                 ((GridBagLayout)buttonBar.getLayout()).columnWeights = new double[] {1.0, 0.0, 0.0};
 
-                //---- btnConfirm ----
-                btnConfirm.setText("Confirm Payment");
-                btnConfirm.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                buttonBar.add(btnConfirm, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
+                //---- btnPay ----
+                btnPay.setText("Confirm Payment");
+                btnPay.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                buttonBar.add(btnPay, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 5), 0, 0));
 
@@ -338,32 +383,250 @@ public class ReservationDialog extends JDialog {
     private JPanel dialogPane;
     private JPanel contentPanel;
     private JPanel panel4;
-    private JLabel labUI;
     private JScrollPane scrollPane1;
-    private JTable table1;
-    private JLabel labUI9;
-    private JLabel labUI10;
+    private JTable tableSummary;
+    private JLabel labPrice;
     private JPanel panel6;
     private JPanel panel3;
-    private JLabel labUI2;
     private JTabbedPane tabPassenger;
     private JPanel panel1;
-    private JTextField textField1;
-    private JLabel labUI3;
-    private JLabel labUI4;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JLabel labUI5;
-    private JLabel labUI6;
+    private JTextField txtPassengerName;
+    private JTextField txtPassengerID;
+    private JTextField txtPassengerPhone;
+    private JLabel labHintPassenger;
     private JPanel panel2;
     private JScrollPane scrollPane2;
-    private JTable table2;
+    private JTable tablePassenger;
     private JPanel panel5;
-    private JLabel labUI7;
     private JComboBox comboSeatSelect;
+    private JLabel labHintSeat;
     private JPanel buttonBar;
-    private JButton btnConfirm;
+    private JButton btnPay;
     private JButton btnCancel;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
+    @Autowired
+    PassengerController passengerController;
+
+    @Autowired
+    ReservationController reservationController;
+
+    @Autowired
+    AirportController airportController;
+
+    @Setter
+    @Getter
+    private FlightTableItem flightDetail;
+
+    private Boolean eligible;
+
+    @Setter
+    private MainPanel mainPanel;
+
+    private LinkedHashMap<String, String> summaryMap = new LinkedHashMap<>() {{
+        put("Flight Number", "");
+        put("Model", "");
+        put("Departure Airport", "");
+        put("Arrival Airport", "");
+        put("Departure Date & Time", "");
+        put("Flight Duration", "");
+        put("Arrival Date & Time", "");
+        put("Seat Class", "");
+        put("Passenger Name", "");
+        put("Passenger ID", "");
+        put("Passenger Phone", "");
+    }};
+
+    /**
+     * For new passenger: This operation will insert to database;
+     * For old passenger: This operation will return the selectedPassengerModel.
+      * @return
+     */
+    private PassengerModel getOrSaveSelectedPassenger() {
+        if (tabPassenger.getSelectedIndex() == 0) {
+            passengerController.setNewPassenger(txtPassengerName.getText(), txtPassengerID.getText(), txtPassengerPhone.getText());
+            return passengerController.saveAndGetPassenger();
+        }
+        else {
+            // todo
+            return null;
+        }
+    }
+
+    private SeatModel getSelectedSeat() {
+        return flightDetail.getSeats().get(comboSeatSelect.getSelectedIndex());
+    }
+
+    private void updateSummaryTable() {
+        DefaultTableModel model = (DefaultTableModel) tableSummary.getModel();
+        model.setValueAt(getSelectedSeat().getType().name(),
+                new ArrayList<String>(summaryMap.keySet()).indexOf("Seat Class"), 1);
+        String name, id, phone;
+        if (tabPassenger.getSelectedIndex() == 0) {
+            name = txtPassengerName.getText();
+            id = txtPassengerID.getText();
+            phone = txtPassengerPhone.getText();
+        }
+        else {
+            //todo
+            name = id = phone = "";
+
+        }
+        model.setValueAt(name, new ArrayList<String>(summaryMap.keySet()).indexOf("Passenger Name"), 1);
+        model.setValueAt(id, new ArrayList<String>(summaryMap.keySet()).indexOf("Passenger ID"), 1);
+        model.setValueAt(phone, new ArrayList<String>(summaryMap.keySet()).indexOf("Passenger Phone"), 1);
+    }
+
+    /**
+     * This method will determine if the given info is eligible and then update summary.
+     */
+    private void checkEligibilityNUpdateSummary() {
+        labPrice.setText("¥ ----.--");
+        eligible = true;
+        btnPay.setEnabled(false);
+        labHintSeat.setVisible(false);
+        labHintPassenger.setVisible(true);
+        String passengerHint = "<html>";
+        if (getSelectedSeat().getAvailableCount() <= 0) {
+            labHintSeat.setVisible(true);
+            eligible = false;
+        }
+        if (tabPassenger.getSelectedIndex() == 0) {
+            // New passenger
+            if (txtPassengerName.getText().length() < 3) {
+                passengerHint += "Check the passenger name. <br>";
+                eligible = false;
+            }
+            if (txtPassengerID.getText().length() != 18) {
+                passengerHint += "Length of the identity number must be 18. <br>";
+                eligible = false;
+            }
+            if (txtPassengerPhone.getText().length() < 10) {
+                passengerHint += "Check the passenger phone. <br>";
+                eligible = false;
+            }
+            passengerHint += "</html>";
+        }
+        else {
+            // Previous passenger
+            if (tablePassenger.getSelectedRowCount() == 0) {
+                eligible = false;
+            }
+        }
+        
+        if (eligible) {
+            labPrice.setText("¥" + getSelectedSeat().getPrice());
+            labHintPassenger.setVisible(false);
+            btnPay.setEnabled(true);
+        }
+        else {
+            labHintPassenger.setText(passengerHint);
+            labHintPassenger.setVisible(true);
+        }
+        updateSummaryTable();
+    }
+
+    private void btnPayActionPerformed(ActionEvent e) {
+        this.setEnabled(false);     // In order to prevent user to change info during payment.
+        PaymentDialogue paymentDialogue = SpringContextUtil.getBean(PaymentDialogue.class);
+        paymentDialogue.setSeatToPay(getSelectedSeat());
+        paymentDialogue.setReservationDialog(this);
+        paymentDialogue.load();
+        paymentDialogue.setVisible(true);
+    }
+
+    /**
+     * Payment finished, insert the reservation together with flight id, payment id and passenger id.
+     */
+    public void paymentDidFinished(PaymentModel p) {
+        this.setEnabled(true);
+        reservationController.create();
+        reservationController.setAssociatedFlight(flightDetail);
+        reservationController.setPassenger(getOrSaveSelectedPassenger());
+        reservationController.setPayment(p);
+        reservationController.setSelectedSeat(getSelectedSeat());
+        switch (reservationController.save()) {
+            case 0:
+                // Success
+                InfoDialogue infoDialogue = new InfoDialogue("Your reservation has been confirmed.");
+                infoDialogue.setVisible(true);
+                mainPanel.refresh();
+                dispose();
+                break;
+        }
+    }
+
+    public void load() {
+        // Fill seats
+        ArrayList<SeatModel> flightSeats = flightDetail.getSeats();
+        List<String> flightSeatComboModel = flightSeats.stream().map(one -> String.format("%s - ￥%.2f, %d available.",
+                one.getType().name(), one.getPrice(), one.getAvailableCount())).collect(Collectors.toList());
+        comboSeatSelect.setModel(new DefaultComboBoxModel(flightSeatComboModel.toArray()));
+        summaryMap.put("Flight Number", flightDetail.getFlightNumber());
+        summaryMap.put("Model", flightDetail.getModel());
+        summaryMap.put("Departure Airport", airportController.getAirportByAirportId(flightDetail.getFlyFromAirportId()).getAirportName());
+        summaryMap.put("Arrival Airport", airportController.getAirportByAirportId(flightDetail.getFlyToAirportId()).getAirportName());
+        summaryMap.put("Departure Date & Time", flightDetail.getDepartureDate() + " " + flightDetail.getDepartureTime());
+        summaryMap.put("Flight Duration", Utils.minuteToHourFormatter(flightDetail.getFlightDurationMinutes()));
+        summaryMap.put("Arrival Date & Time", Utils.getArrivalDatetime(flightDetail.getDepartureDate().toString(),
+                                                            flightDetail.getDepartureTime().toString(),
+                                                            flightDetail.getFlightDurationMinutes()));
+
+        DefaultTableModel model = (DefaultTableModel) tableSummary.getModel();
+        for (String one: summaryMap.keySet()) {
+            model.addRow(new String[]{one, summaryMap.get(one)});
+        }
+
+        checkEligibilityNUpdateSummary();
+
+
+        for (var oneTextFiled: new JTextField[]{txtPassengerPhone, txtPassengerName, txtPassengerID}) {
+            oneTextFiled.getDocument().addDocumentListener(new DocumentListener() {
+                @Override
+                public void insertUpdate(DocumentEvent documentEvent) {
+                    checkEligibilityNUpdateSummary();
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent documentEvent) {
+                    checkEligibilityNUpdateSummary();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent documentEvent) {
+                    checkEligibilityNUpdateSummary();
+                }
+            });
+        }
+
+        comboSeatSelect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                checkEligibilityNUpdateSummary();
+            }
+        });
+
+        tablePassenger.getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent tableModelEvent) {
+                checkEligibilityNUpdateSummary();
+            }
+        });
+
+        tabPassenger.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                checkEligibilityNUpdateSummary();
+            }
+        });
+
+        btnPay.addActionListener(e -> btnPayActionPerformed(e));
+
+        btnCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                dispose();
+            }
+        });
+    }
 }

@@ -8,7 +8,5 @@ import cn.edu.ecnu.planereservation.Model.UserModel;
  * @create 2020-12-19 03:21
  **/
 public class Shared {
-	public static long uid;
-	public static String username;
-	public static UserModel user = new UserModel();
+	public static UserModel currentUser = new UserModel();
 }

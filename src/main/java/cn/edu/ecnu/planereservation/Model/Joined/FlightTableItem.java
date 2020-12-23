@@ -27,6 +27,5 @@ public class FlightTableItem {
     protected long flyFromAirportId;
     protected Time departureTime;
     protected int flightDurationMinutes;
-
     protected ArrayList<SeatModel> seats;
 }

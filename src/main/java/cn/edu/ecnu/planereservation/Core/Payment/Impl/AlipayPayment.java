@@ -1,6 +1,7 @@
 package cn.edu.ecnu.planereservation.Core.Payment.Impl;
 
 import cn.edu.ecnu.planereservation.Core.Payment.Payment;
+import cn.edu.ecnu.planereservation.Model.PaymentModel;
 
 /**
  * @author billchen
@@ -10,6 +11,11 @@ import cn.edu.ecnu.planereservation.Core.Payment.Payment;
 public class AlipayPayment implements Payment {
 
 	private double amount;
+
+	@Override
+	public PaymentModel getModel() {
+		return new PaymentModel();
+	}
 
 	@Override
 	public int confirmPayment() {

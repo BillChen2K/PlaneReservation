@@ -48,9 +48,7 @@ public class UserController extends UserModel {
 			loginStatus = LOGGED_IN;
 			uid = queryUser.getUid();
 			currentUser = queryUser;
-			Shared.user = queryUser;
-			Shared.uid = queryUser.getUid();
-			Shared.username = queryUser.getUsername();
+			Shared.currentUser = queryUser;
 			return 0;
 		}
 	}

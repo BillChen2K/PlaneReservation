@@ -1,10 +1,7 @@
 package cn.edu.ecnu.planereservation;
 
 import cn.edu.ecnu.planereservation.Controller.FlightSystemFacade;
-import cn.edu.ecnu.planereservation.Mapper.AirportMapper;
-import cn.edu.ecnu.planereservation.Mapper.FlightDescriptionMapper;
-import cn.edu.ecnu.planereservation.Mapper.SeatMapper;
-import cn.edu.ecnu.planereservation.Mapper.UserMapper;
+import cn.edu.ecnu.planereservation.Mapper.*;
 import cn.edu.ecnu.planereservation.Model.*;
 import cn.edu.ecnu.planereservation.Util.Utils;
 import org.junit.Assert;
@@ -35,6 +32,9 @@ class PlanereservationApplicationTests {
 	@Autowired
 	SeatMapper seatMapper;
 
+	@Autowired
+	PassengerMapper passengerMapper;
+
 	@Test
 	void utilTest() {
 		System.out.println(Utils.minuteToHourFormatter(100));
@@ -45,15 +45,19 @@ class PlanereservationApplicationTests {
 //		UserModel u = userMapper.selectUserByUsername("admin");
 //		User user = (User) u;
 //		System.out.println(user.getUid());
-		ArrayList<FlightDescriptionModel> f = flightDescriptionMapper.selectFlightByAirport(10001, 10002);
-		UserModel u = new UserModel();
-		u.setUid(10001);
-		ArrayList<ReservationModel> s =  flightSystemFacade.getPreviousReservation(u);
-		AirportModel a = airportMapper.selectAirportByAirportId(10001);
-		ArrayList<SeatModel> seatt = seatMapper.selectSeatsByFlightId(100001);
-		System.out.println();
+//		ArrayList<FlightDescriptionModel> f = flightDescriptionMapper.selectFlightByAirport(10001, 10002);
+//		UserModel u = new UserModel();
+//		u.setUid(10001);
+//		ArrayList<ReservationModel> s =  flightSystemFacade.getPreviousReservation(u);
+//		AirportModel a = airportMapper.selectAirportByAirportId(10001);
+//		ArrayList<SeatModel> seatt = seatMapper.selectSeatsByFlightId(100001);
+//		System.out.println();
+//		System.out.println("Finished");
+//		PassengerModel p = new PassengerModel();
+//		p.setName("TEST").setIdentityNumber("1234567").setUid(10001).setPhone("18800263589");
+//		passengerMapper.insertPassenger(p);
+		System.out.println(Utils.getArrivalDatetime("2020-12-31", "23:23:21", 120));
 		System.out.println("Finished");
-		System.out.println(f.toString());
 	}
 
 }

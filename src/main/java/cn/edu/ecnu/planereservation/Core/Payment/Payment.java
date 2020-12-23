@@ -1,5 +1,7 @@
 package cn.edu.ecnu.planereservation.Core.Payment;
 
+import cn.edu.ecnu.planereservation.Model.PaymentModel;
+
 /**
  * @author billchen
  * @version 1.0
@@ -7,4 +9,5 @@ package cn.edu.ecnu.planereservation.Core.Payment;
  **/
 public interface Payment {
 	public int confirmPayment();
+	public PaymentModel getModel();
 }

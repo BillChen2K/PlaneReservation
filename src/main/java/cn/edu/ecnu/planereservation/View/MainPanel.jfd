@@ -337,11 +337,12 @@ new FormModel {
 				name: "btnQuit"
 				"text": "Switch User"
 				"font": #Font0
+				"alignmentX": 0.5f
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 935
 				"y": 15
 				"width": 217
-				"height": 35
+				"height": 30
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )

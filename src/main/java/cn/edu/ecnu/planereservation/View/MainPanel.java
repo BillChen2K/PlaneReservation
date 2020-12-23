@@ -4,7 +4,6 @@
 
 package cn.edu.ecnu.planereservation.View;
 
-import java.beans.*;
 import javax.swing.border.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -79,11 +78,12 @@ public class MainPanel extends JPanel {
         setMinimumSize(new Dimension(1200, 800));
         setFont(new Font("SF Pro Display", Font.PLAIN, 14));
         setName("this");
-        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder(
-        0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder
-        . BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt. Color.
-        red) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .
-        beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
+        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
+        EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing
+        . border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ),
+        java. awt. Color. red) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( )
+        { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () ))
+        throw new RuntimeException( ); }} );
         setLayout(null);
 
         //---- labUsername ----
@@ -345,9 +345,10 @@ public class MainPanel extends JPanel {
         //---- btnQuit ----
         this.btnQuit.setText("Switch User");
         this.btnQuit.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+        this.btnQuit.setAlignmentX(0.5F);
         this.btnQuit.setName("btnQuit");
         add(this.btnQuit);
-        this.btnQuit.setBounds(935, 15, 217, 35);
+        this.btnQuit.setBounds(935, 15, 217, 30);
 
         {
             // compute preferred size
@@ -453,7 +454,7 @@ public class MainPanel extends JPanel {
     }
 
     private void updateBtnReservationAndHintStatus() {
-        log.error("UPDATE");
+        log.info("Selection Updated");
         btnReserve.setEnabled(false);
         if (tableFlights.getSelectedRowCount() > 0) {
             if(activeFlights.get(tableFlights.getSelectedRow()).getSeats().stream()
@@ -470,9 +471,36 @@ public class MainPanel extends JPanel {
             labHint.setText("Select a flight to make your reservation.");
         }
     }
+    public void btnSearchActionPerformed(ActionEvent e) {
+        var flights = systemFacade.getAvailableFlightByAiports(
+                airportController.getAirportByCode(comboDepartureAirport.getSelectedItem().toString().substring(0, 3)),
+                airportController.getAirportByCode(comboArrivalAirport.getSelectedItem().toString().substring(0, 3)));
+        activeFlights = flights;
+        activeFlights.sort(new Comparator<FlightTableItem>() {
+            @Override
+            public int compare(FlightTableItem t0, FlightTableItem t1) {
+                return - t0.getDepartureDate().compareTo(t1.getDepartureDate());
+            }
+        });
+        fillTableWithFlightIds();
+        updateBtnReservationAndHintStatus();
+    }
+
+    public void btnReserveActionPerformed(ActionEvent e) {
+        reservationDialog = SpringContextUtil.getBean(ReservationDialog.class);
+        reservationDialog.setFlightDetail(activeFlights.get(tableFlights.getSelectedRow()));
+        reservationDialog.setMainPanel(this);
+        reservationDialog.load();
+        reservationDialog.setVisible(true);
+    }
+
+    public void refresh() {
+        btnSearchActionPerformed(null);
+        log.info("Main panel refreshed.");
+    }
 
     public void load() {
-        labUsername.setText("HI! You have logged in as: " + Shared.username + ".");
+        labUsername.setText("HI! You have logged in as: " + Shared.currentUser.getUsername() + ".");
 
         // Initialize airports
         airports = airportController.searchAllAirports();
@@ -484,23 +512,7 @@ public class MainPanel extends JPanel {
         comboArrivalAirport.setModel(new DefaultComboBoxModel<>(airportStrings.toArray(new String[0])));
         comboArrivalAirport.setSelectedIndex(1);
 
-        btnSearch.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                var flights = systemFacade.getAvailableFlightByAiports(
-                        airportController.getAirportByCode(comboDepartureAirport.getSelectedItem().toString().substring(0, 3)),
-                        airportController.getAirportByCode(comboArrivalAirport.getSelectedItem().toString().substring(0, 3)));
-                activeFlights = flights;
-                activeFlights.sort(new Comparator<FlightTableItem>() {
-                    @Override
-                    public int compare(FlightTableItem t0, FlightTableItem t1) {
-                        return - t0.getDepartureDate().compareTo(t1.getDepartureDate());
-                    }
-                });
-                fillTableWithFlightIds();
-                updateBtnReservationAndHintStatus();
-            }
-        });
+        btnSearch.addActionListener(e -> btnSearchActionPerformed(e));
 
         /// Misc
         btnGithub.addActionListener(new ActionListener() {
@@ -522,18 +534,12 @@ public class MainPanel extends JPanel {
             }
         });
 
-        btnReserve.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                reservationDialog = SpringContextUtil.getBean(ReservationDialog.class);
-                reservationDialog.setVisible(true);
-            }
-        });
+        btnReserve.addActionListener(e -> btnReserveActionPerformed(e));
 
         tableFlights.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
-                log.error("TABLE SELECT UPDATE");
+                log.info("TABLE SELECT UPDATE");
                 updateBtnReservationAndHintStatus();
             }
         });
