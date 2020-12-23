@@ -2,6 +2,7 @@ package cn.edu.ecnu.planereservation.Controller;
 
 import cn.edu.ecnu.planereservation.Mapper.*;
 import cn.edu.ecnu.planereservation.Model.*;
+import cn.edu.ecnu.planereservation.Model.Joined.FlightTableItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,9 +34,9 @@ public class FlightSystemFacade {
         return queryReservation;
     }
 
-    public ArrayList<HashMap<String, Object>> getAvailableFlightByAiports(AirportModel from, AirportModel to) {
+    public ArrayList<FlightTableItem> getAvailableFlightByAiports(AirportModel from, AirportModel to) {
         ArrayList<FlightDescriptionModel> queryFlightDescriptions = flightDescriptionMapper.selectFlightByAirport(from.getAirportId(), to.getAirportId());
-        ArrayList<HashMap<String, Object>> queryFlight = new ArrayList<>();
+        ArrayList<FlightTableItem> queryFlight = new ArrayList<>();
         queryFlightDescriptions.forEach(one -> {
             queryFlight.addAll(flightMapper.selectFlightDetailsByDescriptionId(one.getFlightDescriptionId()));
         });

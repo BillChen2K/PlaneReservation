@@ -15,4 +15,5 @@ public class PassengerModel {
     protected String name;
     protected String identityNumber;
     protected long uid;
+    protected String phone;
 }

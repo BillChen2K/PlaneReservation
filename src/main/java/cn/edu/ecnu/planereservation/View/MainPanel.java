@@ -4,14 +4,20 @@
 
 package cn.edu.ecnu.planereservation.View;
 
+import java.beans.*;
+import javax.swing.border.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
 
 import cn.edu.ecnu.planereservation.Controller.AirportController;
 import cn.edu.ecnu.planereservation.Controller.FlightController;
 import cn.edu.ecnu.planereservation.Controller.FlightSystemFacade;
 import cn.edu.ecnu.planereservation.Model.AirportModel;
+import cn.edu.ecnu.planereservation.Model.Joined.FlightTableItem;
 import cn.edu.ecnu.planereservation.Model.SeatModel;
 import cn.edu.ecnu.planereservation.Util.Shared;
+import cn.edu.ecnu.planereservation.Util.SpringContextUtil;
 import cn.edu.ecnu.planereservation.Util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +29,6 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import javax.swing.*;
 
 /**
@@ -50,7 +55,7 @@ public class MainPanel extends JPanel {
         this.comboDepartureAirport = new JComboBox<>();
         this.comboArrivalAirport = new JComboBox<>();
         var labelUI3 = new JLabel();
-        var labelUI4 = new JLabel();
+        this.labHint = new JLabel();
         this.btnReserve = new JButton();
         this.txtBeginDate = new JTextField();
         var labelUI5 = new JLabel();
@@ -74,18 +79,16 @@ public class MainPanel extends JPanel {
         setMinimumSize(new Dimension(1200, 800));
         setFont(new Font("SF Pro Display", Font.PLAIN, 14));
         setName("this");
-        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
-        swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e", javax. swing. border
-        . TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dialo\u0067"
-        ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) , getBorder
-        ( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
-        .beans .PropertyChangeEvent e) {if ("borde\u0072" .equals (e .getPropertyName () )) throw new RuntimeException
-        ( ); }} );
+        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder(
+        0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder
+        . BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt. Color.
+        red) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .
+        beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
         setLayout(null);
 
         //---- labUsername ----
         this.labUsername.setText("HI! You have logged in as: #{username}");
-        this.labUsername.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+        this.labUsername.setFont(new Font("SF Pro Display", Font.BOLD, 14));
         this.labUsername.setName("labUsername");
         add(this.labUsername);
         this.labUsername.setBounds(new Rectangle(new Point(35, 25), this.labUsername.getPreferredSize()));
@@ -94,11 +97,13 @@ public class MainPanel extends JPanel {
         {
             this.tabMain.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
             this.tabMain.setDoubleBuffered(true);
+            this.tabMain.setBorder(new MatteBorder(1, 1, 1, 1, Color.lightGray));
             this.tabMain.setName("tabMain");
 
             //======== panelReservation ========
             {
                 this.panelReservation.setFont(new Font("SF Pro Display", Font.PLAIN, 12));
+                this.panelReservation.setBorder(null);
                 this.panelReservation.setName("panelReservation");
                 this.panelReservation.setLayout(null);
 
@@ -110,8 +115,6 @@ public class MainPanel extends JPanel {
                     //---- tableFlights ----
                     this.tableFlights.setModel(new DefaultTableModel(
                         new Object[][] {
-                            {null, null, null, null, null, null, null, null, null, null},
-                            {null, null, null, null, null, null, null, null, null, null},
                         },
                         new String[] {
                             "Flight Number", "Model", "Departure Airport", "Arrival Airport", "Departure Date", "Departure Time", "Duration", "C", "F", "Y"
@@ -139,6 +142,7 @@ public class MainPanel extends JPanel {
                         cm.getColumn(9).setPreferredWidth(50);
                     }
                     this.tableFlights.setFont(new Font("SF Pro Display", Font.PLAIN, 12));
+                    this.tableFlights.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                     this.tableFlights.setName("tableFlights");
                     this.scrollPane1.setViewportView(this.tableFlights);
                 }
@@ -157,7 +161,7 @@ public class MainPanel extends JPanel {
                 labelUI2.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
                 labelUI2.setName("labelUI2");
                 this.panelReservation.add(labelUI2);
-                labelUI2.setBounds(405, 70, 120, 18);
+                labelUI2.setBounds(415, 70, 120, 18);
 
                 //---- comboDepartureAirport ----
                 this.comboDepartureAirport.setModel(new DefaultComboBoxModel<>(new String[] {
@@ -165,9 +169,10 @@ public class MainPanel extends JPanel {
                     "R"
                 }));
                 this.comboDepartureAirport.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                this.comboDepartureAirport.setPreferredSize(new Dimension(70, 30));
                 this.comboDepartureAirport.setName("comboDepartureAirport");
                 this.panelReservation.add(this.comboDepartureAirport);
-                this.comboDepartureAirport.setBounds(140, 65, 230, this.comboDepartureAirport.getPreferredSize().height);
+                this.comboDepartureAirport.setBounds(140, 65, 260, 30);
 
                 //---- comboArrivalAirport ----
                 this.comboArrivalAirport.setModel(new DefaultComboBoxModel<>(new String[] {
@@ -175,9 +180,10 @@ public class MainPanel extends JPanel {
                     "R"
                 }));
                 this.comboArrivalAirport.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                this.comboArrivalAirport.setPreferredSize(new Dimension(70, 30));
                 this.comboArrivalAirport.setName("comboArrivalAirport");
                 this.panelReservation.add(this.comboArrivalAirport);
-                this.comboArrivalAirport.setBounds(500, 65, 265, 30);
+                this.comboArrivalAirport.setBounds(510, 65, 260, 30);
 
                 //---- labelUI3 ----
                 labelUI3.setText("Flight Number:");
@@ -186,50 +192,56 @@ public class MainPanel extends JPanel {
                 this.panelReservation.add(labelUI3);
                 labelUI3.setBounds(20, 30, 120, 18);
 
-                //---- labelUI4 ----
-                labelUI4.setText("Select a flight to make your reservation.");
-                labelUI4.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                labelUI4.setName("labelUI4");
-                this.panelReservation.add(labelUI4);
-                labelUI4.setBounds(625, 580, 250, 18);
+                //---- labHint ----
+                this.labHint.setText("Select a flight to make your reservation.");
+                this.labHint.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                this.labHint.setHorizontalAlignment(SwingConstants.TRAILING);
+                this.labHint.setName("labHint");
+                this.panelReservation.add(this.labHint);
+                this.labHint.setBounds(545, 580, 320, 18);
 
                 //---- btnReserve ----
                 this.btnReserve.setText("Make Reservation");
+                this.btnReserve.setEnabled(false);
                 this.btnReserve.setName("btnReserve");
                 this.panelReservation.add(this.btnReserve);
                 this.btnReserve.setBounds(880, 575, 245, 30);
 
                 //---- txtBeginDate ----
+                this.txtBeginDate.setPreferredSize(new Dimension(70, 30));
                 this.txtBeginDate.setName("txtBeginDate");
                 this.panelReservation.add(this.txtBeginDate);
-                this.txtBeginDate.setBounds(140, 25, 230, 31);
+                this.txtBeginDate.setBounds(140, 25, 260, 30);
 
                 //---- labelUI5 ----
                 labelUI5.setText("Date Range:");
                 labelUI5.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
                 labelUI5.setName("labelUI5");
                 this.panelReservation.add(labelUI5);
-                labelUI5.setBounds(405, 35, 120, 18);
+                labelUI5.setBounds(415, 35, 120, 18);
 
                 //---- texBeginDate ----
+                this.texBeginDate.setPreferredSize(new Dimension(70, 30));
                 this.texBeginDate.setName("texBeginDate");
                 this.panelReservation.add(this.texBeginDate);
-                this.texBeginDate.setBounds(500, 25, 260, 31);
+                this.texBeginDate.setBounds(510, 25, 260, 30);
 
                 //---- labelUI6 ----
                 labelUI6.setText("To");
                 labelUI6.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
                 labelUI6.setName("labelUI6");
                 this.panelReservation.add(labelUI6);
-                labelUI6.setBounds(800, 30, 25, 18);
+                labelUI6.setBounds(805, 30, 25, 18);
 
                 //---- textEndDate ----
+                this.textEndDate.setPreferredSize(new Dimension(70, 30));
                 this.textEndDate.setName("textEndDate");
                 this.panelReservation.add(this.textEndDate);
-                this.textEndDate.setBounds(860, 25, 250, 31);
+                this.textEndDate.setBounds(855, 25, 260, 30);
 
                 //---- btnSearch ----
                 this.btnSearch.setText("Search Now");
+                this.btnSearch.setPreferredSize(new Dimension(70, 30));
                 this.btnSearch.setName("btnSearch");
                 this.panelReservation.add(this.btnSearch);
                 this.btnSearch.setBounds(855, 65, 260, 30);
@@ -239,7 +251,7 @@ public class MainPanel extends JPanel {
                 labelUI8.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
                 labelUI8.setName("labelUI8");
                 this.panelReservation.add(labelUI8);
-                labelUI8.setBounds(20, 580, 530, 18);
+                labelUI8.setBounds(25, 580, 530, 18);
 
                 {
                     // compute preferred size
@@ -314,28 +326,28 @@ public class MainPanel extends JPanel {
             this.tabMain.addTab("My Reservation", this.panelHistory);
         }
         add(this.tabMain);
-        this.tabMain.setBounds(25, 55, 1155, 665);
+        this.tabMain.setBounds(25, 55, 1135, 665);
 
         //---- btnAbout ----
         this.btnAbout.setText("About");
         this.btnAbout.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
         this.btnAbout.setName("btnAbout");
         add(this.btnAbout);
-        this.btnAbout.setBounds(1080, 730, 92, 30);
+        this.btnAbout.setBounds(1050, 730, 92, 30);
 
         //---- btnGithub ----
         this.btnGithub.setText("GitHub");
         this.btnGithub.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
         this.btnGithub.setName("btnGithub");
         add(this.btnGithub);
-        this.btnGithub.setBounds(970, 730, 98, 30);
+        this.btnGithub.setBounds(940, 730, 98, 30);
 
         //---- btnQuit ----
         this.btnQuit.setText("Switch User");
         this.btnQuit.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
         this.btnQuit.setName("btnQuit");
         add(this.btnQuit);
-        this.btnQuit.setBounds(960, 15, 202, 30);
+        this.btnQuit.setBounds(935, 15, 217, 35);
 
         {
             // compute preferred size
@@ -356,13 +368,14 @@ public class MainPanel extends JPanel {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - unknown
-    protected JLabel labUsername;
+    private JLabel labUsername;
     private JTabbedPane tabMain;
     private JPanel panelReservation;
     private JScrollPane scrollPane1;
     private JTable tableFlights;
     private JComboBox<String> comboDepartureAirport;
     private JComboBox<String> comboArrivalAirport;
+    private JLabel labHint;
     private JButton btnReserve;
     private JTextField txtBeginDate;
     private JTextField texBeginDate;
@@ -390,46 +403,72 @@ public class MainPanel extends JPanel {
     @Autowired
     FlightController flightController;
 
+    private ReservationDialog reservationDialog;
+
     private ArrayList<AirportModel> airports;
-    private ArrayList<HashMap<String, Object>> activeFlights;
+    private ArrayList<FlightTableItem> activeFlights;
 
     private void fillTableWithFlightIds() {
         DefaultTableModel tableModel = (DefaultTableModel) tableFlights.getModel();
         tableModel.setRowCount(0);
+        tableFlights.clearSelection();
         activeFlights.forEach(oneFlight -> {
-            ArrayList<SeatModel> seats = flightController.getSeatsByFlightId((Long)oneFlight.get("flight_id"));
-
-            long availableSeatC = seats.stream().filter(one -> one.getType().name().equals("C")).findFirst()
-                    .orElse(new SeatModel(0)).getAvailableCount();
-            long availableSeatF = seats.stream().filter(one -> one.getType().name().equals("F")).findFirst()
-                    .orElse(new SeatModel(0)).getAvailableCount();
-            long availableSeatY = seats.stream().filter(one -> one.getType().name().equals("Y")).findFirst()
-                    .orElse(new SeatModel(0)).getAvailableCount();
-
+            ArrayList<SeatModel> seats = flightController.getSeatsByFlightId(oneFlight.getFlightId());
+            oneFlight.setSeats(seats);
+            for (SeatModel.SeatType oneEnum : SeatModel.SeatType.values()) {
+                if (seats.stream().filter(one -> one.getType() == oneEnum).findFirst().isEmpty()) {
+                    seats.add(new SeatModel(0, oneEnum));
+                }
+            }
+//            long availableSeatC = seats.stream().filter(one -> one.getType() == SeatModel.SeatType.C).findFirst()
+//                    .orElse(new SeatModel(0, SeatModel.SeatType.C)).getAvailableCount();
+//            long availableSeatF = seats.stream().filter(one -> one.getType() == SeatModel.SeatType.F).findFirst()
+//                    .orElse(new SeatModel(0, SeatModel.SeatType.F)).getAvailableCount();
+//            long availableSeatY = seats.stream().filter(one -> one.getType() == SeatModel.SeatType.Y).findFirst()
+//                    .orElse(new SeatModel(0, SeatModel.SeatType.Y)).getAvailableCount();
             seats.sort(new Comparator<SeatModel>() {
                 @Override
                 public int compare(SeatModel seatModel, SeatModel t1) {
                     return seatModel.getType().name().compareTo(t1.getType().name());
                 }
             });
-            AirportModel departureAirport = airportController.getAirportByAirportId((Long)oneFlight.get("fly_from_airport_id"));
-            AirportModel arrivalAirport = airportController.getAirportByAirportId((Long) oneFlight.get("fly_to_airport_id"));
+            AirportModel departureAirport = airportController.getAirportByAirportId((Long)oneFlight.getFlyFromAirportId());
+            AirportModel arrivalAirport = airportController.getAirportByAirportId((Long) oneFlight.getFlyToAirportId());
             Object[] newFlightRow = new Object[]{
-                    oneFlight.get("flight_number"),
-                    oneFlight.get("model"),
+                    oneFlight.getFlightNumber(),
+                    oneFlight.getModel(),
                     String.format("%s (%s)", departureAirport.getCode(), departureAirport.getCity()),
                     String.format("%s (%s)", arrivalAirport.getCode(), arrivalAirport.getCity()),
-                    oneFlight.get("departure_date"),
-                    oneFlight.get("departure_time"),
-                    Utils.minuteToHourFormatter((Integer) oneFlight.get("flight_duration_minutes")),
-                    availableSeatC,
-                    availableSeatF,
-                    availableSeatY
+                    oneFlight.getDepartureDate(),
+                    oneFlight.getDepartureTime(),
+                    Utils.minuteToHourFormatter((Integer) oneFlight.getFlightDurationMinutes()),
+                    oneFlight.getSeats().get(0).getAvailableCount(),
+                    oneFlight.getSeats().get(1).getAvailableCount(),
+                    oneFlight.getSeats().get(2).getAvailableCount()
             };
             log.info("Loaded flight: " + newFlightRow.toString());
             tableModel.addRow(newFlightRow);
         });
         tableFlights.repaint();
+    }
+
+    private void updateBtnReservationAndHintStatus() {
+        log.error("UPDATE");
+        btnReserve.setEnabled(false);
+        if (tableFlights.getSelectedRowCount() > 0) {
+            if(activeFlights.get(tableFlights.getSelectedRow()).getSeats().stream()
+                    .mapToInt(one -> (int) one.getAvailableCount()).sum() == 0) {
+                // No available seats
+                labHint.setText("No available seats on selected flight.");
+            }
+            else {
+                labHint.setText("");
+                btnReserve.setEnabled(true);
+            }
+        }
+        else {
+            labHint.setText("Select a flight to make your reservation.");
+        }
     }
 
     public void load() {
@@ -452,19 +491,16 @@ public class MainPanel extends JPanel {
                         airportController.getAirportByCode(comboDepartureAirport.getSelectedItem().toString().substring(0, 3)),
                         airportController.getAirportByCode(comboArrivalAirport.getSelectedItem().toString().substring(0, 3)));
                 activeFlights = flights;
-                activeFlights.sort(new Comparator<HashMap<String, Object>>() {
+                activeFlights.sort(new Comparator<FlightTableItem>() {
                     @Override
-                    public int compare(HashMap<String, Object> t0, HashMap<String, Object> t1) {
-                        return - t0.get("departure_date").toString().compareTo(t1.get("departure_date").toString());
+                    public int compare(FlightTableItem t0, FlightTableItem t1) {
+                        return - t0.getDepartureDate().compareTo(t1.getDepartureDate());
                     }
                 });
                 fillTableWithFlightIds();
+                updateBtnReservationAndHintStatus();
             }
         });
-
-
-
-
 
         /// Misc
         btnGithub.addActionListener(new ActionListener() {
@@ -483,6 +519,22 @@ public class MainPanel extends JPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 AboutDialog aboutDialog = new AboutDialog((Window) getRootPane().getParent());
                 aboutDialog.setVisible(true);
+            }
+        });
+
+        btnReserve.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                reservationDialog = SpringContextUtil.getBean(ReservationDialog.class);
+                reservationDialog.setVisible(true);
+            }
+        });
+
+        tableFlights.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent listSelectionEvent) {
+                log.error("TABLE SELECT UPDATE");
+                updateBtnReservationAndHintStatus();
             }
         });
     }
