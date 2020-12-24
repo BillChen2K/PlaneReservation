@@ -26,9 +26,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import javax.swing.*;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.DefaultFormatterFactory;
 
 /**
  * @author unknown
@@ -56,19 +60,27 @@ public class MainPanel extends JPanel {
         var labelUI3 = new JLabel();
         this.labHint = new JLabel();
         this.btnReserve = new JButton();
-        this.txtBeginDate = new JTextField();
+        this.txtFlightNumber = new JTextField();
         var labelUI5 = new JLabel();
-        this.texBeginDate = new JTextField();
         var labelUI6 = new JLabel();
-        this.textEndDate = new JTextField();
         this.btnSearch = new JButton();
         var labelUI8 = new JLabel();
+        this.txtBeginDate = new JFormattedTextField();
+        this.txtEndDate = new JFormattedTextField();
         this.panelHistory = new JPanel();
         var labelUI7 = new JLabel();
         this.scrollPane2 = new JScrollPane();
         this.table1 = new JTable();
         this.btnCancelReservation = new JButton();
         this.btnRearrange = new JButton();
+        var labelUI9 = new JLabel();
+        this.texBeginDate2 = new JTextField();
+        var labelUI10 = new JLabel();
+        this.textEndDate2 = new JTextField();
+        this.scrollPane3 = new JScrollPane();
+        this.list1 = new JList<>();
+        var labelUI11 = new JLabel();
+        this.textEndDate3 = new JTextField();
         this.btnAbout = new JButton();
         this.btnGithub = new JButton();
         this.btnQuit = new JButton();
@@ -79,13 +91,12 @@ public class MainPanel extends JPanel {
         setMinimumSize(new Dimension(1200, 800));
         setFont(new Font("SF Pro Display", Font.PLAIN, 14));
         setName("this");
-        setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new
-        javax.swing.border.EmptyBorder(0,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax
-        .swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java
-        .awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),java.awt
-        .Color.red), getBorder())); addPropertyChangeListener(new java.beans.
-        PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062ord\u0065r".
-        equals(e.getPropertyName()))throw new RuntimeException();}});
+        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder
+        ( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing. border
+        . TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt
+        . Color. red) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void
+        propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException( )
+        ; }} );
         setLayout(null);
 
         //---- labUsername ----
@@ -192,7 +203,7 @@ public class MainPanel extends JPanel {
                 labelUI3.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
                 labelUI3.setName("labelUI3");
                 this.panelReservation.add(labelUI3);
-                labelUI3.setBounds(20, 30, 120, 18);
+                labelUI3.setBounds(20, 31, 120, 18);
 
                 //---- labHint ----
                 this.labHint.setText("Select a flight to make your reservation.");
@@ -209,37 +220,25 @@ public class MainPanel extends JPanel {
                 this.panelReservation.add(this.btnReserve);
                 this.btnReserve.setBounds(880, 575, 245, 30);
 
-                //---- txtBeginDate ----
-                this.txtBeginDate.setPreferredSize(new Dimension(70, 30));
-                this.txtBeginDate.setName("txtBeginDate");
-                this.panelReservation.add(this.txtBeginDate);
-                this.txtBeginDate.setBounds(140, 25, 260, 30);
+                //---- txtFlightNumber ----
+                this.txtFlightNumber.setPreferredSize(new Dimension(70, 30));
+                this.txtFlightNumber.setName("txtFlightNumber");
+                this.panelReservation.add(this.txtFlightNumber);
+                this.txtFlightNumber.setBounds(140, 25, 260, 30);
 
                 //---- labelUI5 ----
                 labelUI5.setText("Date Range:");
                 labelUI5.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
                 labelUI5.setName("labelUI5");
                 this.panelReservation.add(labelUI5);
-                labelUI5.setBounds(415, 35, 120, 18);
-
-                //---- texBeginDate ----
-                this.texBeginDate.setPreferredSize(new Dimension(70, 30));
-                this.texBeginDate.setName("texBeginDate");
-                this.panelReservation.add(this.texBeginDate);
-                this.texBeginDate.setBounds(510, 25, 260, 30);
+                labelUI5.setBounds(415, 31, 120, 18);
 
                 //---- labelUI6 ----
                 labelUI6.setText("To");
                 labelUI6.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
                 labelUI6.setName("labelUI6");
                 this.panelReservation.add(labelUI6);
-                labelUI6.setBounds(805, 30, 25, 18);
-
-                //---- textEndDate ----
-                this.textEndDate.setPreferredSize(new Dimension(70, 30));
-                this.textEndDate.setName("textEndDate");
-                this.panelReservation.add(this.textEndDate);
-                this.textEndDate.setBounds(855, 25, 260, 30);
+                labelUI6.setBounds(805, 31, 25, 18);
 
                 //---- btnSearch ----
                 this.btnSearch.setText("Search Now");
@@ -254,6 +253,16 @@ public class MainPanel extends JPanel {
                 labelUI8.setName("labelUI8");
                 this.panelReservation.add(labelUI8);
                 labelUI8.setBounds(25, 580, 530, 18);
+
+                //---- txtBeginDate ----
+                this.txtBeginDate.setName("txtBeginDate");
+                this.panelReservation.add(this.txtBeginDate);
+                this.txtBeginDate.setBounds(510, 25, 260, 30);
+
+                //---- txtEndDate ----
+                this.txtEndDate.setName("txtEndDate");
+                this.panelReservation.add(this.txtEndDate);
+                this.txtEndDate.setBounds(855, 25, 260, 30);
 
                 {
                     // compute preferred size
@@ -279,22 +288,39 @@ public class MainPanel extends JPanel {
                 this.panelHistory.setLayout(null);
 
                 //---- labelUI7 ----
-                labelUI7.setText("Here's the reservations you made before. You can select one to cancel or rearrange it.");
+                labelUI7.setText("Here's the reservations you made before. You can select one to view reservation detail and cancel or rearrange it.");
                 labelUI7.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
                 labelUI7.setName("labelUI7");
                 this.panelHistory.add(labelUI7);
-                labelUI7.setBounds(30, 25, 505, 18);
+                labelUI7.setBounds(30, 25, 880, 18);
 
                 //======== scrollPane2 ========
                 {
                     this.scrollPane2.setName("scrollPane2");
 
                     //---- table1 ----
+                    this.table1.setModel(new DefaultTableModel(
+                        new Object[][] {
+                            {null, null},
+                            {null, null},
+                        },
+                        new String[] {
+                            "Key", "Value"
+                        }
+                    ) {
+                        boolean[] columnEditable = new boolean[] {
+                            false, true
+                        };
+                        @Override
+                        public boolean isCellEditable(int rowIndex, int columnIndex) {
+                            return this.columnEditable[columnIndex];
+                        }
+                    });
                     this.table1.setName("table1");
                     this.scrollPane2.setViewportView(this.table1);
                 }
                 this.panelHistory.add(this.scrollPane2);
-                this.scrollPane2.setBounds(15, 60, 1105, 500);
+                this.scrollPane2.setBounds(565, 60, 555, 500);
 
                 //---- btnCancelReservation ----
                 this.btnCancelReservation.setText("Cancel Reservation");
@@ -309,6 +335,68 @@ public class MainPanel extends JPanel {
                 this.btnRearrange.setName("btnRearrange");
                 this.panelHistory.add(this.btnRearrange);
                 this.btnRearrange.setBounds(710, 570, 198, 36);
+
+                //---- labelUI9 ----
+                labelUI9.setText("Date Range:");
+                labelUI9.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                labelUI9.setName("labelUI9");
+                this.panelHistory.add(labelUI9);
+                labelUI9.setBounds(30, 65, 120, 18);
+
+                //---- texBeginDate2 ----
+                this.texBeginDate2.setPreferredSize(new Dimension(70, 30));
+                this.texBeginDate2.setName("texBeginDate2");
+                this.panelHistory.add(this.texBeginDate2);
+                this.texBeginDate2.setBounds(120, 60, 180, 30);
+
+                //---- labelUI10 ----
+                labelUI10.setText("To");
+                labelUI10.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                labelUI10.setName("labelUI10");
+                this.panelHistory.add(labelUI10);
+                labelUI10.setBounds(315, 65, 25, 18);
+
+                //---- textEndDate2 ----
+                this.textEndDate2.setPreferredSize(new Dimension(70, 30));
+                this.textEndDate2.setName("textEndDate2");
+                this.panelHistory.add(this.textEndDate2);
+                this.textEndDate2.setBounds(340, 60, 190, 30);
+
+                //======== scrollPane3 ========
+                {
+                    this.scrollPane3.setName("scrollPane3");
+
+                    //---- list1 ----
+                    this.list1.setFont(new Font("SF Pro Text", Font.BOLD, 16));
+                    this.list1.setFixedCellHeight(36);
+                    this.list1.setModel(new AbstractListModel<String>() {
+                        String[] values = {
+                            "Reservation at 2020-12-01 23:23:23 (FN001 \u9648\u4fca\u6f7c)",
+                            "Reservation at 2020-12-01 23:23:23 (FN001 \u8c22\u5609\u4e1c)"
+                        };
+                        @Override
+                        public int getSize() { return this.values.length; }
+                        @Override
+                        public String getElementAt(int i) { return this.values[i]; }
+                    });
+                    this.list1.setName("list1");
+                    this.scrollPane3.setViewportView(this.list1);
+                }
+                this.panelHistory.add(this.scrollPane3);
+                this.scrollPane3.setBounds(25, 150, 500, 410);
+
+                //---- labelUI11 ----
+                labelUI11.setText("Search (By Flight No, Passenger Name, etc.):");
+                labelUI11.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+                labelUI11.setName("labelUI11");
+                this.panelHistory.add(labelUI11);
+                labelUI11.setBounds(30, 105, 270, 18);
+
+                //---- textEndDate3 ----
+                this.textEndDate3.setPreferredSize(new Dimension(70, 30));
+                this.textEndDate3.setName("textEndDate3");
+                this.panelHistory.add(this.textEndDate3);
+                this.textEndDate3.setBounds(340, 100, 190, 30);
 
                 {
                     // compute preferred size
@@ -335,14 +423,14 @@ public class MainPanel extends JPanel {
         this.btnAbout.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
         this.btnAbout.setName("btnAbout");
         add(this.btnAbout);
-        this.btnAbout.setBounds(1050, 730, 92, 30);
+        this.btnAbout.setBounds(1060, 730, 98, 30);
 
         //---- btnGithub ----
         this.btnGithub.setText("GitHub");
         this.btnGithub.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
         this.btnGithub.setName("btnGithub");
         add(this.btnGithub);
-        this.btnGithub.setBounds(940, 730, 98, 30);
+        this.btnGithub.setBounds(950, 730, 98, 30);
 
         //---- btnQuit ----
         this.btnQuit.setText("Switch User");
@@ -353,10 +441,10 @@ public class MainPanel extends JPanel {
         this.btnQuit.setBounds(935, 15, 217, 30);
 
         //---- btnRefresh ----
-        this.btnRefresh.setText("Refresh");
+        this.btnRefresh.setIcon(new ImageIcon(getClass().getResource("/image/refresh-16.png")));
         this.btnRefresh.setName("btnRefresh");
         add(this.btnRefresh);
-        this.btnRefresh.setBounds(845, 15, this.btnRefresh.getPreferredSize().width, 30);
+        this.btnRefresh.setBounds(895, 15, 30, 30);
 
         {
             // compute preferred size
@@ -386,15 +474,20 @@ public class MainPanel extends JPanel {
     private JComboBox<String> comboArrivalAirport;
     private JLabel labHint;
     private JButton btnReserve;
-    private JTextField txtBeginDate;
-    private JTextField texBeginDate;
-    private JTextField textEndDate;
+    private JTextField txtFlightNumber;
     private JButton btnSearch;
+    private JFormattedTextField txtBeginDate;
+    private JFormattedTextField txtEndDate;
     private JPanel panelHistory;
     private JScrollPane scrollPane2;
     private JTable table1;
     private JButton btnCancelReservation;
     private JButton btnRearrange;
+    private JTextField texBeginDate2;
+    private JTextField textEndDate2;
+    private JScrollPane scrollPane3;
+    private JList<String> list1;
+    private JTextField textEndDate3;
     private JButton btnAbout;
     private JButton btnGithub;
     private JButton btnQuit;
@@ -553,5 +646,17 @@ public class MainPanel extends JPanel {
                 updateBtnReservationAndHintStatus();
             }
         });
+
+        btnRefresh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                btnSearchActionPerformed(null);
+            }
+        });
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        txtBeginDate.setFormatterFactory(new DefaultFormatterFactory(new DateFormatter(df)));
+
+        txtEndDate.setFormatterFactory(new DefaultFormatterFactory(new DateFormatter(df)));
     }
 }

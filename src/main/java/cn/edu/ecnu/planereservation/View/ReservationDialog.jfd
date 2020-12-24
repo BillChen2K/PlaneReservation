@@ -234,7 +234,7 @@ new FormModel {
 										"x": 0
 										"y": 0
 										"width": 375
-										"height": 240
+										"height": 245
 									} )
 								}, new FormLayoutConstraints( null ) {
 									"title": "Previous Passenger"
@@ -243,7 +243,7 @@ new FormModel {
 								"x": 10
 								"y": 35
 								"width": 375
-								"height": 275
+								"height": 280
 							} )
 						}, new FormLayoutConstraints( class java.lang.String ) {
 							"value": "Center"

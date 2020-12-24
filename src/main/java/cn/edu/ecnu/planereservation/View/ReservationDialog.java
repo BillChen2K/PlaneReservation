@@ -87,12 +87,11 @@ public class ReservationDialog extends JDialog {
         {
             dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
             dialogPane.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            dialogPane.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder
-            ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border
-            .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt
-            . Color .red ) ,dialogPane. getBorder () ) ); dialogPane. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void
-            propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( )
-            ;} } );
+            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder(
+            0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder
+            . BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt. Color.
+            red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .
+            beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -296,7 +295,7 @@ public class ReservationDialog extends JDialog {
                                     scrollPane2.setViewportView(tablePassenger);
                                 }
                                 panel2.add(scrollPane2);
-                                scrollPane2.setBounds(0, 0, 375, 240);
+                                scrollPane2.setBounds(0, 0, 375, 245);
 
                                 {
                                     // compute preferred size
@@ -316,7 +315,7 @@ public class ReservationDialog extends JDialog {
                             tabPassenger.addTab("Previous Passenger", panel2);
                         }
                         panel3.add(tabPassenger);
-                        tabPassenger.setBounds(10, 35, 375, 275);
+                        tabPassenger.setBounds(10, 35, 375, 280);
 
                         {
                             // compute preferred size
