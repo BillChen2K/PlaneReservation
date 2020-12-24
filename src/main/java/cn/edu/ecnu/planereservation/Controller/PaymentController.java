@@ -28,7 +28,7 @@ public class PaymentController {
      */
     public int confirmPayment() {
         try {
-            Thread.sleep(1000);
+//            Thread.sleep(1000);
         }
         catch (Exception e){
             log.error(e.getMessage());

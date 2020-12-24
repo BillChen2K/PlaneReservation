@@ -72,18 +72,20 @@ public class MainPanel extends JPanel {
         this.btnAbout = new JButton();
         this.btnGithub = new JButton();
         this.btnQuit = new JButton();
+        this.btnRefresh = new JButton();
 
         //======== this ========
         setPreferredSize(new Dimension(1200, 800));
         setMinimumSize(new Dimension(1200, 800));
         setFont(new Font("SF Pro Display", Font.PLAIN, 14));
         setName("this");
-        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
-        EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing
-        . border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ),
-        java. awt. Color. red) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( )
-        { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () ))
-        throw new RuntimeException( ); }} );
+        setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new
+        javax.swing.border.EmptyBorder(0,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax
+        .swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java
+        .awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),java.awt
+        .Color.red), getBorder())); addPropertyChangeListener(new java.beans.
+        PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062ord\u0065r".
+        equals(e.getPropertyName()))throw new RuntimeException();}});
         setLayout(null);
 
         //---- labUsername ----
@@ -350,6 +352,12 @@ public class MainPanel extends JPanel {
         add(this.btnQuit);
         this.btnQuit.setBounds(935, 15, 217, 30);
 
+        //---- btnRefresh ----
+        this.btnRefresh.setText("Refresh");
+        this.btnRefresh.setName("btnRefresh");
+        add(this.btnRefresh);
+        this.btnRefresh.setBounds(845, 15, this.btnRefresh.getPreferredSize().width, 30);
+
         {
             // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -390,6 +398,7 @@ public class MainPanel extends JPanel {
     private JButton btnAbout;
     private JButton btnGithub;
     private JButton btnQuit;
+    private JButton btnRefresh;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
 
@@ -487,6 +496,7 @@ public class MainPanel extends JPanel {
     }
 
     public void btnReserveActionPerformed(ActionEvent e) {
+        SpringContextUtil.destroyBean(ReservationDialog.class);
         reservationDialog = SpringContextUtil.getBean(ReservationDialog.class);
         reservationDialog.setFlightDetail(activeFlights.get(tableFlights.getSelectedRow()));
         reservationDialog.setMainPanel(this);

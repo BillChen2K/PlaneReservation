@@ -1,10 +1,9 @@
 package cn.edu.ecnu.planereservation.Mapper;
 
+import cn.edu.ecnu.planereservation.Model.PassengerModel;
 import cn.edu.ecnu.planereservation.Model.ReservationModel;
 import cn.edu.ecnu.planereservation.Model.UserModel;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +21,6 @@ public interface ReservationMapper {
 
     @Select("SELECT * FROM reservation WHERE reservation_id=#{1}")
     ReservationModel selectReservationByReservationid(long reservation_id);
-
     /**
      * Select detail of a certain reservation.
      * @return
@@ -37,5 +35,10 @@ public interface ReservationMapper {
             "SET datetime=#{1}, paymeny=#{2}, passenger_id=#{3}, flight_id=#{4}, state=#{5} " +
             "WHERE reservation_id=#{6}")
     void updateReservationAll(String datetime, String payment, long passenger_id, long flight_id, long state, long reservation_id);
+
+    @Insert("INSERT INTO reservation (datetime, payment, passenger_id, flight_id, state, seat_id, uid) " +
+            "VALUES ( #{datetime}, #{payment}, #{passengerId}, #{flightId}, #{state}, #{seatId}, #{uid})")
+    @Options(useGeneratedKeys = true, keyProperty = "reservationId")
+    int insertReservation(ReservationModel reservationModel);
 
 }

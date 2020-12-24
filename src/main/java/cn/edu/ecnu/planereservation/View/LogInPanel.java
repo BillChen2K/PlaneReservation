@@ -72,6 +72,10 @@ public class LogInPanel extends JPanel{
 				currentUser.setUsername(txtUsername.getText());
 				currentUser.setPassword(txtPassword.getText());
 				switch (currentUser.performLogIn()) {
+					case (-3):
+						log.error("网络错误");
+						labNotif.setText("网络错误");
+						break;
 					case (-2):
 						log.warn("用户不存在");
 						labNotif.setText("用户不存在");

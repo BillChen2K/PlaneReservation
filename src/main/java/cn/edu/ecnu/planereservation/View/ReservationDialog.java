@@ -8,6 +8,7 @@ import javax.swing.event.*;
 import javax.swing.table.*;
 
 import cn.edu.ecnu.planereservation.Controller.AirportController;
+import cn.edu.ecnu.planereservation.Controller.FlightSystemFacade;
 import cn.edu.ecnu.planereservation.Controller.PassengerController;
 import cn.edu.ecnu.planereservation.Controller.ReservationController;
 import cn.edu.ecnu.planereservation.Model.Joined.FlightTableItem;
@@ -86,12 +87,12 @@ public class ReservationDialog extends JDialog {
         {
             dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
             dialogPane.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder
-            ( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing. border
-            . TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt
-            . Color. red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void
-            propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException( )
-            ; }} );
+            dialogPane.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder
+            ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border
+            .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt
+            . Color .red ) ,dialogPane. getBorder () ) ); dialogPane. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void
+            propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( )
+            ;} } );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -121,7 +122,15 @@ public class ReservationDialog extends JDialog {
                             new String[] {
                                 "Key", "Value"
                             }
-                        ));
+                        ) {
+                            boolean[] columnEditable = new boolean[] {
+                                false, true
+                            };
+                            @Override
+                            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                                return columnEditable[columnIndex];
+                            }
+                        });
                         {
                             TableColumnModel cm = tableSummary.getColumnModel();
                             cm.getColumn(0).setPreferredWidth(80);
@@ -269,7 +278,15 @@ public class ReservationDialog extends JDialog {
                                         new String[] {
                                             "Name", "Identity ID", "Phone"
                                         }
-                                    ));
+                                    ) {
+                                        boolean[] columnEditable = new boolean[] {
+                                            false, true, true
+                                        };
+                                        @Override
+                                        public boolean isCellEditable(int rowIndex, int columnIndex) {
+                                            return columnEditable[columnIndex];
+                                        }
+                                    });
                                     {
                                         TableColumnModel cm = tablePassenger.getColumnModel();
                                         cm.getColumn(0).setPreferredWidth(50);
@@ -405,6 +422,8 @@ public class ReservationDialog extends JDialog {
     private JButton btnCancel;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
+    private Boolean firstLoad = true;
+
     @Autowired
     PassengerController passengerController;
 
@@ -414,9 +433,14 @@ public class ReservationDialog extends JDialog {
     @Autowired
     AirportController airportController;
 
+    @Autowired
+    FlightSystemFacade flightSystemFacade;
+
     @Setter
     @Getter
     private FlightTableItem flightDetail;
+
+    private ArrayList<PassengerModel> previousPassengers = new ArrayList<>();
 
     private Boolean eligible;
 
@@ -448,8 +472,7 @@ public class ReservationDialog extends JDialog {
             return passengerController.saveAndGetPassenger();
         }
         else {
-            // todo
-            return null;
+            return previousPassengers.get(tablePassenger.getSelectedRow());
         }
     }
 
@@ -470,7 +493,12 @@ public class ReservationDialog extends JDialog {
         else {
             //todo
             name = id = phone = "";
-
+            if (tablePassenger.getSelectedRowCount() == 1) {
+                PassengerModel p = previousPassengers.get(tablePassenger.getSelectedRow());
+                name = p.getName();
+                id = p.getIdentityNumber();
+                phone = p.getPhone();
+            }
         }
         model.setValueAt(name, new ArrayList<String>(summaryMap.keySet()).indexOf("Passenger Name"), 1);
         model.setValueAt(id, new ArrayList<String>(summaryMap.keySet()).indexOf("Passenger ID"), 1);
@@ -507,12 +535,6 @@ public class ReservationDialog extends JDialog {
             }
             passengerHint += "</html>";
         }
-        else {
-            // Previous passenger
-            if (tablePassenger.getSelectedRowCount() == 0) {
-                eligible = false;
-            }
-        }
         
         if (eligible) {
             labPrice.setText("¥" + getSelectedSeat().getPrice());
@@ -541,8 +563,8 @@ public class ReservationDialog extends JDialog {
     public void paymentDidFinished(PaymentModel p) {
         this.setEnabled(true);
         reservationController.create();
-        reservationController.setAssociatedFlight(flightDetail);
-        reservationController.setPassenger(getOrSaveSelectedPassenger());
+        reservationController.setSelectedFlightDetail(flightDetail);
+        reservationController.setSelectedPassenger(getOrSaveSelectedPassenger());
         reservationController.setPayment(p);
         reservationController.setSelectedSeat(getSelectedSeat());
         switch (reservationController.save()) {
@@ -556,30 +578,22 @@ public class ReservationDialog extends JDialog {
         }
     }
 
-    public void load() {
-        // Fill seats
-        ArrayList<SeatModel> flightSeats = flightDetail.getSeats();
-        List<String> flightSeatComboModel = flightSeats.stream().map(one -> String.format("%s - ￥%.2f, %d available.",
-                one.getType().name(), one.getPrice(), one.getAvailableCount())).collect(Collectors.toList());
-        comboSeatSelect.setModel(new DefaultComboBoxModel(flightSeatComboModel.toArray()));
-        summaryMap.put("Flight Number", flightDetail.getFlightNumber());
-        summaryMap.put("Model", flightDetail.getModel());
-        summaryMap.put("Departure Airport", airportController.getAirportByAirportId(flightDetail.getFlyFromAirportId()).getAirportName());
-        summaryMap.put("Arrival Airport", airportController.getAirportByAirportId(flightDetail.getFlyToAirportId()).getAirportName());
-        summaryMap.put("Departure Date & Time", flightDetail.getDepartureDate() + " " + flightDetail.getDepartureTime());
-        summaryMap.put("Flight Duration", Utils.minuteToHourFormatter(flightDetail.getFlightDurationMinutes()));
-        summaryMap.put("Arrival Date & Time", Utils.getArrivalDatetime(flightDetail.getDepartureDate().toString(),
-                                                            flightDetail.getDepartureTime().toString(),
-                                                            flightDetail.getFlightDurationMinutes()));
+    public void paymentDidCanceled() {
+        this.setEnabled(true);
+    }
 
-        DefaultTableModel model = (DefaultTableModel) tableSummary.getModel();
-        for (String one: summaryMap.keySet()) {
-            model.addRow(new String[]{one, summaryMap.get(one)});
-        }
+    private void fetchPreviousPassenger() {
+        DefaultTableModel model = (DefaultTableModel) tablePassenger.getModel();
+        model.setRowCount(0);
+        previousPassengers = flightSystemFacade.getPreviousPassengerUnderUser();
+        previousPassengers.forEach(one -> {
+            model.addRow(new String[] {one.getName(), one.getIdentityNumber(), one.getPhone()});
+        });
+        log.info("Filled previous passenger table.");
+    }
 
-        checkEligibilityNUpdateSummary();
-
-
+    private void addListeners() {
+        firstLoad = false;
         for (var oneTextFiled: new JTextField[]{txtPassengerPhone, txtPassengerName, txtPassengerID}) {
             oneTextFiled.getDocument().addDocumentListener(new DocumentListener() {
                 @Override
@@ -628,5 +642,52 @@ public class ReservationDialog extends JDialog {
                 dispose();
             }
         });
+
+        tabPassenger.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                if (tabPassenger.getSelectedIndex() == 1) {
+                    // Fetch previous passenger;
+                    fetchPreviousPassenger();
+                }
+            }
+        });
+
+        tablePassenger.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent listSelectionEvent) {
+                checkEligibilityNUpdateSummary();
+            }
+        });
+    }
+
+    public void load() {
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        // Fill seats
+        ArrayList<SeatModel> flightSeats = flightDetail.getSeats();
+        List<String> flightSeatComboModel = flightSeats.stream().map(one -> String.format("%s - ￥%.2f, %d available.",
+                one.getType().name(), one.getPrice(), one.getAvailableCount())).collect(Collectors.toList());
+        comboSeatSelect.setModel(new DefaultComboBoxModel(flightSeatComboModel.toArray()));
+        summaryMap.put("Flight Number", flightDetail.getFlightNumber());
+        summaryMap.put("Model", flightDetail.getModel());
+        summaryMap.put("Departure Airport", airportController.getAirportByAirportId(flightDetail.getFlyFromAirportId()).getAirportName());
+        summaryMap.put("Arrival Airport", airportController.getAirportByAirportId(flightDetail.getFlyToAirportId()).getAirportName());
+        summaryMap.put("Departure Date & Time", flightDetail.getDepartureDate() + " " + flightDetail.getDepartureTime());
+        summaryMap.put("Flight Duration", Utils.minuteToHourFormatter(flightDetail.getFlightDurationMinutes()));
+        summaryMap.put("Arrival Date & Time", Utils.getArrivalDatetime(flightDetail.getDepartureDate().toString(),
+                                                            flightDetail.getDepartureTime().toString(),
+                                                            flightDetail.getFlightDurationMinutes()));
+
+        DefaultTableModel model = (DefaultTableModel) tableSummary.getModel();
+        model.setRowCount(0);
+        for (String one: summaryMap.keySet()) {
+            model.addRow(new String[]{one, summaryMap.get(one)});
+        }
+
+        checkEligibilityNUpdateSummary();
+
+        if (firstLoad) {
+            addListeners();
+        }
     }
 }

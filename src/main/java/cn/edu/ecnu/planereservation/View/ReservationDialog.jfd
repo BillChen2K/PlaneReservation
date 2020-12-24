@@ -41,7 +41,7 @@ new FormModel {
 									add( null )
 									add( null )
 								}, new java.util.Vector {
-									add( null )
+									add( false )
 									add( null )
 								}, new java.util.Vector {
 									add( new com.jformdesigner.model.SwingTableColumn( null, 80, 0, 0, true ) )
@@ -221,7 +221,7 @@ new FormModel {
 												add( null )
 												add( null )
 											}, new java.util.Vector {
-												add( null )
+												add( false )
 												add( null )
 												add( null )
 											}, new java.util.Vector {

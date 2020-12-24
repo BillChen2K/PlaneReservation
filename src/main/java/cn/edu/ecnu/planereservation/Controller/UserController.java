@@ -32,10 +32,17 @@ public class UserController extends UserModel {
 	}
 	/**
 	 * 在设置了 User 中的用户名和密码后进行登录
-	 * @return
+	 * @return -3: 网络错误。
 	 */
 	public int performLogIn() {
-		UserModel queryUser = userMapper.selectUserByUsername(username);
+		UserModel queryUser = null;
+		try {
+			queryUser = userMapper.selectUserByUsername(username);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return -3;
+		}
 		if (queryUser == null) {
 			// 不存在
 			return -2;

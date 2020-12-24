@@ -48,7 +48,7 @@ public class PlaneReservationGUI extends JFrame {
 		getContentPane().add(logInPanel);
 		logInPanel.setMasterFrame(this);
 		this.setVisible(true);
-		System.out.println("Application started.");
+		log.info("Application started.");
 	}
 
 	public void performLoggedIn() {

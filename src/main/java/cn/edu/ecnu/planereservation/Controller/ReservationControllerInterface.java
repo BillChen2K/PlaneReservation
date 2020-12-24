@@ -16,7 +16,4 @@ import cn.edu.ecnu.planereservation.Model.ReservationModel;
 public interface ReservationControllerInterface {
     public int save();
     public void create();
-    public void setAssociatedFlight(FlightTableItem f);
-    public void setPassenger(PassengerModel p);
-    public void setPayment(PaymentModel p);
 }

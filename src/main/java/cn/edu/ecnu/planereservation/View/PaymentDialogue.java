@@ -150,6 +150,8 @@ public class PaymentDialogue extends JDialog {
     private JLabel labPrice;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
+    private Boolean firstLoad = true;
+
     @Autowired
     PaymentController paymentController;
 
@@ -159,8 +161,8 @@ public class PaymentDialogue extends JDialog {
     @Setter
     private SeatModel seatToPay;
 
-    public void load() {
-        labPrice.setText("￥" + String.valueOf(seatToPay.getPrice()));
+    private void addListeners() {
+        firstLoad = false;
         btnPay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -189,9 +191,19 @@ public class PaymentDialogue extends JDialog {
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                reservationDialog.paymentDidCanceled();
                 dispose();
             }
         });
+    }
+
+    public void load() {
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        labPrice.setText("￥" + String.valueOf(seatToPay.getPrice()));
+
+        if (firstLoad) {
+            addListeners();
+        }
     }
 
 }

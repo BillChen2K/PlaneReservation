@@ -13,14 +13,15 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class PaymentModel {
+
+    public enum PaymentMethod {
+        WechatPay, AliPay, BankTransfer
+    }
+
     long paymentId;
-    long reservationId;
     PaymentMethod paymentMethod;
     double originalPrice;
     double realPrice;
     double orderNumber;
 }
 
-enum PaymentMethod {
-    WechatPay, AliPay, BankTransfer
-}
