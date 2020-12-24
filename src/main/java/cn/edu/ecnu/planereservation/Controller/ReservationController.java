@@ -63,7 +63,7 @@ public class ReservationController implements ReservationControllerInterface {
      */
     public int save() {
         // todo: payment
-        reservation.setPayment("0");
+        reservation.setPaymentId("0");
         reservation.setDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         reservation.setPassengerId(selectedPassenger.getPassengerId());
         reservation.setFlightId(selectedFlightDetail.getFlightId());

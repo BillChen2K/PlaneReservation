@@ -15,12 +15,11 @@ import org.springframework.stereotype.Component;
 public class PaymentModel {
 
     public enum PaymentMethod {
-        WechatPay, AliPay, BankTransfer
+        WechatPay, AliPay, BankTransfer, Other
     }
 
     long paymentId;
     PaymentMethod paymentMethod;
-    double originalPrice;
     double realPrice;
     double orderNumber;
 }

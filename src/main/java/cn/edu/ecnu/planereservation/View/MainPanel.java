@@ -5,6 +5,8 @@
 package cn.edu.ecnu.planereservation.View;
 
 import javax.swing.border.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
@@ -67,20 +69,6 @@ public class MainPanel extends JPanel {
         var labelUI8 = new JLabel();
         this.txtBeginDate = new JFormattedTextField();
         this.txtEndDate = new JFormattedTextField();
-        this.panelHistory = new JPanel();
-        var labelUI7 = new JLabel();
-        this.scrollPane2 = new JScrollPane();
-        this.table1 = new JTable();
-        this.btnCancelReservation = new JButton();
-        this.btnRearrange = new JButton();
-        var labelUI9 = new JLabel();
-        this.texBeginDate2 = new JTextField();
-        var labelUI10 = new JLabel();
-        this.textEndDate2 = new JTextField();
-        this.scrollPane3 = new JScrollPane();
-        this.list1 = new JList<>();
-        var labelUI11 = new JLabel();
-        this.textEndDate3 = new JTextField();
         this.btnAbout = new JButton();
         this.btnGithub = new JButton();
         this.btnQuit = new JButton();
@@ -91,12 +79,12 @@ public class MainPanel extends JPanel {
         setMinimumSize(new Dimension(1200, 800));
         setFont(new Font("SF Pro Display", Font.PLAIN, 14));
         setName("this");
-        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder
-        ( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing. border
-        . TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt
-        . Color. red) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void
-        propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException( )
-        ; }} );
+        setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.
+        EmptyBorder(0,0,0,0), "JFor\u006dDesi\u0067ner \u0045valu\u0061tion",javax.swing.border.TitledBorder.CENTER,javax.swing
+        .border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),
+        java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener()
+        {@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("bord\u0065r".equals(e.getPropertyName()))
+        throw new RuntimeException();}});
         setLayout(null);
 
         //---- labUsername ----
@@ -156,6 +144,7 @@ public class MainPanel extends JPanel {
                     }
                     this.tableFlights.setFont(new Font("SF Pro Display", Font.PLAIN, 12));
                     this.tableFlights.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                    this.tableFlights.setRowHeight(24);
                     this.tableFlights.setName("tableFlights");
                     this.scrollPane1.setViewportView(this.tableFlights);
                 }
@@ -280,140 +269,6 @@ public class MainPanel extends JPanel {
                 }
             }
             this.tabMain.addTab("Make Reservations", this.panelReservation);
-
-            //======== panelHistory ========
-            {
-                this.panelHistory.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                this.panelHistory.setName("panelHistory");
-                this.panelHistory.setLayout(null);
-
-                //---- labelUI7 ----
-                labelUI7.setText("Here's the reservations you made before. You can select one to view reservation detail and cancel or rearrange it.");
-                labelUI7.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                labelUI7.setName("labelUI7");
-                this.panelHistory.add(labelUI7);
-                labelUI7.setBounds(30, 25, 880, 18);
-
-                //======== scrollPane2 ========
-                {
-                    this.scrollPane2.setName("scrollPane2");
-
-                    //---- table1 ----
-                    this.table1.setModel(new DefaultTableModel(
-                        new Object[][] {
-                            {null, null},
-                            {null, null},
-                        },
-                        new String[] {
-                            "Key", "Value"
-                        }
-                    ) {
-                        boolean[] columnEditable = new boolean[] {
-                            false, true
-                        };
-                        @Override
-                        public boolean isCellEditable(int rowIndex, int columnIndex) {
-                            return this.columnEditable[columnIndex];
-                        }
-                    });
-                    this.table1.setName("table1");
-                    this.scrollPane2.setViewportView(this.table1);
-                }
-                this.panelHistory.add(this.scrollPane2);
-                this.scrollPane2.setBounds(565, 60, 555, 500);
-
-                //---- btnCancelReservation ----
-                this.btnCancelReservation.setText("Cancel Reservation");
-                this.btnCancelReservation.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                this.btnCancelReservation.setName("btnCancelReservation");
-                this.panelHistory.add(this.btnCancelReservation);
-                this.btnCancelReservation.setBounds(920, 570, 198, 36);
-
-                //---- btnRearrange ----
-                this.btnRearrange.setText("Rearrange");
-                this.btnRearrange.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                this.btnRearrange.setName("btnRearrange");
-                this.panelHistory.add(this.btnRearrange);
-                this.btnRearrange.setBounds(710, 570, 198, 36);
-
-                //---- labelUI9 ----
-                labelUI9.setText("Date Range:");
-                labelUI9.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                labelUI9.setName("labelUI9");
-                this.panelHistory.add(labelUI9);
-                labelUI9.setBounds(30, 65, 120, 18);
-
-                //---- texBeginDate2 ----
-                this.texBeginDate2.setPreferredSize(new Dimension(70, 30));
-                this.texBeginDate2.setName("texBeginDate2");
-                this.panelHistory.add(this.texBeginDate2);
-                this.texBeginDate2.setBounds(120, 60, 180, 30);
-
-                //---- labelUI10 ----
-                labelUI10.setText("To");
-                labelUI10.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                labelUI10.setName("labelUI10");
-                this.panelHistory.add(labelUI10);
-                labelUI10.setBounds(315, 65, 25, 18);
-
-                //---- textEndDate2 ----
-                this.textEndDate2.setPreferredSize(new Dimension(70, 30));
-                this.textEndDate2.setName("textEndDate2");
-                this.panelHistory.add(this.textEndDate2);
-                this.textEndDate2.setBounds(340, 60, 190, 30);
-
-                //======== scrollPane3 ========
-                {
-                    this.scrollPane3.setName("scrollPane3");
-
-                    //---- list1 ----
-                    this.list1.setFont(new Font("SF Pro Text", Font.BOLD, 16));
-                    this.list1.setFixedCellHeight(36);
-                    this.list1.setModel(new AbstractListModel<String>() {
-                        String[] values = {
-                            "Reservation at 2020-12-01 23:23:23 (FN001 \u9648\u4fca\u6f7c)",
-                            "Reservation at 2020-12-01 23:23:23 (FN001 \u8c22\u5609\u4e1c)"
-                        };
-                        @Override
-                        public int getSize() { return this.values.length; }
-                        @Override
-                        public String getElementAt(int i) { return this.values[i]; }
-                    });
-                    this.list1.setName("list1");
-                    this.scrollPane3.setViewportView(this.list1);
-                }
-                this.panelHistory.add(this.scrollPane3);
-                this.scrollPane3.setBounds(25, 150, 500, 410);
-
-                //---- labelUI11 ----
-                labelUI11.setText("Search (By Flight No, Passenger Name, etc.):");
-                labelUI11.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-                labelUI11.setName("labelUI11");
-                this.panelHistory.add(labelUI11);
-                labelUI11.setBounds(30, 105, 270, 18);
-
-                //---- textEndDate3 ----
-                this.textEndDate3.setPreferredSize(new Dimension(70, 30));
-                this.textEndDate3.setName("textEndDate3");
-                this.panelHistory.add(this.textEndDate3);
-                this.textEndDate3.setBounds(340, 100, 190, 30);
-
-                {
-                    // compute preferred size
-                    Dimension preferredSize = new Dimension();
-                    for(int i = 0; i < this.panelHistory.getComponentCount(); i++) {
-                        Rectangle bounds = this.panelHistory.getComponent(i).getBounds();
-                        preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                        preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                    }
-                    Insets insets = this.panelHistory.getInsets();
-                    preferredSize.width += insets.right;
-                    preferredSize.height += insets.bottom;
-                    this.panelHistory.setMinimumSize(preferredSize);
-                    this.panelHistory.setPreferredSize(preferredSize);
-                }
-            }
-            this.tabMain.addTab("My Reservation", this.panelHistory);
         }
         add(this.tabMain);
         this.tabMain.setBounds(25, 55, 1135, 665);
@@ -478,16 +333,6 @@ public class MainPanel extends JPanel {
     private JButton btnSearch;
     private JFormattedTextField txtBeginDate;
     private JFormattedTextField txtEndDate;
-    private JPanel panelHistory;
-    private JScrollPane scrollPane2;
-    private JTable table1;
-    private JButton btnCancelReservation;
-    private JButton btnRearrange;
-    private JTextField texBeginDate2;
-    private JTextField textEndDate2;
-    private JScrollPane scrollPane3;
-    private JList<String> list1;
-    private JTextField textEndDate3;
     private JButton btnAbout;
     private JButton btnGithub;
     private JButton btnQuit;
@@ -505,6 +350,9 @@ public class MainPanel extends JPanel {
 
     @Autowired
     FlightController flightController;
+
+    @Autowired
+    ReservationHistoryPanel historyPanel;
 
     private ReservationDialog reservationDialog;
 
@@ -556,9 +404,9 @@ public class MainPanel extends JPanel {
     }
 
     private void updateBtnReservationAndHintStatus() {
-        log.info("Selection Updated");
         btnReserve.setEnabled(false);
         if (tableFlights.getSelectedRowCount() > 0) {
+            log.info("Selection Updated: " + activeFlights.get(tableFlights.getSelectedRow()).getFlightId());
             if(activeFlights.get(tableFlights.getSelectedRow()).getSeats().stream()
                     .mapToInt(one -> (int) one.getAvailableCount()).sum() == 0) {
                 // No available seats
@@ -642,7 +490,6 @@ public class MainPanel extends JPanel {
         tableFlights.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
-                log.info("TABLE SELECT UPDATE");
                 updateBtnReservationAndHintStatus();
             }
         });
@@ -651,6 +498,7 @@ public class MainPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 btnSearchActionPerformed(null);
+                historyPanel.refresh();
             }
         });
 
@@ -658,5 +506,17 @@ public class MainPanel extends JPanel {
         txtBeginDate.setFormatterFactory(new DefaultFormatterFactory(new DateFormatter(df)));
 
         txtEndDate.setFormatterFactory(new DefaultFormatterFactory(new DateFormatter(df)));
+
+        historyPanel.load();
+        tabMain.addTab("Reservation History", historyPanel);
+
+        tabMain.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                if (tabMain.getSelectedIndex() == 1) {
+                    historyPanel.refresh();
+                }
+            }
+        });
     }
 }

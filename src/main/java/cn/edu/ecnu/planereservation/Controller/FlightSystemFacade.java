@@ -4,6 +4,7 @@ import cn.edu.ecnu.planereservation.Core.UserNotLoggedInException;
 import cn.edu.ecnu.planereservation.Mapper.*;
 import cn.edu.ecnu.planereservation.Model.*;
 import cn.edu.ecnu.planereservation.Model.Joined.FlightTableItem;
+import cn.edu.ecnu.planereservation.Model.Joined.ReservationDetailModel;
 import cn.edu.ecnu.planereservation.Util.Shared;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,9 @@ public class FlightSystemFacade {
     FlightController flightController;
 
 
-    public ArrayList<ReservationModel> getPreviousReservation(UserModel user) {
-        ArrayList<ReservationModel> queryReservation = reservationMapper.selectReservationByUid(user.getUid());
-        return queryReservation;
+    public ArrayList<ReservationDetailModel> getPreviousReservationDetails() {
+        ArrayList<ReservationDetailModel> r = reservationMapper.selectReservationDetailsByUid(Shared.currentUser.getUid());
+        return r;
     }
 
     public ArrayList<FlightTableItem> getAvailableFlightByAiports(AirportModel from, AirportModel to) {

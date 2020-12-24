@@ -2,16 +2,12 @@ package cn.edu.ecnu.planereservation;
 
 import cn.edu.ecnu.planereservation.Controller.FlightSystemFacade;
 import cn.edu.ecnu.planereservation.Mapper.*;
-import cn.edu.ecnu.planereservation.Model.*;
 import cn.edu.ecnu.planereservation.Util.Utils;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -35,9 +31,15 @@ class PlanereservationApplicationTests {
 	@Autowired
 	PassengerMapper passengerMapper;
 
+	@Autowired
+	ReservationMapper reservationMapper;
+
 	@Test
 	void utilTest() {
 		System.out.println(Utils.minuteToHourFormatter(100));
+		var r = reservationMapper.selectReservationDetailsByUid(10001);
+		var s = seatMapper.selectSeatsByFlightId(102575);
+		System.out.println("Finished");
 	}
 
 	@Test
