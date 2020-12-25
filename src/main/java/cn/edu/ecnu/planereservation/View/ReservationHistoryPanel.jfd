@@ -174,7 +174,7 @@ new FormModel {
 					"y": 580
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
-					name: "comboBox1"
+					name: "comboFilter"
 					"model": new javax.swing.DefaultComboBoxModel {
 						selectedItem: "All"
 						addElement( "All" )

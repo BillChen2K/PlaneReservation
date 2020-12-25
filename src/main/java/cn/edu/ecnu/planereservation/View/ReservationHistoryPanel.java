@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -53,17 +54,18 @@ public class ReservationHistoryPanel extends JPanel {
         var labelUI11 = new JLabel();
         textEndDate3 = new JTextField();
         labHint = new JLabel();
-        comboBox1 = new JComboBox<>();
+        comboFilter = new JComboBox<>();
         var labelUI12 = new JLabel();
 
         //======== this ========
         setPreferredSize(new Dimension(1120, 606));
-        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
-        . EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e", javax. swing. border. TitledBorder. CENTER, javax
-        . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dialo\u0067" ,java .awt .Font .BOLD ,
-        12 ), java. awt. Color. red) , getBorder( )) );  addPropertyChangeListener (new java. beans
-        . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("borde\u0072" .equals (e .
-        getPropertyName () )) throw new RuntimeException( ); }} );
+//        setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new
+//        javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax
+//        . swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java
+//        . awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt
+//        . Color .red ) , getBorder () ) );  addPropertyChangeListener( new java. beans .
+//        PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .
+//        equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
         setLayout(null);
 
         //======== panelHistory ========
@@ -178,14 +180,14 @@ public class ReservationHistoryPanel extends JPanel {
             panelHistory.add(labHint);
             labHint.setBounds(25, 580, 670, 20);
 
-            //---- comboBox1 ----
-            comboBox1.setModel(new DefaultComboBoxModel<>(new String[] {
+            //---- comboFilter ----
+            comboFilter.setModel(new DefaultComboBoxModel<>(new String[] {
                 "All",
                 "Finished",
                 "Canceled"
             }));
-            panelHistory.add(comboBox1);
-            comboBox1.setBounds(350, 110, 170, 30);
+            panelHistory.add(comboFilter);
+            comboFilter.setBounds(350, 110, 170, 30);
 
             //---- labelUI12 ----
             labelUI12.setText("Status");
@@ -228,7 +230,7 @@ public class ReservationHistoryPanel extends JPanel {
     private JList<String> listReservation;
     private JTextField textEndDate3;
     private JLabel labHint;
-    private JComboBox<String> comboBox1;
+    private JComboBox<String> comboFilter;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     @Autowired
@@ -241,6 +243,7 @@ public class ReservationHistoryPanel extends JPanel {
     AirportController airportController;
 
     private Boolean isFirstLoad = true;
+    private ArrayList<ReservationDetailModel> allReservations;
     private ArrayList<ReservationDetailModel> activeReservations;
 
     private final LinkedHashMap<String, String> detailMap = new LinkedHashMap<>() {{
@@ -296,12 +299,23 @@ public class ReservationHistoryPanel extends JPanel {
         listReservation.clearSelection();
         DefaultListModel<String> model = (DefaultListModel<String>) listReservation.getModel();
         model.clear();
+        activeReservations = (ArrayList<ReservationDetailModel>) allReservations.stream().filter(one -> {
+            switch (comboFilter.getSelectedIndex()) {
+                case (1):
+                    return reservationHistoryController.getReservationStatus(one.getState()) ==
+                            ReservationHistoryController.ReservationStatus.Finished;
+                case (2):
+                    return reservationHistoryController.getReservationStatus(one.getState()) ==
+                            ReservationHistoryController.ReservationStatus.Canceled;
+                default:
+                    return true;
+            }
+        }).collect(Collectors.toList());
         activeReservations.forEach(one -> {
             model.addElement(String.format("Reservation at %s (%s %s)", one.getDatetime(), one.getFlightNumber(), one.getName()));
         });
         listReservation.setCellRenderer(new ReservationListCellRenderer(activeReservations));
         listReservation.updateUI();
-
     }
 
     public void fillDetailTable() {
@@ -342,8 +356,8 @@ public class ReservationHistoryPanel extends JPanel {
     }
 
     public void refresh() {
-        activeReservations = flightSystemFacade.getPreviousReservationDetails();
-        activeReservations.sort(new Comparator<ReservationDetailModel>() {
+        allReservations = flightSystemFacade.getPreviousReservationDetails();
+        allReservations.sort(new Comparator<ReservationDetailModel>() {
             @Override
             public int compare(ReservationDetailModel t0, ReservationDetailModel t1) {
                 return t1.getDatetime().compareTo(t0.getDatetime());
@@ -365,6 +379,13 @@ public class ReservationHistoryPanel extends JPanel {
             @Override
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
                 fillDetailTable();
+            }
+        });
+        
+        comboFilter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                fillList();
             }
         });
     }

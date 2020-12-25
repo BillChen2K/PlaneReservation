@@ -1,10 +1,10 @@
 package cn.edu.ecnu.planereservation.Controller;
 
 import cn.edu.ecnu.planereservation.Core.DiscountStrategy.DiscountStrategy;
-import cn.edu.ecnu.planereservation.Core.Payment.Impl.AlipayPayment;
-import cn.edu.ecnu.planereservation.Core.Payment.Impl.BankTransferPayment;
-import cn.edu.ecnu.planereservation.Core.Payment.Impl.OtherPayment;
-import cn.edu.ecnu.planereservation.Core.Payment.Impl.WechatPayPayment;
+import cn.edu.ecnu.planereservation.Core.Payment.AlipayPayment;
+import cn.edu.ecnu.planereservation.Core.Payment.BankTransferPayment;
+import cn.edu.ecnu.planereservation.Core.Payment.OtherPayment;
+import cn.edu.ecnu.planereservation.Core.Payment.WechatPayPayment;
 import cn.edu.ecnu.planereservation.Core.Payment.Payment;
 import cn.edu.ecnu.planereservation.Model.PaymentModel;
 import cn.edu.ecnu.planereservation.Model.SeatModel;
