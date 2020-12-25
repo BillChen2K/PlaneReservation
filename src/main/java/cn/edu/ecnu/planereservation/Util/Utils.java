@@ -11,10 +11,7 @@ import javax.swing.plaf.synth.SynthLookAndFeel;
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Enumeration;
+import java.util.*;
 
 /**
  * Utility class
@@ -77,5 +74,14 @@ public class Utils {
         catch (Exception e) {
             log.error(e.toString());
         }
+    }
+
+    public static String getRandomNumberString(int length) {
+        Random rd = new Random();
+        String result = "";
+        for (int i = 0; i < length; i++) {
+            result += String.valueOf(rd.nextInt(9));
+        }
+        return result;
     }
 }

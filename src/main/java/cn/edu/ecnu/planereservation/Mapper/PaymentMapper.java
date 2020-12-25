@@ -1,6 +1,11 @@
 package cn.edu.ecnu.planereservation.Mapper;
 
+import cn.edu.ecnu.planereservation.Model.PassengerModel;
+import cn.edu.ecnu.planereservation.Model.PaymentModel;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * @author billchen
@@ -9,4 +14,12 @@ import org.apache.ibatis.annotations.Mapper;
  **/
 @Mapper
 public interface PaymentMapper {
+
+    @Insert("INSERT INTO payment (payment_method, real_price, order_number) VALUES ( #{paymentMethod}, #{realPrice}, #{orderNumber} )")
+    @Options(useGeneratedKeys = true, keyProperty = "paymentId")
+    int insertPayment(PaymentModel paymentModel);
+
+    @Select("SELECT * FROM payment WHERE payment_id=#{1}")
+    PaymentModel selectPaymentById(long id);
+
 }

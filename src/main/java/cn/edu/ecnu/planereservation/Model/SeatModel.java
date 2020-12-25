@@ -26,5 +26,11 @@ public class SeatModel {
         type = t;
     }
 
+    public SeatModel(long availableCount, SeatType type, double price) {
+        this.availableCount = availableCount;
+        this.type = type;
+        this.price = price;
+    }
+
     public SeatModel() {    }
 }

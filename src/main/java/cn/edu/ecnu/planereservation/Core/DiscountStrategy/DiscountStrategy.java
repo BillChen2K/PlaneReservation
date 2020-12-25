@@ -8,5 +8,5 @@ package cn.edu.ecnu.planereservation.Core.DiscountStrategy;
  * @create 2020-12-23 12:07 上午
  **/
 public interface DiscountStrategy {
-    public double getPrice(double originalPrice);
+    public double getDiscountedPrice(double originalPrice);
 }

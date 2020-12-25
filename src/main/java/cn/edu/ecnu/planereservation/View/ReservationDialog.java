@@ -11,6 +11,7 @@ import cn.edu.ecnu.planereservation.Controller.AirportController;
 import cn.edu.ecnu.planereservation.Controller.FlightSystemFacade;
 import cn.edu.ecnu.planereservation.Controller.PassengerController;
 import cn.edu.ecnu.planereservation.Controller.ReservationController;
+import cn.edu.ecnu.planereservation.Core.DiscountStrategy.DiscountNoWay;
 import cn.edu.ecnu.planereservation.Model.Joined.FlightTableItem;
 import cn.edu.ecnu.planereservation.Model.PassengerModel;
 import cn.edu.ecnu.planereservation.Model.PaymentModel;
@@ -87,11 +88,13 @@ public class ReservationDialog extends JDialog {
         {
             dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
             dialogPane.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder(
-            0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder
-            . BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt. Color.
-            red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .
-            beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
+            dialogPane.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax
+            . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing
+            .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .
+            Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .red
+            ) ,dialogPane. getBorder () ) ); dialogPane. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override
+            public void propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .equals ( e. getPropertyName (
+            ) ) )throw new RuntimeException( ) ;} } );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -551,6 +554,7 @@ public class ReservationDialog extends JDialog {
         this.setEnabled(false);     // In order to prevent user to change info during payment.
         PaymentDialogue paymentDialogue = SpringContextUtil.getBean(PaymentDialogue.class);
         paymentDialogue.setSeatToPay(getSelectedSeat());
+        paymentDialogue.setDiscountStrategy(new DiscountNoWay());
         paymentDialogue.setReservationDialog(this);
         paymentDialogue.load();
         paymentDialogue.setVisible(true);

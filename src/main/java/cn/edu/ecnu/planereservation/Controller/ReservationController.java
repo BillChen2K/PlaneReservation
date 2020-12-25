@@ -36,8 +36,6 @@ public class ReservationController implements ReservationControllerInterface {
     @Autowired
     SeatMapper seatMapper;
 
-    DiscountStrategy discountStrategy;
-
     @Getter
     ReservationModel reservation;
 
@@ -63,7 +61,7 @@ public class ReservationController implements ReservationControllerInterface {
      */
     public int save() {
         // todo: payment
-        reservation.setPaymentId("0");
+        reservation.setPaymentId(payment.getPaymentId());
         reservation.setDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         reservation.setPassengerId(selectedPassenger.getPassengerId());
         reservation.setFlightId(selectedFlightDetail.getFlightId());

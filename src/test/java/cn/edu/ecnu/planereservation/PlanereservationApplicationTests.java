@@ -1,7 +1,11 @@
 package cn.edu.ecnu.planereservation;
 
 import cn.edu.ecnu.planereservation.Controller.FlightSystemFacade;
+import cn.edu.ecnu.planereservation.Controller.PaymentController;
+import cn.edu.ecnu.planereservation.Core.DiscountStrategy.DiscountNoWay;
 import cn.edu.ecnu.planereservation.Mapper.*;
+import cn.edu.ecnu.planereservation.Model.PaymentModel;
+import cn.edu.ecnu.planereservation.Model.SeatModel;
 import cn.edu.ecnu.planereservation.Util.Utils;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +36,9 @@ class PlanereservationApplicationTests {
 	PassengerMapper passengerMapper;
 
 	@Autowired
+	PaymentController paymentController;
+
+	@Autowired
 	ReservationMapper reservationMapper;
 
 	@Test
@@ -39,6 +46,10 @@ class PlanereservationApplicationTests {
 		System.out.println(Utils.minuteToHourFormatter(100));
 		var r = reservationMapper.selectReservationDetailsByUid(10001);
 		var s = seatMapper.selectSeatsByFlightId(102575);
+		paymentController.createPayment(PaymentModel.PaymentMethod.Other,
+				new SeatModel(10, SeatModel.SeatType.F, 1000), new DiscountNoWay());
+		paymentController.confirmPayment();
+		var pm = paymentController.getPaymentModel();
 		System.out.println("Finished");
 	}
 

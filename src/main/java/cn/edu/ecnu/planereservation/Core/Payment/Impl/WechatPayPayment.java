@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Accessors(chain = true)
-public class BankTransferPayment implements Payment {
+public class WechatPayPayment implements Payment {
 
     @Setter
     private double amount;
@@ -23,9 +23,9 @@ public class BankTransferPayment implements Payment {
     @Override
     public int confirmPayment() {
         pm = new PaymentModel();
-        pm.setPaymentMethod(PaymentModel.PaymentMethod.BankTransfer);
+        pm.setPaymentMethod(PaymentModel.PaymentMethod.WechatPay);
         pm.setRealPrice(amount);
-        pm.setOrderNumber("BANK" + Utils.getRandomNumberString(10));
+        pm.setOrderNumber("WECHAT" + Utils.getRandomNumberString(10));
         paymentMapper.insertPayment(pm);
         return 0;
     }

@@ -8,7 +8,7 @@ import lombok.Setter;
 public class ReservationModel {
     protected long reservationId;
     protected String datetime;
-    protected String paymentId;
+    protected long paymentId;
     protected long passengerId;
     protected long flightId;
     protected long state;

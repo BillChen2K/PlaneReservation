@@ -9,9 +9,16 @@ import lombok.experimental.Accessors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
+
+/**
+ * @author billchen
+ * @version 1.0
+ * @create 2020-12-25 13:14
+ **/
 @Component
 @Accessors(chain = true)
-public class BankTransferPayment implements Payment {
+public class OtherPayment implements Payment {
 
     @Setter
     private double amount;
@@ -23,9 +30,9 @@ public class BankTransferPayment implements Payment {
     @Override
     public int confirmPayment() {
         pm = new PaymentModel();
-        pm.setPaymentMethod(PaymentModel.PaymentMethod.BankTransfer);
+        pm.setPaymentMethod(PaymentModel.PaymentMethod.Other);
         pm.setRealPrice(amount);
-        pm.setOrderNumber("BANK" + Utils.getRandomNumberString(10));
+        pm.setOrderNumber("OTHER" + Utils.getRandomNumberString(10));
         paymentMapper.insertPayment(pm);
         return 0;
     }

@@ -5,13 +5,12 @@
 package cn.edu.ecnu.planereservation.View;
 
 import cn.edu.ecnu.planereservation.Controller.PaymentController;
+import cn.edu.ecnu.planereservation.Core.DiscountStrategy.DiscountStrategy;
 import cn.edu.ecnu.planereservation.Core.Payment.Impl.AlipayPayment;
 import cn.edu.ecnu.planereservation.Core.Payment.Impl.BankTransferPayment;
-import cn.edu.ecnu.planereservation.Core.Payment.Impl.WechatPay;
-import cn.edu.ecnu.planereservation.Model.Joined.FlightTableItem;
+import cn.edu.ecnu.planereservation.Core.Payment.Impl.WechatPayPayment;
 import cn.edu.ecnu.planereservation.Model.PaymentModel;
 import cn.edu.ecnu.planereservation.Model.SeatModel;
-import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -161,6 +160,9 @@ public class PaymentDialogue extends JDialog {
     @Setter
     private SeatModel seatToPay;
 
+    @Setter
+    private DiscountStrategy discountStrategy;
+
     private void addListeners() {
         firstLoad = false;
         btnPay.addActionListener(new ActionListener() {
@@ -168,13 +170,13 @@ public class PaymentDialogue extends JDialog {
             public void actionPerformed(ActionEvent actionEvent) {
                 switch (tabPayment.getSelectedIndex()) {
                     case 0:
-                        paymentController.setPayment(new AlipayPayment(seatToPay.getPrice()));
+                        paymentController.createPayment(PaymentModel.PaymentMethod.AliPay, seatToPay, discountStrategy);
                         break;
                     case 1:
-                        paymentController.setPayment(new WechatPay(seatToPay.getPrice()));
+                        paymentController.createPayment(PaymentModel.PaymentMethod.WechatPay, seatToPay, discountStrategy);
                         break;
                     case 2:
-                        paymentController.setPayment(new BankTransferPayment(seatToPay.getPrice()));
+                        paymentController.createPayment(PaymentModel.PaymentMethod.BankTransfer, seatToPay, discountStrategy);
                         break;
                 }
                 switch (paymentController.confirmPayment()) {
@@ -200,7 +202,6 @@ public class PaymentDialogue extends JDialog {
     public void load() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         labPrice.setText("￥" + String.valueOf(seatToPay.getPrice()));
-
         if (firstLoad) {
             addListeners();
         }
