@@ -20,6 +20,7 @@ import cn.edu.ecnu.planereservation.Model.SeatModel;
 import cn.edu.ecnu.planereservation.Util.Shared;
 import cn.edu.ecnu.planereservation.Util.SpringContextUtil;
 import cn.edu.ecnu.planereservation.Util.Utils;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -71,7 +72,7 @@ public class MainPanel extends JPanel {
         this.txtEndDate = new JFormattedTextField();
         this.btnAbout = new JButton();
         this.btnGithub = new JButton();
-        this.btnQuit = new JButton();
+        this.btnLogOut = new JButton();
         this.btnRefresh = new JButton();
 
         //======== this ========
@@ -79,12 +80,12 @@ public class MainPanel extends JPanel {
         setMinimumSize(new Dimension(1200, 800));
         setFont(new Font("SF Pro Display", Font.PLAIN, 14));
         setName("this");
-        setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.
-        EmptyBorder(0,0,0,0), "JFor\u006dDesi\u0067ner \u0045valu\u0061tion",javax.swing.border.TitledBorder.CENTER,javax.swing
-        .border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),
-        java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener()
-        {@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("bord\u0065r".equals(e.getPropertyName()))
-        throw new RuntimeException();}});
+        setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .
+        EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border . TitledBorder. CENTER ,javax . swing
+        . border .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,
+        java . awt. Color .red ) , getBorder () ) );  addPropertyChangeListener( new java. beans .PropertyChangeListener ( )
+        { @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )
+        throw new RuntimeException( ) ;} } );
         setLayout(null);
 
         //---- labUsername ----
@@ -287,13 +288,13 @@ public class MainPanel extends JPanel {
         add(this.btnGithub);
         this.btnGithub.setBounds(950, 730, 98, 30);
 
-        //---- btnQuit ----
-        this.btnQuit.setText("Switch User");
-        this.btnQuit.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-        this.btnQuit.setAlignmentX(0.5F);
-        this.btnQuit.setName("btnQuit");
-        add(this.btnQuit);
-        this.btnQuit.setBounds(935, 15, 217, 30);
+        //---- btnLogOut ----
+        this.btnLogOut.setText("Switch User");
+        this.btnLogOut.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+        this.btnLogOut.setAlignmentX(0.5F);
+        this.btnLogOut.setName("btnLogOut");
+        add(this.btnLogOut);
+        this.btnLogOut.setBounds(935, 15, 217, 30);
 
         //---- btnRefresh ----
         this.btnRefresh.setIcon(new ImageIcon(getClass().getResource("/image/refresh-16.png")));
@@ -335,7 +336,7 @@ public class MainPanel extends JPanel {
     private JFormattedTextField txtEndDate;
     private JButton btnAbout;
     private JButton btnGithub;
-    private JButton btnQuit;
+    private JButton btnLogOut;
     private JButton btnRefresh;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
@@ -355,9 +356,13 @@ public class MainPanel extends JPanel {
     ReservationHistoryPanel historyPanel;
 
     private ReservationDialog reservationDialog;
+    @Setter
+    private PlaneReservationGUI masterFrame;
 
     private ArrayList<AirportModel> airports;
     private ArrayList<FlightTableItem> activeFlights;
+
+    private Boolean isFirstLoad = true;
 
     private void fillTableWithFlightIds() {
         DefaultTableModel tableModel = (DefaultTableModel) tableFlights.getModel();
@@ -450,19 +455,8 @@ public class MainPanel extends JPanel {
         log.info("Main panel refreshed.");
     }
 
-    public void load() {
-        labUsername.setText("HI! You have logged in as: " + Shared.currentUser.getUsername() + ".");
 
-        // Initialize airports
-        airports = airportController.searchAllAirports();
-        ArrayList<String> airportStrings = new ArrayList<>();
-        airports.forEach(one -> {
-            airportStrings.add(String.format("%s (%s)", one.getCode(), one.getAirportName()));
-        });
-        comboDepartureAirport.setModel(new DefaultComboBoxModel<String>(airportStrings.toArray(new String[0])));
-        comboArrivalAirport.setModel(new DefaultComboBoxModel<>(airportStrings.toArray(new String[0])));
-        comboArrivalAirport.setSelectedIndex(1);
-
+    public void addListeners() {
         btnSearch.addActionListener(e -> btnSearchActionPerformed(e));
 
         /// Misc
@@ -502,13 +496,12 @@ public class MainPanel extends JPanel {
             }
         });
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        txtBeginDate.setFormatterFactory(new DefaultFormatterFactory(new DateFormatter(df)));
-
-        txtEndDate.setFormatterFactory(new DefaultFormatterFactory(new DateFormatter(df)));
-
-        historyPanel.load();
-        tabMain.addTab("Reservation History", historyPanel);
+        btnLogOut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                masterFrame.performLoggOut();
+            }
+        });
 
         tabMain.addChangeListener(new ChangeListener() {
             @Override
@@ -518,5 +511,31 @@ public class MainPanel extends JPanel {
                 }
             }
         });
+    }
+
+    public void load() {
+        labUsername.setText("HI! You have logged in as: " + Shared.currentUser.getUsername() + ".");
+
+        // Initialize airports
+        airports = airportController.searchAllAirports();
+        ArrayList<String> airportStrings = new ArrayList<>();
+        airports.forEach(one -> {
+            airportStrings.add(String.format("%s (%s)", one.getCode(), one.getAirportName()));
+        });
+        comboDepartureAirport.setModel(new DefaultComboBoxModel<String>(airportStrings.toArray(new String[0])));
+        comboArrivalAirport.setModel(new DefaultComboBoxModel<>(airportStrings.toArray(new String[0])));
+        comboArrivalAirport.setSelectedIndex(1);
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        txtBeginDate.setFormatterFactory(new DefaultFormatterFactory(new DateFormatter(df)));
+        txtEndDate.setFormatterFactory(new DefaultFormatterFactory(new DateFormatter(df)));
+
+        historyPanel.load();
+        tabMain.addTab("Reservation History", historyPanel);
+
+        if(isFirstLoad) {
+            addListeners();
+        }
+
     }
 }

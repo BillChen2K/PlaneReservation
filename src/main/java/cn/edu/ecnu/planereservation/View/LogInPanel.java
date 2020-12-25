@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 /**
  * Log in Panel
@@ -37,6 +36,31 @@ public class LogInPanel extends JPanel{
 	private PlaneReservationGUI masterFrame;
 
 	@Getter Boolean loggedIn = false;
+
+	private void tryLogIn(ActionEvent e) {
+		currentUser.setUsername(txtUsername.getText());
+		currentUser.setPassword(txtPassword.getText());
+		labNotif.setVisible(true);
+		switch (currentUser.performLogIn()) {
+			case (-3):
+				log.error("Network error.");
+				labNotif.setText("Network error.");
+				break;
+			case (-2):
+				log.warn("User doesn't exist.");
+				labNotif.setText("User doesn't exist.");
+				break;
+			case (-1):
+				log.warn("Password is incorrect.");
+				labNotif.setText("Password is incorrect.");
+				break;
+			default:
+				log.info("Log in success, UID = " + currentUser.getUid());
+				loggedIn = true;
+				masterFrame.performLoggedIn();
+				labNotif.setVisible(false);
+		}
+	}
 
 	public LogInPanel() {
 		txtUsername.setPreferredSize(new Dimension(200,32));
@@ -66,30 +90,16 @@ public class LogInPanel extends JPanel{
 		this.add(btnLogIn);
 		this.add(pnotif);
 
-		btnLogIn.addActionListener(new ActionListener() {
+		btnLogIn.addActionListener(e -> tryLogIn(e));
+
+		txtPassword.addKeyListener(new KeyAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				currentUser.setUsername(txtUsername.getText());
-				currentUser.setPassword(txtPassword.getText());
-				switch (currentUser.performLogIn()) {
-					case (-3):
-						log.error("网络错误");
-						labNotif.setText("网络错误");
-						break;
-					case (-2):
-						log.warn("用户不存在");
-						labNotif.setText("用户不存在");
-						break;
-					case (-1):
-						log.warn("密码错误");
-						labNotif.setText("密码不正确");
-						break;
-					default:
-						log.info("登录成功。UID = " + currentUser.getUid());
-						loggedIn = true;
-						masterFrame.performLoggedIn();
-						labNotif.setText("登录成功。UID = " + currentUser.getUid());
+			public void keyReleased(KeyEvent e) {
+				System.out.println(e.getKeyCode());
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					tryLogIn(null);
 				}
+				super.keyReleased(e);
 			}
 		});
 

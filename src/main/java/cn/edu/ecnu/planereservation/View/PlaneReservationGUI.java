@@ -53,8 +53,15 @@ public class PlaneReservationGUI extends JFrame {
 
 	public void performLoggedIn() {
 		mainPanel = SpringContextUtil.getBean(MainPanel.class);
+		mainPanel.setMasterFrame(this);
 		logInPanel.setVisible(false);
+		mainPanel.setVisible(true);
 		mainPanel.load();
 		this.add(mainPanel);
+	}
+
+	public void performLoggOut() {
+		mainPanel.setVisible(false);
+		logInPanel.setVisible(true);
 	}
 }

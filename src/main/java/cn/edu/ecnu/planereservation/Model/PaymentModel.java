@@ -21,6 +21,6 @@ public class PaymentModel {
     long paymentId;
     PaymentMethod paymentMethod;
     double realPrice;
-    double orderNumber;
+    String orderNumber;
 }
 

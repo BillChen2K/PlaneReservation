@@ -283,7 +283,7 @@ new FormModel {
 				"y": 730
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "btnQuit"
+				name: "btnLogOut"
 				"text": "Switch User"
 				"font": #Font0
 				"alignmentX": 0.5f

@@ -6,6 +6,7 @@ package cn.edu.ecnu.planereservation.View;
 
 import cn.edu.ecnu.planereservation.Controller.AirportController;
 import cn.edu.ecnu.planereservation.Controller.FlightSystemFacade;
+import cn.edu.ecnu.planereservation.Controller.ReservationHistoryController;
 import cn.edu.ecnu.planereservation.Model.AirportModel;
 import cn.edu.ecnu.planereservation.Model.Joined.ReservationDetailModel;
 import cn.edu.ecnu.planereservation.Util.Utils;
@@ -51,17 +52,18 @@ public class ReservationHistoryPanel extends JPanel {
         var labelUI11 = new JLabel();
         textEndDate3 = new JTextField();
         labHint = new JLabel();
+        comboBox1 = new JComboBox<>();
+        var labelUI12 = new JLabel();
 
         //======== this ========
         setPreferredSize(new Dimension(1120, 606));
-        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (
-        new javax. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e"
-        , javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM
-        , new java .awt .Font ("Dialo\u0067" ,java .awt .Font .BOLD ,12 )
-        , java. awt. Color. red) , getBorder( )) );  addPropertyChangeListener (
-        new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
-        ) {if ("borde\u0072" .equals (e .getPropertyName () )) throw new RuntimeException( )
-        ; }} );
+        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax
+        . swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing
+        . border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .
+        Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt. Color. red
+        ) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override
+        public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .getPropertyName (
+        ) )) throw new RuntimeException( ); }} );
         setLayout(null);
 
         //======== panelHistory ========
@@ -123,18 +125,18 @@ public class ReservationHistoryPanel extends JPanel {
             //---- texBeginDate2 ----
             texBeginDate2.setPreferredSize(new Dimension(70, 30));
             panelHistory.add(texBeginDate2);
-            texBeginDate2.setBounds(120, 60, 180, 30);
+            texBeginDate2.setBounds(120, 60, 170, 30);
 
             //---- labelUI10 ----
             labelUI10.setText("To");
             labelUI10.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
             panelHistory.add(labelUI10);
-            labelUI10.setBounds(315, 65, 25, 18);
+            labelUI10.setBounds(305, 65, 25, 18);
 
             //---- textEndDate2 ----
             textEndDate2.setPreferredSize(new Dimension(70, 30));
             panelHistory.add(textEndDate2);
-            textEndDate2.setBounds(340, 60, 190, 30);
+            textEndDate2.setBounds(350, 60, 170, 30);
 
             //======== scrollPane3 ========
             {
@@ -155,24 +157,39 @@ public class ReservationHistoryPanel extends JPanel {
                 scrollPane3.setViewportView(listReservation);
             }
             panelHistory.add(scrollPane3);
-            scrollPane3.setBounds(25, 150, 500, 410);
+            scrollPane3.setBounds(25, 165, 500, 395);
 
             //---- labelUI11 ----
-            labelUI11.setText("Search (By Flight No, Passenger Name, etc.):");
+            labelUI11.setText("Search:");
             labelUI11.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
             panelHistory.add(labelUI11);
-            labelUI11.setBounds(30, 105, 270, 18);
+            labelUI11.setBounds(30, 110, 60, 30);
 
             //---- textEndDate3 ----
             textEndDate3.setPreferredSize(new Dimension(70, 30));
             panelHistory.add(textEndDate3);
-            textEndDate3.setBounds(340, 100, 190, 30);
+            textEndDate3.setBounds(120, 110, 170, 30);
 
             //---- labHint ----
             labHint.setText("Hint text");
             labHint.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
             panelHistory.add(labHint);
             labHint.setBounds(25, 580, 670, 20);
+
+            //---- comboBox1 ----
+            comboBox1.setModel(new DefaultComboBoxModel<>(new String[] {
+                "All",
+                "Finished",
+                "Canceled"
+            }));
+            panelHistory.add(comboBox1);
+            comboBox1.setBounds(355, 110, 170, 30);
+
+            //---- labelUI12 ----
+            labelUI12.setText("Status");
+            labelUI12.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+            panelHistory.add(labelUI12);
+            labelUI12.setBounds(305, 116, 40, 18);
 
             {
                 // compute preferred size
@@ -209,19 +226,31 @@ public class ReservationHistoryPanel extends JPanel {
     private JList<String> listReservation;
     private JTextField textEndDate3;
     private JLabel labHint;
+    private JComboBox<String> comboBox1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     @Autowired
     FlightSystemFacade flightSystemFacade;
 
     @Autowired
+    ReservationHistoryController reservationHistoryController;
+
+    @Autowired
     AirportController airportController;
 
+    private Boolean isFirstLoad = true;
     private ArrayList<ReservationDetailModel> activeReservations;
 
     private final LinkedHashMap<String, String> detailMap = new LinkedHashMap<>() {{
+        put("====== Reservation Info ======", "========================");
         put("Reservation ID", "");
         put("Reservation Date & Time", "");
+        put("Order Status", "");
+        put("Original Price", "");
+        put("Actual Price", "");
+        put("Payment method", "");
+        put("Payment Order Number", "");
+        put("====== Flight Detail ======", "========================");
         put("Flight Number", "");
         put("Model", "");
         put("Departure Airport", "");
@@ -230,12 +259,39 @@ public class ReservationHistoryPanel extends JPanel {
         put("Flight Duration", "");
         put("Arrival Date & Time", "");
         put("Seat Class", "");
+        put("====== Passenger Info ======", "========================");
         put("Passenger Name", "");
         put("Passenger ID", "");
         put("Passenger Phone", "");
-        put("Original Price", "");
-        put("Actual Price", "");
+
     }};
+
+    class ReservationListCellRenderer extends DefaultListCellRenderer {
+
+        private ArrayList<ReservationDetailModel> reservations;
+        public ReservationListCellRenderer(ArrayList<ReservationDetailModel> reservations) {
+            this.reservations = reservations;
+        }
+
+        @Override
+        public java.awt.Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            java.awt.Component c = super.getListCellRendererComponent( list, value, index, isSelected, cellHasFocus );
+//
+//            if ( index % 2 == 0 ) {
+//                c.setBackground( Color.gray );  //yellow every even row
+//            }
+//            else {
+//                c.setBackground( Color.white );
+//
+//            }
+            if (reservationHistoryController.getReservationStatus(reservations.get(index).getState()) ==
+                    ReservationHistoryController.ReservationStatus.Canceled) {
+//                c.setBackground(Color.LIGHT_GRAY);
+                c.setFont(c.getFont().deriveFont(Font.ITALIC));
+            }
+            return c;
+        }
+    }
 
     public void fillList() {
         listReservation.setModel(new DefaultListModel<>());
@@ -244,6 +300,7 @@ public class ReservationHistoryPanel extends JPanel {
         activeReservations.forEach(one -> {
             model.addElement(String.format("Reservation at %s (%s %s)", one.getDatetime(), one.getFlightNumber(), one.getName()));
         });
+        listReservation.setCellRenderer(new ReservationListCellRenderer(activeReservations));
         listReservation.updateUI();
 
     }
@@ -260,6 +317,7 @@ public class ReservationHistoryPanel extends JPanel {
         AirportModel arrivalAirport = airportController.getAirportByAirportId(rd.getFlyToAirportId());
         detailMap.put("Reservation ID", String.valueOf(rd.getReservationId()));
         detailMap.put("Reservation Date & Time", rd.getDatetime());
+        detailMap.put("Order Status", reservationHistoryController.getReservationStatus(rd.getState()).name());
         detailMap.put("Flight Number", rd.getFlightNumber());
         detailMap.put("Model", rd.getModel());
         detailMap.put("Departure Airport", String.format("%s (%s)", departureAirport.getCode(), departureAirport.getAirportName()));
@@ -276,6 +334,8 @@ public class ReservationHistoryPanel extends JPanel {
         detailMap.put("Original Price", String.valueOf(rd.getPrice()));
         // todo: Real price and discount
         detailMap.put("Actual Price", rd.getPaymentId() == 0 ? String.valueOf(rd.getPrice()): String.valueOf(rd.getRealPrice()));
+        detailMap.put("Payment method", rd.getPaymentMethod().name());
+        detailMap.put("Payment Order Number", rd.getOrderNumber());
         for (String one: detailMap.keySet()) {
             model.addRow(new String[]{one, (String) detailMap.get(one)});
         }
@@ -288,11 +348,7 @@ public class ReservationHistoryPanel extends JPanel {
         log.info("Updating history.");
     }
 
-    public void load() {
-        log.info("Initializing reservation history.");
-
-        labHint.setText("");
-
+    public void addListeners() {
         btnCancelReservation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -306,5 +362,16 @@ public class ReservationHistoryPanel extends JPanel {
                 fillDetailTable();
             }
         });
+    }
+
+    public void load() {
+        log.info("Initializing reservation history.");
+
+        labHint.setText("Canceled reservations are italic.");
+
+        if (isFirstLoad) {
+            addListeners();
+        }
+
     }
 }

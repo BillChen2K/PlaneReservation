@@ -34,12 +34,12 @@ public class ReservationDetailModel {
     protected String datetime;
     protected long paymentId;
     protected long passengerId;
-    protected long state;
+    protected int state;
     protected long seatId;
     protected long uid;
     protected PaymentModel.PaymentMethod paymentMethod;
     double realPrice;
-    double orderNumber;
+    String orderNumber;
     protected SeatModel.SeatType type;
     protected double price;
     protected long availableCount;
