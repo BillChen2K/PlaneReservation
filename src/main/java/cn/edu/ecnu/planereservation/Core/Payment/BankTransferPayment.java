@@ -1,5 +1,6 @@
 package cn.edu.ecnu.planereservation.Core.Payment;
 
+import cn.edu.ecnu.planereservation.Core.DiscountStrategy.DiscountStrategy;
 import cn.edu.ecnu.planereservation.Core.Payment.Payment;
 import cn.edu.ecnu.planereservation.Mapper.PaymentMapper;
 import cn.edu.ecnu.planereservation.Model.PaymentModel;
@@ -15,6 +16,10 @@ public class BankTransferPayment implements Payment {
 
     @Setter
     private double amount;
+
+    @Setter
+    private DiscountStrategy ds;
+
     private PaymentModel pm;
 
     @Autowired
@@ -23,6 +28,7 @@ public class BankTransferPayment implements Payment {
     @Override
     public int confirmPayment() {
         pm = new PaymentModel();
+        pm.setDiscountStrategy(ds.getUIText());
         pm.setPaymentMethod(PaymentModel.PaymentMethod.BankTransfer);
         pm.setRealPrice(amount);
         pm.setOrderNumber("BANK" + Utils.getRandomNumberString(10));

@@ -198,7 +198,7 @@ public class PaymentDialogue extends JDialog {
 
     public void load() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        labPrice.setText("￥" + String.valueOf(seatToPay.getPrice()));
+        labPrice.setText("￥" + String.valueOf(discountStrategy.getDiscountedPrice(seatToPay.getPrice())));
         if (firstLoad) {
             addListeners();
         }

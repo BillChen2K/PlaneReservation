@@ -9,4 +9,6 @@ package cn.edu.ecnu.planereservation.Core.DiscountStrategy;
  **/
 public interface DiscountStrategy {
     public double getDiscountedPrice(double originalPrice);
+
+    public String getUIText();
 }

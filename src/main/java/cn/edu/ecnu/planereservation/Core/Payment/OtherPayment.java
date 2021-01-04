@@ -1,5 +1,6 @@
 package cn.edu.ecnu.planereservation.Core.Payment;
 
+import cn.edu.ecnu.planereservation.Core.DiscountStrategy.DiscountStrategy;
 import cn.edu.ecnu.planereservation.Core.Payment.Payment;
 import cn.edu.ecnu.planereservation.Mapper.PaymentMapper;
 import cn.edu.ecnu.planereservation.Model.PaymentModel;
@@ -23,6 +24,8 @@ public class OtherPayment implements Payment {
     @Setter
     private double amount;
     private PaymentModel pm;
+    @Setter
+    private DiscountStrategy ds;
 
     @Autowired
     PaymentMapper paymentMapper;
@@ -30,6 +33,7 @@ public class OtherPayment implements Payment {
     @Override
     public int confirmPayment() {
         pm = new PaymentModel();
+        pm.setDiscountStrategy(ds.getUIText());
         pm.setPaymentMethod(PaymentModel.PaymentMethod.Other);
         pm.setRealPrice(amount);
         pm.setOrderNumber("OTHER" + Utils.getRandomNumberString(10));

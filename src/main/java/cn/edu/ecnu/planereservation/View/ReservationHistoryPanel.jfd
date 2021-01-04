@@ -62,7 +62,6 @@ new FormModel {
 					name: "btnCancelReservation"
 					"text": "Cancel Reservation"
 					"font": #Font0
-					"visible": false
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"width": 198
 					"height": 36
@@ -73,7 +72,6 @@ new FormModel {
 					name: "btnRearrange"
 					"text": "Rearrange"
 					"font": #Font0
-					"visible": false
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"width": 198
 					"height": 36

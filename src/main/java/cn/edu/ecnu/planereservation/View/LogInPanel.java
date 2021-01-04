@@ -41,6 +41,7 @@ public class LogInPanel extends JPanel{
 		currentUser.setUsername(txtUsername.getText());
 		currentUser.setPassword(txtPassword.getText());
 		labNotif.setVisible(true);
+		labNotif.setText("Logging in...");
 		switch (currentUser.performLogIn()) {
 			case (-3):
 				log.error("Network error.");

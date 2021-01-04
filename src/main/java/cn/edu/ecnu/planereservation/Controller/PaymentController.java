@@ -45,16 +45,16 @@ public class PaymentController {
         discountStrategy = ds;
         switch (method) {
             case AliPay:
-                payment =SpringContextUtil.getBean(AlipayPayment.class).setAmount(ds.getDiscountedPrice(seatToPay.getPrice()));
+                payment =SpringContextUtil.getBean(AlipayPayment.class).setAmount(ds.getDiscountedPrice(seatToPay.getPrice())).setDs(ds);
                 break;
             case WechatPay:
-                payment = SpringContextUtil.getBean(WechatPayPayment.class).setAmount(ds.getDiscountedPrice(seatToPay.getPrice()));
+                payment = SpringContextUtil.getBean(WechatPayPayment.class).setAmount(ds.getDiscountedPrice(seatToPay.getPrice())).setDs(ds);
                 break;
             case BankTransfer:
-                payment = SpringContextUtil.getBean(BankTransferPayment.class).setAmount(ds.getDiscountedPrice(seatToPay.getPrice()));
+                payment = SpringContextUtil.getBean(BankTransferPayment.class).setAmount(ds.getDiscountedPrice(seatToPay.getPrice())).setDs(ds);
                 break;
             default:
-                payment = SpringContextUtil.getBean(OtherPayment.class).setAmount(ds.getDiscountedPrice(seatToPay.getPrice()));
+                payment = SpringContextUtil.getBean(OtherPayment.class).setAmount(ds.getDiscountedPrice(seatToPay.getPrice())).setDs(ds);
         }
     }
 }

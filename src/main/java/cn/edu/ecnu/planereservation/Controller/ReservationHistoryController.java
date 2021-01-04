@@ -1,5 +1,7 @@
 package cn.edu.ecnu.planereservation.Controller;
 
+import cn.edu.ecnu.planereservation.Mapper.ReservationMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,6 +11,10 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class ReservationHistoryController {
+
+
+    @Autowired
+    ReservationMapper reservationMapper;
 
     public enum ReservationStatus {
         Finished, Canceled
@@ -21,6 +27,13 @@ public class ReservationHistoryController {
             default:
                 return ReservationStatus.Finished;
         }
+    }
 
+    /**
+     * Cancel reservation by ID.
+     * @param reservationId
+     */
+    public void cancelReservationById(long reservationId) {
+        reservationMapper.updateReservationState(0, reservationId);
     }
 }

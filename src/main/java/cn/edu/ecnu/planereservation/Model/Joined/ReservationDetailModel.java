@@ -11,7 +11,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 /**
- * Join everything!!! Awesome!!!
+ * Everything is joined!!! Awesome!!!
  * @author billchen
  * @version 1.0
  * @create 2020-12-24 22:24
@@ -46,4 +46,5 @@ public class ReservationDetailModel {
     protected String name;
     protected String identityNumber;
     protected String phone;
+    protected String discountStrategy = "";
 }

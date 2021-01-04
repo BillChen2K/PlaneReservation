@@ -22,5 +22,6 @@ public class PaymentModel {
     PaymentMethod paymentMethod;
     double realPrice;
     String orderNumber;
+    String discountStrategy;
 }
 

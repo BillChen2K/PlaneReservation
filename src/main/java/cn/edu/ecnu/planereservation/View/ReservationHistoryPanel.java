@@ -38,199 +38,196 @@ public class ReservationHistoryPanel extends JPanel {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - unknown
-        panelHistory = new JPanel();
-        var labelUI7 = new JLabel();
-        scrollPane2 = new JScrollPane();
-        tableDetail = new JTable();
-        btnCancelReservation = new JButton();
-        btnRearrange = new JButton();
-        var labelUI9 = new JLabel();
-        texBeginDate2 = new JTextField();
-        var labelUI10 = new JLabel();
-        textEndDate2 = new JTextField();
-        scrollPane3 = new JScrollPane();
-        listReservation = new JList<>();
-        var labelUI11 = new JLabel();
-        textEndDate3 = new JTextField();
-        labHint = new JLabel();
-        comboFilter = new JComboBox<>();
-        var labelUI12 = new JLabel();
+		// Generated using JFormDesigner Evaluation license - unknown
+		panelHistory = new JPanel();
+		var labelUI7 = new JLabel();
+		scrollPane2 = new JScrollPane();
+		tableDetail = new JTable();
+		btnCancelReservation = new JButton();
+		btnRearrange = new JButton();
+		var labelUI9 = new JLabel();
+		texBeginDate2 = new JTextField();
+		var labelUI10 = new JLabel();
+		textEndDate2 = new JTextField();
+		scrollPane3 = new JScrollPane();
+		listReservation = new JList<>();
+		var labelUI11 = new JLabel();
+		textEndDate3 = new JTextField();
+		labHint = new JLabel();
+		comboFilter = new JComboBox<>();
+		var labelUI12 = new JLabel();
 
-        //======== this ========
-        setPreferredSize(new Dimension(1120, 606));
-//        setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new
-//        javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax
-//        . swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java
-//        . awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt
-//        . Color .red ) , getBorder () ) );  addPropertyChangeListener( new java. beans .
-//        PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .
-//        equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
-        setLayout(null);
+		//======== this ========
+		setPreferredSize(new Dimension(1120, 606));
+		setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder
+		( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border
+		.TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt
+		. Color .red ) , getBorder () ) );  addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void
+		propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( )
+		;} } );
+		setLayout(null);
 
-        //======== panelHistory ========
-        {
-            panelHistory.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            panelHistory.setLayout(null);
+		//======== panelHistory ========
+		{
+			panelHistory.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+			panelHistory.setLayout(null);
 
-            //---- labelUI7 ----
-            labelUI7.setText("Here's the reservations you made before. You can select one to view reservation detail and cancel or rearrange it.");
-            labelUI7.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            panelHistory.add(labelUI7);
-            labelUI7.setBounds(30, 25, 880, 18);
+			//---- labelUI7 ----
+			labelUI7.setText("Here's the reservations you made before. You can select one to view reservation detail and cancel or rearrange it.");
+			labelUI7.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+			panelHistory.add(labelUI7);
+			labelUI7.setBounds(30, 25, 880, 18);
 
-            //======== scrollPane2 ========
-            {
+			//======== scrollPane2 ========
+			{
 
-                //---- tableDetail ----
-                tableDetail.setModel(new DefaultTableModel(
-                    new Object[][] {
-                        {null, null},
-                        {null, null},
-                    },
-                    new String[] {
-                        "Key", "Value"
-                    }
-                ) {
-                    boolean[] columnEditable = new boolean[] {
-                        false, false
-                    };
-                    @Override
-                    public boolean isCellEditable(int rowIndex, int columnIndex) {
-                        return columnEditable[columnIndex];
-                    }
-                });
-                tableDetail.setRowHeight(24);
-                scrollPane2.setViewportView(tableDetail);
-            }
-            panelHistory.add(scrollPane2);
-            scrollPane2.setBounds(565, 60, 555, 500);
+				//---- tableDetail ----
+				tableDetail.setModel(new DefaultTableModel(
+					new Object[][] {
+						{null, null},
+						{null, null},
+					},
+					new String[] {
+						"Key", "Value"
+					}
+				) {
+					boolean[] columnEditable = new boolean[] {
+						false, false
+					};
+					@Override
+					public boolean isCellEditable(int rowIndex, int columnIndex) {
+						return columnEditable[columnIndex];
+					}
+				});
+				tableDetail.setRowHeight(24);
+				scrollPane2.setViewportView(tableDetail);
+			}
+			panelHistory.add(scrollPane2);
+			scrollPane2.setBounds(565, 60, 555, 500);
 
-            //---- btnCancelReservation ----
-            btnCancelReservation.setText("Cancel Reservation");
-            btnCancelReservation.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            btnCancelReservation.setVisible(false);
-            panelHistory.add(btnCancelReservation);
-            btnCancelReservation.setBounds(920, 570, 198, 36);
+			//---- btnCancelReservation ----
+			btnCancelReservation.setText("Cancel Reservation");
+			btnCancelReservation.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+			panelHistory.add(btnCancelReservation);
+			btnCancelReservation.setBounds(920, 570, 198, 36);
 
-            //---- btnRearrange ----
-            btnRearrange.setText("Rearrange");
-            btnRearrange.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            btnRearrange.setVisible(false);
-            panelHistory.add(btnRearrange);
-            btnRearrange.setBounds(710, 570, 198, 36);
+			//---- btnRearrange ----
+			btnRearrange.setText("Rearrange");
+			btnRearrange.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+			panelHistory.add(btnRearrange);
+			btnRearrange.setBounds(710, 570, 198, 36);
 
-            //---- labelUI9 ----
-            labelUI9.setText("Date Range:");
-            labelUI9.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            panelHistory.add(labelUI9);
-            labelUI9.setBounds(30, 65, 120, 18);
+			//---- labelUI9 ----
+			labelUI9.setText("Date Range:");
+			labelUI9.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+			panelHistory.add(labelUI9);
+			labelUI9.setBounds(30, 65, 120, 18);
 
-            //---- texBeginDate2 ----
-            texBeginDate2.setPreferredSize(new Dimension(70, 30));
-            panelHistory.add(texBeginDate2);
-            texBeginDate2.setBounds(120, 60, 170, 30);
+			//---- texBeginDate2 ----
+			texBeginDate2.setPreferredSize(new Dimension(70, 30));
+			panelHistory.add(texBeginDate2);
+			texBeginDate2.setBounds(120, 60, 170, 30);
 
-            //---- labelUI10 ----
-            labelUI10.setText("To");
-            labelUI10.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            panelHistory.add(labelUI10);
-            labelUI10.setBounds(305, 65, 25, 18);
+			//---- labelUI10 ----
+			labelUI10.setText("To");
+			labelUI10.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+			panelHistory.add(labelUI10);
+			labelUI10.setBounds(305, 65, 25, 18);
 
-            //---- textEndDate2 ----
-            textEndDate2.setPreferredSize(new Dimension(70, 30));
-            panelHistory.add(textEndDate2);
-            textEndDate2.setBounds(350, 60, 170, 30);
+			//---- textEndDate2 ----
+			textEndDate2.setPreferredSize(new Dimension(70, 30));
+			panelHistory.add(textEndDate2);
+			textEndDate2.setBounds(350, 60, 170, 30);
 
-            //======== scrollPane3 ========
-            {
+			//======== scrollPane3 ========
+			{
 
-                //---- listReservation ----
-                listReservation.setFont(new Font("SF Pro Text", Font.BOLD, 16));
-                listReservation.setFixedCellHeight(36);
-                listReservation.setModel(new AbstractListModel<String>() {
-                    String[] values = {
-                        "Reservation at 2020-12-01 23:23:23 (FN001 \u9648\u4fca\u6f7c)",
-                        "Reservation at 2020-12-01 23:23:23 (FN001 \u8c22\u5609\u4e1c)"
-                    };
-                    @Override
-                    public int getSize() { return values.length; }
-                    @Override
-                    public String getElementAt(int i) { return values[i]; }
-                });
-                scrollPane3.setViewportView(listReservation);
-            }
-            panelHistory.add(scrollPane3);
-            scrollPane3.setBounds(25, 165, 500, 395);
+				//---- listReservation ----
+				listReservation.setFont(new Font("SF Pro Text", Font.BOLD, 16));
+				listReservation.setFixedCellHeight(36);
+				listReservation.setModel(new AbstractListModel<String>() {
+					String[] values = {
+						"Reservation at 2020-12-01 23:23:23 (FN001 \u9648\u4fca\u6f7c)",
+						"Reservation at 2020-12-01 23:23:23 (FN001 \u8c22\u5609\u4e1c)"
+					};
+					@Override
+					public int getSize() { return values.length; }
+					@Override
+					public String getElementAt(int i) { return values[i]; }
+				});
+				scrollPane3.setViewportView(listReservation);
+			}
+			panelHistory.add(scrollPane3);
+			scrollPane3.setBounds(25, 165, 500, 395);
 
-            //---- labelUI11 ----
-            labelUI11.setText("Search:");
-            labelUI11.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            panelHistory.add(labelUI11);
-            labelUI11.setBounds(30, 110, 60, 30);
+			//---- labelUI11 ----
+			labelUI11.setText("Search:");
+			labelUI11.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+			panelHistory.add(labelUI11);
+			labelUI11.setBounds(30, 110, 60, 30);
 
-            //---- textEndDate3 ----
-            textEndDate3.setPreferredSize(new Dimension(70, 30));
-            panelHistory.add(textEndDate3);
-            textEndDate3.setBounds(120, 110, 170, 30);
+			//---- textEndDate3 ----
+			textEndDate3.setPreferredSize(new Dimension(70, 30));
+			panelHistory.add(textEndDate3);
+			textEndDate3.setBounds(120, 110, 170, 30);
 
-            //---- labHint ----
-            labHint.setText("Hint text");
-            labHint.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            panelHistory.add(labHint);
-            labHint.setBounds(25, 580, 670, 20);
+			//---- labHint ----
+			labHint.setText("Hint text");
+			labHint.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+			panelHistory.add(labHint);
+			labHint.setBounds(25, 580, 670, 20);
 
-            //---- comboFilter ----
-            comboFilter.setModel(new DefaultComboBoxModel<>(new String[] {
-                "All",
-                "Finished",
-                "Canceled"
-            }));
-            panelHistory.add(comboFilter);
-            comboFilter.setBounds(350, 110, 170, 30);
+			//---- comboFilter ----
+			comboFilter.setModel(new DefaultComboBoxModel<>(new String[] {
+				"All",
+				"Finished",
+				"Canceled"
+			}));
+			panelHistory.add(comboFilter);
+			comboFilter.setBounds(350, 110, 170, 30);
 
-            //---- labelUI12 ----
-            labelUI12.setText("Status");
-            labelUI12.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-            panelHistory.add(labelUI12);
-            labelUI12.setBounds(305, 116, 40, 18);
+			//---- labelUI12 ----
+			labelUI12.setText("Status");
+			labelUI12.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+			panelHistory.add(labelUI12);
+			labelUI12.setBounds(305, 116, 40, 18);
 
-            {
-                // compute preferred size
-                Dimension preferredSize = new Dimension();
-                for(int i = 0; i < panelHistory.getComponentCount(); i++) {
-                    Rectangle bounds = panelHistory.getComponent(i).getBounds();
-                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                }
-                Insets insets = panelHistory.getInsets();
-                preferredSize.width += insets.right;
-                preferredSize.height += insets.bottom;
-                panelHistory.setMinimumSize(preferredSize);
-                panelHistory.setPreferredSize(preferredSize);
-            }
-        }
-        add(panelHistory);
-        panelHistory.setBounds(0, 0, 1133, 631);
+			{
+				// compute preferred size
+				Dimension preferredSize = new Dimension();
+				for(int i = 0; i < panelHistory.getComponentCount(); i++) {
+					Rectangle bounds = panelHistory.getComponent(i).getBounds();
+					preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+					preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+				}
+				Insets insets = panelHistory.getInsets();
+				preferredSize.width += insets.right;
+				preferredSize.height += insets.bottom;
+				panelHistory.setMinimumSize(preferredSize);
+				panelHistory.setPreferredSize(preferredSize);
+			}
+		}
+		add(panelHistory);
+		panelHistory.setBounds(0, 0, 1133, 631);
 
-        setPreferredSize(new Dimension(1120, 610));
+		setPreferredSize(new Dimension(1120, 610));
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JPanel panelHistory;
-    private JScrollPane scrollPane2;
-    private JTable tableDetail;
-    private JButton btnCancelReservation;
-    private JButton btnRearrange;
-    private JTextField texBeginDate2;
-    private JTextField textEndDate2;
-    private JScrollPane scrollPane3;
-    private JList<String> listReservation;
-    private JTextField textEndDate3;
-    private JLabel labHint;
-    private JComboBox<String> comboFilter;
+	// Generated using JFormDesigner Evaluation license - unknown
+	private JPanel panelHistory;
+	private JScrollPane scrollPane2;
+	private JTable tableDetail;
+	private JButton btnCancelReservation;
+	private JButton btnRearrange;
+	private JTextField texBeginDate2;
+	private JTextField textEndDate2;
+	private JScrollPane scrollPane3;
+	private JList<String> listReservation;
+	private JTextField textEndDate3;
+	private JLabel labHint;
+	private JComboBox<String> comboFilter;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     @Autowired
@@ -253,6 +250,7 @@ public class ReservationHistoryPanel extends JPanel {
         put("Order Status", "");
         put("Original Price", "");
         put("Actual Price", "");
+		put("Discount", "");
         put("Payment method", "");
         put("Payment Order Number", "");
         put("====== Flight Detail ======", "========================");
@@ -349,6 +347,7 @@ public class ReservationHistoryPanel extends JPanel {
         detailMap.put("Actual Price", rd.getPaymentId() == 0 ? String.valueOf(rd.getPrice()): String.valueOf(rd.getRealPrice()));
         detailMap.put("Payment method", rd.getPaymentMethod().name());
         detailMap.put("Payment Order Number", rd.getOrderNumber());
+		detailMap.put("Discount", rd.getDiscountStrategy().length() == 0 ? "No Discount" : rd.getDiscountStrategy());
         for (String one: detailMap.keySet()) {
             model.addRow(new String[]{one, (String) detailMap.get(one)});
         }

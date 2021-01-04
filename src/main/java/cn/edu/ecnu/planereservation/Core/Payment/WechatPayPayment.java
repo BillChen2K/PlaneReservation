@@ -1,5 +1,6 @@
 package cn.edu.ecnu.planereservation.Core.Payment;
 
+import cn.edu.ecnu.planereservation.Core.DiscountStrategy.DiscountStrategy;
 import cn.edu.ecnu.planereservation.Core.Payment.Payment;
 import cn.edu.ecnu.planereservation.Mapper.PaymentMapper;
 import cn.edu.ecnu.planereservation.Model.PaymentModel;
@@ -17,12 +18,16 @@ public class WechatPayPayment implements Payment {
     private double amount;
     private PaymentModel pm;
 
+    @Setter
+    private DiscountStrategy ds;
+
     @Autowired
     PaymentMapper paymentMapper;
 
     @Override
     public int confirmPayment() {
         pm = new PaymentModel();
+        pm.setDiscountStrategy(ds.getUIText());
         pm.setPaymentMethod(PaymentModel.PaymentMethod.WechatPay);
         pm.setRealPrice(amount);
         pm.setOrderNumber("WECHAT" + Utils.getRandomNumberString(10));

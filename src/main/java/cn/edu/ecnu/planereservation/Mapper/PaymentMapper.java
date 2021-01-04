@@ -15,7 +15,8 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface PaymentMapper {
 
-    @Insert("INSERT INTO payment (payment_method, real_price, order_number) VALUES ( #{paymentMethod}, #{realPrice}, #{orderNumber} )")
+    @Insert("INSERT INTO payment (payment_method, real_price, order_number, discount_strategy) VALUES " +
+            "( #{paymentMethod}, #{realPrice}, #{orderNumber}, #{discountStrategy})")
     @Options(useGeneratedKeys = true, keyProperty = "paymentId")
     int insertPayment(PaymentModel paymentModel);
 
