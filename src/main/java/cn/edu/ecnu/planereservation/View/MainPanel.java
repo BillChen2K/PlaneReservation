@@ -20,6 +20,7 @@ import cn.edu.ecnu.planereservation.Model.SeatModel;
 import cn.edu.ecnu.planereservation.Util.Shared;
 import cn.edu.ecnu.planereservation.Util.SpringContextUtil;
 import cn.edu.ecnu.planereservation.Util.Utils;
+import cn.edu.ecnu.planereservation.View.Components.NotificationPanel;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,13 +81,11 @@ public class MainPanel extends JPanel {
 		setMinimumSize(new Dimension(1200, 800));
 		setFont(new Font("SF Pro Display", Font.PLAIN, 14));
 		setName("this");
-		setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax
-		. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e", javax. swing
-		. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .
-		Font ("Dialo\u0067" ,java .awt .Font .BOLD ,12 ), java. awt. Color. red
-		) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override
-		public void propertyChange (java .beans .PropertyChangeEvent e) {if ("borde\u0072" .equals (e .getPropertyName (
-		) )) throw new RuntimeException( ); }} );
+		setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder (
+		0, 0 ,0 , 0) ,  "JF\u006frmDes\u0069gner \u0045valua\u0074ion" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder
+		. BOTTOM, new java. awt .Font ( "D\u0069alog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .
+		red ) , getBorder () ) );  addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java .
+		beans. PropertyChangeEvent e) { if( "\u0062order" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
 		setLayout(null);
 
 		//---- labUsername ----
@@ -356,6 +355,12 @@ public class MainPanel extends JPanel {
     @Autowired
     ReservationHistoryPanel historyPanel;
 
+    @Autowired
+	FavouritePanel favouritePanel;
+
+    @Autowired
+	NotificationPanel notificationPanel;
+
     private ReservationDialog reservationDialog;
     @Setter
     private PlaneReservationGUI masterFrame;
@@ -533,6 +538,16 @@ public class MainPanel extends JPanel {
 
         historyPanel.load();
         tabMain.addTab("Reservation History", historyPanel);
+
+		favouritePanel.load();
+		tabMain.addTab("Buy Tickets in One Click", favouritePanel);
+
+		notificationPanel.setBounds(30, 735,875 ,25);
+		this.add(notificationPanel);
+		notificationPanel.setVisible(true);
+
+		notificationPanel.setVisible(true);
+
 
         if(isFirstLoad) {
             addListeners();

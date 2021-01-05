@@ -1,0 +1,201 @@
+JFDML JFormDesigner: "7.0.3.0.337" Java: "11.0.9" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) {
+			"autoSize": false
+		} ) {
+			name: "this"
+			"preferredSize": new java.awt.Dimension( 1120, 606 )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "panelHistory"
+				"font": &Font0 new java.awt.Font( "SF Pro Display", 0, 14 )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "labelUI7"
+					"text": "Here's your favourite ticket configurations. You can choose one from it and purchase another one in one click."
+					"font": #Font0
+					auxiliary() {
+						"JavaCodeGenerator.variableLocal": true
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 880
+					"height": 18
+					"x": 30
+					"y": 25
+				} )
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "scrollPane2"
+					add( new FormComponent( "javax.swing.JTable" ) {
+						name: "tableDetail"
+						"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+							add( new java.util.Vector {
+								add( null )
+								add( null )
+							} )
+							add( new java.util.Vector {
+								add( null )
+								add( null )
+							} )
+						}, new java.util.Vector {
+							add( "Key" )
+							add( "Value" )
+						}, new java.util.Vector {
+							add( null )
+							add( null )
+						}, new java.util.Vector {
+							add( false )
+							add( false )
+						}, new java.util.Vector {
+							add( null )
+							add( null )
+						} )
+						"rowHeight": 24
+					} )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 565
+					"y": 65
+					"width": 555
+					"height": 340
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "btnBuy"
+					"text": "CONFIRM RESERVATION AND PAY"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 545
+					"height": 36
+					"x": 565
+					"y": 510
+				} )
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "scrollPane3"
+					add( new FormComponent( "javax.swing.JList" ) {
+						name: "listFavourites"
+						"font": new java.awt.Font( "SF Pro Text", 1, 16 )
+						"fixedCellHeight": 36
+						"model": new javax.swing.DefaultListModel {
+							addElement( "FM101 上海 SHA to 上海 SHA - (陈俊潼, Seat Class C)" )
+							addElement( "FM101 上海 SHA to 上海 SHA - (陈俊潼, Seat Class C)" )
+						}
+					} )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 30
+					"y": 65
+					"width": 500
+					"height": 340
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "labHint"
+					"text": "Hint text"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 670
+					"height": 20
+					"x": 30
+					"y": 580
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboDate"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 185
+					"y": 415
+					"width": 345
+					"height": 35
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "labHint2"
+					"text": "Select Departure Date:"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 150
+					"height": 20
+					"x": 30
+					"y": 425
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "labHint3"
+					"text": "Select Discount:"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 110
+					"height": 20
+					"x": 30
+					"y": 465
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboDate2"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 185
+					"y": 460
+					"width": 345
+					"height": 35
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "labPrice"
+					"text": "￥1234"
+					"font": new java.awt.Font( "SF Pro Text", 1, 24 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 84
+					"height": 29
+					"x": 1025
+					"y": 465
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "labUI9"
+					"text": "Original Price:"
+					"font": new java.awt.Font( "SF Pro Display", 0, 14 )
+					"horizontalAlignment": 4
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 170
+					"height": 16
+					"x": 870
+					"y": 440
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "labOriginalPrice"
+					"text": "￥1023.23"
+					"font": new java.awt.Font( "SF Pro Display", 0, 14 )
+					"horizontalAlignment": 4
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 75
+					"height": 16
+					"x": 1035
+					"y": 440
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "labUI10"
+					"text": "You'll need to pay:"
+					"font": new java.awt.Font( "SF Pro Display", 0, 14 )
+					"horizontalAlignment": 11
+					auxiliary() {
+						"JavaCodeGenerator.variableLocal": true
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 123
+					"height": 16
+					"x": 885
+					"y": 475
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "btnBuy2"
+					"text": "Remove from Favourite"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 200
+					"height": 36
+					"x": 325
+					"y": 510
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 1133
+				"height": 631
+				"x": 0
+				"y": 0
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 1120, 610 )
+		} )
+	}
+}
