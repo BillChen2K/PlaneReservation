@@ -9,7 +9,10 @@ import cn.edu.ecnu.planereservation.Controller.FlightSystemFacade;
 import cn.edu.ecnu.planereservation.Controller.ReservationHistoryController;
 import cn.edu.ecnu.planereservation.Model.AirportModel;
 import cn.edu.ecnu.planereservation.Model.Joined.ReservationDetailModel;
+import cn.edu.ecnu.planereservation.Util.Const;
 import cn.edu.ecnu.planereservation.Util.Utils;
+import cn.edu.ecnu.planereservation.View.Components.ConfirmDialog;
+import cn.edu.ecnu.planereservation.View.Components.ConfirmmableFrame;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,11 +30,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
 
 /**
- * @author 
+ * @author
  */
 @Component
 @Slf4j
-public class ReservationHistoryPanel extends JPanel {
+public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame {
     public ReservationHistoryPanel() {
         initComponents();
     }
@@ -44,7 +47,7 @@ public class ReservationHistoryPanel extends JPanel {
 		scrollPane2 = new JScrollPane();
 		tableDetail = new JTable();
 		btnCancelReservation = new JButton();
-		btnRearrange = new JButton();
+		btnFavourite = new JButton();
 		var labelUI9 = new JLabel();
 		texBeginDate2 = new JTextField();
 		var labelUI10 = new JLabel();
@@ -59,12 +62,12 @@ public class ReservationHistoryPanel extends JPanel {
 
 		//======== this ========
 		setPreferredSize(new Dimension(1120, 606));
-		setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder
-		( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border
-		.TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt
-		. Color .red ) , getBorder () ) );  addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void
-		propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( )
-		;} } );
+		setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
+		EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing
+		. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ),
+		java. awt. Color. red) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( )
+		{ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () ))
+		throw new RuntimeException( ); }} );
 		setLayout(null);
 
 		//======== panelHistory ========
@@ -111,11 +114,11 @@ public class ReservationHistoryPanel extends JPanel {
 			panelHistory.add(btnCancelReservation);
 			btnCancelReservation.setBounds(920, 570, 198, 36);
 
-			//---- btnRearrange ----
-			btnRearrange.setText("Rearrange");
-			btnRearrange.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-			panelHistory.add(btnRearrange);
-			btnRearrange.setBounds(710, 570, 198, 36);
+			//---- btnFavourite ----
+			btnFavourite.setText("Add to Favourite");
+			btnFavourite.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+			panelHistory.add(btnFavourite);
+			btnFavourite.setBounds(710, 570, 198, 36);
 
 			//---- labelUI9 ----
 			labelUI9.setText("Date Range:");
@@ -220,7 +223,7 @@ public class ReservationHistoryPanel extends JPanel {
 	private JScrollPane scrollPane2;
 	private JTable tableDetail;
 	private JButton btnCancelReservation;
-	private JButton btnRearrange;
+	private JButton btnFavourite;
 	private JTextField texBeginDate2;
 	private JTextField textEndDate2;
 	private JScrollPane scrollPane3;
@@ -316,6 +319,14 @@ public class ReservationHistoryPanel extends JPanel {
         listReservation.updateUI();
     }
 
+    public ReservationDetailModel getSelectedDetail() {
+    	if (listReservation.getSelectedIndex() == -1) {
+    		return null;
+		}
+		ReservationDetailModel rd = activeReservations.get(listReservation.getSelectedIndex());
+		return rd;
+	}
+
     public void fillDetailTable() {
         DefaultTableModel model = (DefaultTableModel) tableDetail.getModel();
         model.setRowCount(0);
@@ -354,7 +365,39 @@ public class ReservationHistoryPanel extends JPanel {
         tableDetail.updateUI();
     }
 
-    public void refresh() {
+    private void updateUIStatus() {
+		btnCancelReservation.setEnabled(false);
+		btnCancelReservation.setText("Cancel Reservation");
+		btnFavourite.setEnabled(false);
+		if (getSelectedDetail() == null) {
+			return;
+		}
+		btnFavourite.setEnabled(true);
+		if (getSelectedDetail().getState() != Const.RESERVATION_STATE_CANCELED) {
+			btnCancelReservation.setEnabled(true);
+		}
+	}
+
+	private void tryCancelReservation() {
+		ConfirmDialog c = new ConfirmDialog("Doing so will cancel your reservation. Do you confirm?", 1, this);
+		c.setVisible(true);
+	}
+
+	@Override
+	public void onComfirmed(int confirmationCode) {
+		switch (confirmationCode) {
+			case 1:
+				// Confirm cancel reservation.
+				reservationHistoryController.cancelReservationById(getSelectedDetail().getReservationId());
+				refresh();
+				updateUIStatus();
+				break;
+			default:
+				break;
+		}
+	}
+
+	public void refresh() {
         allReservations = flightSystemFacade.getPreviousReservationDetails();
         allReservations.sort(new Comparator<ReservationDetailModel>() {
             @Override
@@ -370,7 +413,7 @@ public class ReservationHistoryPanel extends JPanel {
         btnCancelReservation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Cancel reservation.");
+            	tryCancelReservation();
             }
         });
 
@@ -378,13 +421,15 @@ public class ReservationHistoryPanel extends JPanel {
             @Override
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
                 fillDetailTable();
+				updateUIStatus();
             }
         });
-        
+
         comboFilter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 fillList();
+				updateUIStatus();
             }
         });
     }
@@ -392,11 +437,12 @@ public class ReservationHistoryPanel extends JPanel {
     public void load() {
         log.info("Initializing reservation history.");
 
-        labHint.setText("Canceled reservations are italic.");
+        labHint.setText("Canceled reservations are italic. Add history record to favourite to buy tickets in one click.");
 
         if (isFirstLoad) {
             addListeners();
         }
 
+        updateUIStatus();
     }
 }

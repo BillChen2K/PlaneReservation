@@ -87,7 +87,7 @@ new FormModel {
 						"x": 20
 						"y": 105
 						"width": 1105
-						"height": 430
+						"height": 455
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "labelUI"
@@ -175,9 +175,9 @@ new FormModel {
 						"enabled": false
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 						"x": 880
-						"y": 575
+						"y": 572
 						"width": 245
-						"height": 30
+						"height": 35
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "txtFlightNumber"
@@ -252,27 +252,6 @@ new FormModel {
 						"y": 25
 						"width": 260
 						"height": 30
-					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "btnFavourite"
-						"text": "Add to Favourites"
-						"enabled": false
-					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-						"width": 245
-						"height": 30
-						"x": 880
-						"y": 540
-					} )
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "labHint2"
-						"text": "Add to favourite to buy tickets in one click."
-						"font": #Font0
-						"horizontalAlignment": 11
-					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-						"width": 320
-						"height": 18
-						"x": 545
-						"y": 545
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Make Reservations"

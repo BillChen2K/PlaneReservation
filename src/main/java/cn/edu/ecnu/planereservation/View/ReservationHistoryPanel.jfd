@@ -69,8 +69,8 @@ new FormModel {
 					"y": 570
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "btnRearrange"
-					"text": "Rearrange"
+					name: "btnFavourite"
+					"text": "Add to Favourite"
 					"font": #Font0
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"width": 198

@@ -9,4 +9,5 @@ import cn.edu.ecnu.planereservation.Model.UserModel;
  **/
 public class Shared {
 	public static UserModel currentUser = new UserModel();
+
 }

@@ -70,8 +70,6 @@ public class MainPanel extends JPanel {
 		var labelUI8 = new JLabel();
 		this.txtBeginDate = new JFormattedTextField();
 		this.txtEndDate = new JFormattedTextField();
-		this.btnFavourite = new JButton();
-		this.labHint2 = new JLabel();
 		this.btnAbout = new JButton();
 		this.btnGithub = new JButton();
 		this.btnLogOut = new JButton();
@@ -82,14 +80,13 @@ public class MainPanel extends JPanel {
 		setMinimumSize(new Dimension(1200, 800));
 		setFont(new Font("SF Pro Display", Font.PLAIN, 14));
 		setName("this");
-		setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (
-		new javax. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn"
-		, javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM
-		, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 )
-		, java. awt. Color. red) , getBorder( )) );  addPropertyChangeListener (
-		new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
-		) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( )
-		; }} );
+		setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax
+		. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e", javax. swing
+		. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .
+		Font ("Dialo\u0067" ,java .awt .Font .BOLD ,12 ), java. awt. Color. red
+		) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override
+		public void propertyChange (java .beans .PropertyChangeEvent e) {if ("borde\u0072" .equals (e .getPropertyName (
+		) )) throw new RuntimeException( ); }} );
 		setLayout(null);
 
 		//---- labUsername ----
@@ -154,7 +151,7 @@ public class MainPanel extends JPanel {
 					this.scrollPane1.setViewportView(this.tableFlights);
 				}
 				this.panelReservation.add(this.scrollPane1);
-				this.scrollPane1.setBounds(20, 105, 1105, 430);
+				this.scrollPane1.setBounds(20, 105, 1105, 455);
 
 				//---- labelUI ----
 				labelUI.setText("Departure Airport:");
@@ -212,7 +209,7 @@ public class MainPanel extends JPanel {
 				this.btnReserve.setEnabled(false);
 				this.btnReserve.setName("btnReserve");
 				this.panelReservation.add(this.btnReserve);
-				this.btnReserve.setBounds(880, 575, 245, 30);
+				this.btnReserve.setBounds(880, 572, 245, 35);
 
 				//---- txtFlightNumber ----
 				this.txtFlightNumber.setPreferredSize(new Dimension(70, 30));
@@ -257,21 +254,6 @@ public class MainPanel extends JPanel {
 				this.txtEndDate.setName("txtEndDate");
 				this.panelReservation.add(this.txtEndDate);
 				this.txtEndDate.setBounds(855, 25, 260, 30);
-
-				//---- btnFavourite ----
-				this.btnFavourite.setText("Add to Favourites");
-				this.btnFavourite.setEnabled(false);
-				this.btnFavourite.setName("btnFavourite");
-				this.panelReservation.add(this.btnFavourite);
-				this.btnFavourite.setBounds(880, 540, 245, 30);
-
-				//---- labHint2 ----
-				this.labHint2.setText("Add to favourite to buy tickets in one click.");
-				this.labHint2.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-				this.labHint2.setHorizontalAlignment(SwingConstants.TRAILING);
-				this.labHint2.setName("labHint2");
-				this.panelReservation.add(this.labHint2);
-				this.labHint2.setBounds(545, 545, 320, 18);
 
 				{
 					// compute preferred size
@@ -353,8 +335,6 @@ public class MainPanel extends JPanel {
 	private JButton btnSearch;
 	private JFormattedTextField txtBeginDate;
 	private JFormattedTextField txtEndDate;
-	private JButton btnFavourite;
-	private JLabel labHint2;
 	private JButton btnAbout;
 	private JButton btnGithub;
 	private JButton btnLogOut;
