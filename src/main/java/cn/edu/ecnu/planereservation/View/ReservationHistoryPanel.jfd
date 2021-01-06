@@ -56,7 +56,7 @@ new FormModel {
 					"x": 565
 					"y": 60
 					"width": 555
-					"height": 500
+					"height": 400
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "btnCancelReservation"
@@ -197,6 +197,45 @@ new FormModel {
 					"height": 18
 					"x": 305
 					"y": 116
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "panelTracking"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "labelUI13"
+						"text": "Reservation Progress:"
+						"font": #Font0
+						auxiliary() {
+							"JavaCodeGenerator.variableLocal": true
+						}
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 185
+						"height": 30
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "labTrackStatus"
+						"text": "PURCHASED"
+						"font": new java.awt.Font( "SF Pro Text", 3, 24 )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 265
+						"height": 35
+						"x": 150
+						"y": -5
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "labelUI14"
+						"font": #Font0
+						"text": "Available reservation status are: Purchased, Seat Locked, Checked In, Finished, Canceled."
+						auxiliary() {
+							"JavaCodeGenerator.variableLocal": true
+						}
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 540
+						"height": 30
+						"y": 40
+					} )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 565
+					"y": 485
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 1133

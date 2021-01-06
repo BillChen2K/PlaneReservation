@@ -32,5 +32,16 @@ public class SeatModel {
         this.price = price;
     }
 
-    public SeatModel() {    }
+    public SeatModel() { }
+
+    @Override
+    public String toString() {
+        return "SeatModel{" +
+                "seatId=" + seatId +
+                ", type=" + type +
+                ", price=" + price +
+                ", availableCount=" + availableCount +
+                ", flightId=" + flightId +
+                '}';
+    }
 }

@@ -81,11 +81,13 @@ public class MainPanel extends JPanel {
 		setMinimumSize(new Dimension(1200, 800));
 		setFont(new Font("SF Pro Display", Font.PLAIN, 14));
 		setName("this");
-		setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder (
-		0, 0 ,0 , 0) ,  "JF\u006frmDes\u0069gner \u0045valua\u0074ion" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder
-		. BOTTOM, new java. awt .Font ( "D\u0069alog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .
-		red ) , getBorder () ) );  addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java .
-		beans. PropertyChangeEvent e) { if( "\u0062order" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
+		setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing
+		.border.EmptyBorder(0,0,0,0), "JF\u006frmDes\u0069gner \u0045valua\u0074ion",javax.swing.border.TitledBorder
+		.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("D\u0069alog",java.
+		awt.Font.BOLD,12),java.awt.Color.red), getBorder()))
+		; addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e
+		){if("\u0062order".equals(e.getPropertyName()))throw new RuntimeException();}})
+		;
 		setLayout(null);
 
 		//---- labUsername ----
@@ -408,7 +410,7 @@ public class MainPanel extends JPanel {
                     oneFlight.getSeats().get(1).getAvailableCount(),
                     oneFlight.getSeats().get(2).getAvailableCount()
             };
-            log.info("Loaded flight: " + newFlightRow.toString());
+            log.info("Loaded flight: " + oneFlight.toString());
             tableModel.addRow(newFlightRow);
         });
         tableFlights.repaint();

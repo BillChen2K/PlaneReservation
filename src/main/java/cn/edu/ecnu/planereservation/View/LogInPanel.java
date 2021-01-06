@@ -96,7 +96,7 @@ public class LogInPanel extends JPanel{
 		txtPassword.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				System.out.println(e.getKeyCode());
+//				System.out.println(e.getKeyCode());
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					tryLogIn(null);
 				}

@@ -28,4 +28,20 @@ public class FlightTableItem {
     protected Time departureTime;
     protected int flightDurationMinutes;
     protected ArrayList<SeatModel> seats;
+
+    @Override
+    public String toString() {
+        return "FlightTableItem{" +
+                "flightId=" + flightId +
+                ", flightDescriptionId=" + flightDescriptionId +
+                ", departureDate=" + departureDate +
+                ", flightNumber='" + flightNumber + '\'' +
+                ", model='" + model + '\'' +
+                ", flyToAirportId=" + flyToAirportId +
+                ", flyFromAirportId=" + flyFromAirportId +
+                ", departureTime=" + departureTime +
+                ", flightDurationMinutes=" + flightDurationMinutes +
+                ", seats=" + seats.toString() +
+                '}';
+    }
 }

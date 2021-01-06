@@ -59,15 +59,18 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 		labHint = new JLabel();
 		comboFilter = new JComboBox<>();
 		var labelUI12 = new JLabel();
+		panelTracking = new JPanel();
+		var labelUI13 = new JLabel();
+		labTrackStatus = new JLabel();
+		var labelUI14 = new JLabel();
 
 		//======== this ========
 		setPreferredSize(new Dimension(1120, 606));
-		setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
-		EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing
-		. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ),
-		java. awt. Color. red) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( )
-		{ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () ))
-		throw new RuntimeException( ); }} );
+		setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder(
+		0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder
+		. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt. Color.
+		red) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .
+		beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
 		setLayout(null);
 
 		//======== panelHistory ========
@@ -106,7 +109,7 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 				scrollPane2.setViewportView(tableDetail);
 			}
 			panelHistory.add(scrollPane2);
-			scrollPane2.setBounds(565, 60, 555, 500);
+			scrollPane2.setBounds(565, 60, 555, 400);
 
 			//---- btnCancelReservation ----
 			btnCancelReservation.setText("Cancel Reservation");
@@ -195,6 +198,46 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 			panelHistory.add(labelUI12);
 			labelUI12.setBounds(305, 116, 40, 18);
 
+			//======== panelTracking ========
+			{
+				panelTracking.setLayout(null);
+
+				//---- labelUI13 ----
+				labelUI13.setText("Reservation Progress:");
+				labelUI13.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+				panelTracking.add(labelUI13);
+				labelUI13.setBounds(0, 0, 185, 30);
+
+				//---- labTrackStatus ----
+				labTrackStatus.setText("PURCHASED");
+				labTrackStatus.setFont(new Font("SF Pro Text", Font.BOLD | Font.ITALIC, 24));
+				panelTracking.add(labTrackStatus);
+				labTrackStatus.setBounds(150, -5, 265, 35);
+
+				//---- labelUI14 ----
+				labelUI14.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+				labelUI14.setText("Available reservation status are: Purchased, Seat Locked, Checked In, Finished, Canceled.");
+				panelTracking.add(labelUI14);
+				labelUI14.setBounds(0, 40, 540, 30);
+
+				{
+					// compute preferred size
+					Dimension preferredSize = new Dimension();
+					for(int i = 0; i < panelTracking.getComponentCount(); i++) {
+						Rectangle bounds = panelTracking.getComponent(i).getBounds();
+						preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+						preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+					}
+					Insets insets = panelTracking.getInsets();
+					preferredSize.width += insets.right;
+					preferredSize.height += insets.bottom;
+					panelTracking.setMinimumSize(preferredSize);
+					panelTracking.setPreferredSize(preferredSize);
+				}
+			}
+			panelHistory.add(panelTracking);
+			panelTracking.setBounds(new Rectangle(new Point(565, 485), panelTracking.getPreferredSize()));
+
 			{
 				// compute preferred size
 				Dimension preferredSize = new Dimension();
@@ -231,6 +274,8 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 	private JTextField textEndDate3;
 	private JLabel labHint;
 	private JComboBox<String> comboFilter;
+	private JPanel panelTracking;
+	private JLabel labTrackStatus;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     @Autowired
@@ -363,16 +408,19 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
             model.addRow(new String[]{one, (String) detailMap.get(one)});
         }
         tableDetail.updateUI();
+        labTrackStatus.setText(reservationHistoryController.getTrackingStatus(rd).name().replace('_', '-'));
     }
 
     private void updateUIStatus() {
 		btnCancelReservation.setEnabled(false);
 		btnCancelReservation.setText("Cancel Reservation");
+		panelTracking.setVisible(false);
 		btnFavourite.setEnabled(false);
 		if (getSelectedDetail() == null) {
 			return;
 		}
 		btnFavourite.setEnabled(true);
+		panelTracking.setVisible(true);
 		if (getSelectedDetail().getState() != Const.RESERVATION_STATE_CANCELED) {
 			btnCancelReservation.setEnabled(true);
 		}
