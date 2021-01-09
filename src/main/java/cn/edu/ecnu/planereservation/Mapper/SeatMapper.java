@@ -17,4 +17,7 @@ public interface SeatMapper {
     @Update("UPDATE seat SET available_count=#{param1} WHERE seat_id=#{param2}")
     void updateSeatAvailableCount(long availableCount, long seatId);
 
+    @Select("SELECT * FROM seat WHERE seat_id=#{1}")
+    SeatModel selectSeatDetailBySeatId(long seatId);
+
 }

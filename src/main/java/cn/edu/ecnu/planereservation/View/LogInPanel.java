@@ -69,8 +69,15 @@ public class LogInPanel extends JPanel{
 		btnLogIn.setPreferredSize(new Dimension(120, 32));
 		labNotif.setForeground(Color.RED);
 		JPanel blank = new JPanel();
-		blank.setPreferredSize(new Dimension(1200, 300));
+		blank.setPreferredSize(new Dimension(1200, 250));
 		this.add(blank);
+
+		JPanel pwelcome = new JPanel();
+		pwelcome.setPreferredSize(new Dimension(1200, 50));
+		JLabel labWelcome = new JLabel("Plane Reservation System");
+		labWelcome.setFont(labWelcome.getFont().deriveFont((float) 18).deriveFont(Font.BOLD));
+		pwelcome.add(labWelcome);
+		this.add(pwelcome);
 
 		JPanel pusername = new JPanel();
 		pusername.add(new JLabel("Username:"));

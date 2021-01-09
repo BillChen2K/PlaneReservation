@@ -23,6 +23,11 @@ import java.util.*;
 @Slf4j
 public class Utils {
 
+    /**
+     * Format minutes to hour.
+     * @param minute
+     * @return
+     */
     public static String minuteToHourFormatter(int minute) {
         if (minute < 60) {
             return String.format("%s min", minute);
@@ -57,6 +62,9 @@ public class Utils {
         return df.format(offset.getTime());
     }
 
+    /**
+     * Initialize Java Swing UI system.
+     */
     public static void UIInitialize() {
         // Set font globally
         FontUIResource fontRes = new FontUIResource(new Font("SF Pro Display", Font.PLAIN, 14));
@@ -76,6 +84,11 @@ public class Utils {
         }
     }
 
+    /**
+     * Generate a randomized number string, used for order number.
+     * @param length
+     * @return
+     */
     public static String getRandomNumberString(int length) {
         Random rd = new Random();
         String result = "";

@@ -7,13 +7,10 @@ new FormModel {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "labNotif"
-				"text": "Notif: AF101 is now being discounted!"
+				"text": "Notif: LM6252 is now being discounted!"
 				"font": new java.awt.Font( "SF Pro Display", 3, 14 )
 				"background": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"foreground": new java.awt.Color( 231, 70, 70, 255 )
-				auxiliary() {
-					"JavaCodeGenerator.variableLocal": true
-				}
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 875
 				"height": 25

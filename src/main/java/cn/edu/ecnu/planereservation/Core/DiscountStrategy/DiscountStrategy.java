@@ -11,4 +11,11 @@ public interface DiscountStrategy {
     public double getDiscountedPrice(double originalPrice);
 
     public String getUIText();
+
+    /**
+     * @return Returns the total discount length, in seconds.
+     */
+    public default long getTotalLength() {
+        return 30;
+    }
 }

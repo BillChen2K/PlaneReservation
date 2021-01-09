@@ -212,8 +212,19 @@ public class FavouritePanel extends JPanel {
 	private JButton btnBuy2;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 
+
+
+	public void refresh() {
+
+	}
+
+	private void addListeners() {
+
+	}
+
 	public void load() {
 
 	}
+
 
 }

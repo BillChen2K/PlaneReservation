@@ -517,6 +517,10 @@ public class MainPanel extends JPanel {
                 if (tabMain.getSelectedIndex() == 1) {
                     historyPanel.refresh();
                 }
+
+                if (tabMain.getSelectedIndex() == 2) {
+                	favouritePanel.refresh();
+				}
             }
         });
     }
@@ -546,10 +550,8 @@ public class MainPanel extends JPanel {
 
 		notificationPanel.setBounds(30, 735,875 ,25);
 		this.add(notificationPanel);
+		notificationPanel.load();
 		notificationPanel.setVisible(true);
-
-		notificationPanel.setVisible(true);
-
 
         if(isFirstLoad) {
             addListeners();
