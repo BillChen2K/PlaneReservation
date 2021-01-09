@@ -21,23 +21,44 @@
 
 需求变更后，为了配合代码实现，数据库也进行了修改，修改后的 ER 图如下所示。进行的修改主要是增加了 favourite 表和 payment 里的 discount_strategy，为了实现一键抢票及多种折扣策略。
 
-![ER](./ER_database.jpg)
+![ER](./new_png/ER_database.jpg)
 
 ## 详细说明及设计模式
 
 ### 1. 允许票价随时间和人数变动
 
-策略模式 定价策略 Pricing Strategy
+策略模式。
+
 
 ### 2. 票价在特定时间段打折
 
-折扣策略 Discount Strategy，工厂（？？？
+这一部分中，打折的设计和实现，我们使用策略模式帮助设计。
+
+策略模式定义了一系列算法，并将每个算法封装起来，而且使得它们可以相互替换，策略模式让算法和使用它的客户端而独立变化。
+
+于是根据这个，我们可以得到设计方案：需要设计一个接口，为一系列实现类提供统一的方法，多个实现类实现该接口；设计一个抽象类，泛化出多个具体策略类，具体的策略类负责策略的具体实现。
+
+在这边，我们考虑三种不同的结算方式："无折扣付款（DiscountByAmount）", "打折结算（DiscountByPercent）", "满减结算（DiscountNEveryN）"。
+
+这三个具体的策略都继承父类"结算策略（PriceStrategy）"，并且 overwrite 操作 "结算（SettleAccounts）"。
+
+最后建立一个上下文类“PriceContext”，其有属性 "结算策略类型（TypeOfStartegy）"，用来决定如何选择结算策略，还有一个操作 "结算（SettleAccounts）"，通过调用"结算策略（PriceStrategy）"的"结算（SettleAccounts）"来获得结算结果。
+
+根据上述的设计方案，可以得到如下的类图：
+
+![Strategy](./new_png/Discount_Strategy.jpg)
+
+
+
+工厂（？？？
 
 ### 3. 一键抢票
 
 新页面
 
 ### 4. 打折时通知关注人
+
+这一部分中，打折时通知关注人的设计和实现，我们使用观察者模式帮助设计。
 
 Discount Dispatcher，Listener，观察者模式
 
