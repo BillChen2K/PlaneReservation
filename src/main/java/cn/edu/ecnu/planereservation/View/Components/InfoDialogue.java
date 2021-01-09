@@ -19,7 +19,7 @@ public class InfoDialogue extends JDialog {
     
     public InfoDialogue(String msg) {
         initComponents();
-        labMessage.setText(msg);
+        labMessage.setText("<html>" + msg +  "</html>");
     }
     
     public InfoDialogue(String msg, String title) {

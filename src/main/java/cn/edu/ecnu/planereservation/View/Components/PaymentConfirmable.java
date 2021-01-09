@@ -7,7 +7,7 @@ import cn.edu.ecnu.planereservation.Model.PaymentModel;
  * @version 1.0
  * @create 2021-01-09 19:09
  **/
-public interface PaymentConfirmmable {
+public interface PaymentConfirmable {
 	public void paymentDidFinished(PaymentModel p);
 	public void paymentDidCanceled();
 }

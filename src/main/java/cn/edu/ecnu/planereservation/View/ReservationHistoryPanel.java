@@ -9,12 +9,11 @@ import cn.edu.ecnu.planereservation.Controller.FavouriteController;
 import cn.edu.ecnu.planereservation.Controller.FlightSystemFacade;
 import cn.edu.ecnu.planereservation.Controller.ReservationHistoryController;
 import cn.edu.ecnu.planereservation.Model.AirportModel;
-import cn.edu.ecnu.planereservation.Model.FavouriteModel;
 import cn.edu.ecnu.planereservation.Model.Joined.ReservationDetailModel;
 import cn.edu.ecnu.planereservation.Util.Const;
 import cn.edu.ecnu.planereservation.Util.Utils;
 import cn.edu.ecnu.planereservation.View.Components.ConfirmDialog;
-import cn.edu.ecnu.planereservation.View.Components.ConfirmmableFrame;
+import cn.edu.ecnu.planereservation.View.Components.ConfirmableFrame;
 import cn.edu.ecnu.planereservation.View.Components.InfoDialogue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ import javax.swing.text.DefaultFormatterFactory;
  */
 @Component
 @Slf4j
-public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame {
+public class ReservationHistoryPanel extends JPanel implements ConfirmableFrame {
     public ReservationHistoryPanel() {
         initComponents();
     }
@@ -449,7 +448,7 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 	}
 
 	@Override
-	public void onComfirmed(int confirmationCode) {
+	public void onConfirmed(int confirmationCode) {
 		switch (confirmationCode) {
 			case 1:
 				// Confirm cancel reservation.

@@ -29,9 +29,6 @@ public class FavouriteController {
 	FavouriteMapper favouriteMapper;
 
 	@Autowired
-	FavouritePanel favouritePanel;
-
-	@Autowired
 	FlightMapper flightMapper;
 
 	public ArrayList<FavouriteDetailModel> getFavouritesOfCurrentUser() {

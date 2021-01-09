@@ -8,7 +8,7 @@ import cn.edu.ecnu.planereservation.Controller.PaymentController;
 import cn.edu.ecnu.planereservation.Core.DiscountStrategy.DiscountStrategy;
 import cn.edu.ecnu.planereservation.Model.PaymentModel;
 import cn.edu.ecnu.planereservation.Model.SeatModel;
-import cn.edu.ecnu.planereservation.View.Components.PaymentConfirmmable;
+import cn.edu.ecnu.planereservation.View.Components.PaymentConfirmable;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -153,7 +153,7 @@ public class PaymentDialogue extends JDialog {
     PaymentController paymentController;
 
     @Setter
-    private PaymentConfirmmable masterFrame;
+    private PaymentConfirmable masterFrame;
 
     @Setter
     private SeatModel seatToPay;

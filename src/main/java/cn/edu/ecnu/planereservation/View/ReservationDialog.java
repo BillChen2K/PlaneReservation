@@ -17,7 +17,7 @@ import cn.edu.ecnu.planereservation.Model.SeatModel;
 import cn.edu.ecnu.planereservation.Util.SpringContextUtil;
 import cn.edu.ecnu.planereservation.Util.Utils;
 import cn.edu.ecnu.planereservation.View.Components.InfoDialogue;
-import cn.edu.ecnu.planereservation.View.Components.PaymentConfirmmable;
+import cn.edu.ecnu.planereservation.View.Components.PaymentConfirmable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ import javax.swing.border.*;
  */
 @Component
 @Slf4j
-public class ReservationDialog extends JDialog implements PaymentConfirmmable {
+public class ReservationDialog extends JDialog implements PaymentConfirmable {
     public ReservationDialog() {
         initComponents();
     }

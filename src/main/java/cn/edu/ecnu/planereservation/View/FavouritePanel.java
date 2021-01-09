@@ -14,9 +14,9 @@ import cn.edu.ecnu.planereservation.Model.Joined.FavouriteDetailModel;
 import cn.edu.ecnu.planereservation.Util.SpringContextUtil;
 import cn.edu.ecnu.planereservation.Util.Utils;
 import cn.edu.ecnu.planereservation.View.Components.ConfirmDialog;
-import cn.edu.ecnu.planereservation.View.Components.ConfirmmableFrame;
+import cn.edu.ecnu.planereservation.View.Components.ConfirmableFrame;
 import cn.edu.ecnu.planereservation.View.Components.InfoDialogue;
-import cn.edu.ecnu.planereservation.View.Components.PaymentConfirmmable;
+import cn.edu.ecnu.planereservation.View.Components.PaymentConfirmable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,7 +38,7 @@ import javax.swing.table.*;
  */
 @Component
 @Slf4j
-public class FavouritePanel extends JPanel implements DiscountListener, PaymentConfirmmable, ConfirmmableFrame {
+public class FavouritePanel extends JPanel implements DiscountListener, PaymentConfirmable, ConfirmableFrame {
 	public FavouritePanel() {
 		initComponents();
 	}
@@ -570,7 +570,7 @@ public class FavouritePanel extends JPanel implements DiscountListener, PaymentC
 	}
 
 	@Override
-	public void onComfirmed(int confirmationCode) {
+	public void onConfirmed(int confirmationCode) {
 		switch (confirmationCode) {
 			case 1:
 				favouriteController.removeFavourite(getSelectedFavourite().getFavouriteId());

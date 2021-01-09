@@ -13,7 +13,7 @@ import javax.swing.border.*;
  * @author unknown
  */
 public class ConfirmDialog extends JDialog {
-	private ConfirmmableFrame confirmmableFrame;
+	private ConfirmableFrame confirmableFrame;
 	private int code;
 
 	/**
@@ -22,25 +22,25 @@ public class ConfirmDialog extends JDialog {
 	 * @param code A code to distinguish from multiple dialogues.
 	 * @param masterFrame Master frame, should implement `ConfirmmableFram` interface.
 	 */
-	public ConfirmDialog(String msg, int code, ConfirmmableFrame masterFrame) {
+	public ConfirmDialog(String msg, int code, ConfirmableFrame masterFrame) {
 		initComponents();
 		labMessage.setText(msg);
-		confirmmableFrame = masterFrame;
+		confirmableFrame = masterFrame;
 		this.code = code;
 	}
 
-	public ConfirmDialog(String msg, String title, int code, ConfirmmableFrame masterFrame) {
+	public ConfirmDialog(String msg, String title, int code, ConfirmableFrame masterFrame) {
 		this(msg, code, masterFrame);
 		this.setTitle(title);
 	}
 
 	private void cancelButtonActionPerformed(ActionEvent e) {
-		confirmmableFrame.onCanceled(code);
+		confirmableFrame.onCanceled(code);
 		dispose();
 	}
 
 	private void okButtonActionPerformed(ActionEvent e) {
-		confirmmableFrame.onComfirmed(code);
+		confirmableFrame.onConfirmed(code);
 		dispose();
 	}
 
