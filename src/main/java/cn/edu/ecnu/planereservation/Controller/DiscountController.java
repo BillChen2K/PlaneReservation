@@ -26,7 +26,7 @@ public class DiscountController {
 		Random rd = new Random(seat.getSeatId());
 		Calendar calendar = Calendar.getInstance();
 		ArrayList<DiscountStrategy> discountOutput = new ArrayList<>();
-		if (calendar.get(Calendar.SECOND) <= 30) {
+		if (calendar.get(Calendar.SECOND) < 30) {
 			// Discounts are available only when second is smaller than 30.
 			DiscountStrategy[] discounts = {new DiscountByAmount(100),
 					new DiscountByAmount(250),

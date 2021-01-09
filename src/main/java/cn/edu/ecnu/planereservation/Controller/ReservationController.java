@@ -3,11 +3,8 @@ package cn.edu.ecnu.planereservation.Controller;
 import cn.edu.ecnu.planereservation.Core.DiscountStrategy.DiscountStrategy;
 import cn.edu.ecnu.planereservation.Mapper.ReservationMapper;
 import cn.edu.ecnu.planereservation.Mapper.SeatMapper;
+import cn.edu.ecnu.planereservation.Model.*;
 import cn.edu.ecnu.planereservation.Model.Joined.FlightTableItem;
-import cn.edu.ecnu.planereservation.Model.PassengerModel;
-import cn.edu.ecnu.planereservation.Model.PaymentModel;
-import cn.edu.ecnu.planereservation.Model.ReservationModel;
-import cn.edu.ecnu.planereservation.Model.SeatModel;
 import cn.edu.ecnu.planereservation.Util.Shared;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,6 +46,9 @@ public class ReservationController implements ReservationControllerInterface {
     FlightTableItem selectedFlightDetail;
 
     @Setter @Getter
+    FlightModel selectedFlightModel;
+
+    @Setter @Getter
     PaymentModel payment;
 
     public ReservationController() {
@@ -64,7 +64,9 @@ public class ReservationController implements ReservationControllerInterface {
         reservation.setPaymentId(payment.getPaymentId());
         reservation.setDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         reservation.setPassengerId(selectedPassenger.getPassengerId());
-        reservation.setFlightId(selectedFlightDetail.getFlightId());
+        reservation.setFlightId(selectedFlightDetail == null ?
+                selectedFlightModel.getFlightId():
+                selectedFlightDetail.getFlightId());
         reservation.setState(1);
         reservation.setSeatId(selectedSeat.getSeatId());
         reservation.setUid(Shared.currentUser.getUid());

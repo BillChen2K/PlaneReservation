@@ -1,4 +1,4 @@
-package cn.edu.ecnu.planereservation.Core;
+package cn.edu.ecnu.planereservation.Core.Exception;
 
 /**
  * @author billchen

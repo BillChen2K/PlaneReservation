@@ -8,6 +8,7 @@ import cn.edu.ecnu.planereservation.Controller.PaymentController;
 import cn.edu.ecnu.planereservation.Core.DiscountStrategy.DiscountStrategy;
 import cn.edu.ecnu.planereservation.Model.PaymentModel;
 import cn.edu.ecnu.planereservation.Model.SeatModel;
+import cn.edu.ecnu.planereservation.View.Components.PaymentConfirmmable;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -152,7 +153,7 @@ public class PaymentDialogue extends JDialog {
     PaymentController paymentController;
 
     @Setter
-    private ReservationDialog reservationDialog;
+    private PaymentConfirmmable masterFrame;
 
     @Setter
     private SeatModel seatToPay;
@@ -179,7 +180,7 @@ public class PaymentDialogue extends JDialog {
                 switch (paymentController.confirmPayment()) {
                     case 0:
                         // Case for success.
-                        reservationDialog.paymentDidFinished(paymentController.getPaymentModel());
+                        masterFrame.paymentDidFinished(paymentController.getPaymentModel());
                         dispose();
                         break;
                     default:
@@ -190,7 +191,7 @@ public class PaymentDialogue extends JDialog {
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                reservationDialog.paymentDidCanceled();
+                masterFrame.paymentDidCanceled();
                 dispose();
             }
         });

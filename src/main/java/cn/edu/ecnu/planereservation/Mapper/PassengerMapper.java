@@ -17,6 +17,9 @@ public interface PassengerMapper {
     @Select("SELECT * FROM passenger WHERE uid=#{1}")
     ArrayList<PassengerModel> selectPassengersByUid(long uid);
 
+    @Select("SELECT * FROM passenger WHERE passenger_id=#{1}")
+    PassengerModel selectPassengersByPassengerId(long passengerId);
+
     /**
      * Insert a new passenger. The inserted passenger id will be saved back to the model.
      * @param passengerModel

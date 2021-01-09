@@ -5,14 +5,17 @@
 package cn.edu.ecnu.planereservation.View;
 
 import cn.edu.ecnu.planereservation.Controller.AirportController;
+import cn.edu.ecnu.planereservation.Controller.FavouriteController;
 import cn.edu.ecnu.planereservation.Controller.FlightSystemFacade;
 import cn.edu.ecnu.planereservation.Controller.ReservationHistoryController;
 import cn.edu.ecnu.planereservation.Model.AirportModel;
+import cn.edu.ecnu.planereservation.Model.FavouriteModel;
 import cn.edu.ecnu.planereservation.Model.Joined.ReservationDetailModel;
 import cn.edu.ecnu.planereservation.Util.Const;
 import cn.edu.ecnu.planereservation.Util.Utils;
 import cn.edu.ecnu.planereservation.View.Components.ConfirmDialog;
 import cn.edu.ecnu.planereservation.View.Components.ConfirmmableFrame;
+import cn.edu.ecnu.planereservation.View.Components.InfoDialogue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +23,8 @@ import org.springframework.stereotype.Component;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -28,6 +33,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.DefaultFormatterFactory;
 
 /**
  * @author
@@ -47,15 +54,15 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 		scrollPane2 = new JScrollPane();
 		tableDetail = new JTable();
 		btnCancelReservation = new JButton();
-		btnFavourite = new JButton();
+		btnAddFavourite = new JButton();
 		var labelUI9 = new JLabel();
-		texBeginDate2 = new JTextField();
+		txtBeginDate = new JFormattedTextField();
 		var labelUI10 = new JLabel();
-		textEndDate2 = new JTextField();
+		txtEndDate = new JFormattedTextField();
 		scrollPane3 = new JScrollPane();
 		listReservation = new JList<>();
 		var labelUI11 = new JLabel();
-		textEndDate3 = new JTextField();
+		txtSearch = new JTextField();
 		labHint = new JLabel();
 		comboFilter = new JComboBox<>();
 		var labelUI12 = new JLabel();
@@ -66,11 +73,13 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 
 		//======== this ========
 		setPreferredSize(new Dimension(1120, 606));
-		setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder(
-		0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder
-		. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt. Color.
-		red) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .
-		beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
+		setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new
+		javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax
+		. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java
+		. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt
+		. Color .red ) , getBorder () ) );  addPropertyChangeListener( new java. beans .
+		PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .
+		equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
 		setLayout(null);
 
 		//======== panelHistory ========
@@ -117,11 +126,11 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 			panelHistory.add(btnCancelReservation);
 			btnCancelReservation.setBounds(920, 570, 198, 36);
 
-			//---- btnFavourite ----
-			btnFavourite.setText("Add to Favourite");
-			btnFavourite.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-			panelHistory.add(btnFavourite);
-			btnFavourite.setBounds(710, 570, 198, 36);
+			//---- btnAddFavourite ----
+			btnAddFavourite.setText("Add to Favourite");
+			btnAddFavourite.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+			panelHistory.add(btnAddFavourite);
+			btnAddFavourite.setBounds(710, 570, 198, 36);
 
 			//---- labelUI9 ----
 			labelUI9.setText("Date Range:");
@@ -129,10 +138,10 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 			panelHistory.add(labelUI9);
 			labelUI9.setBounds(30, 65, 120, 18);
 
-			//---- texBeginDate2 ----
-			texBeginDate2.setPreferredSize(new Dimension(70, 30));
-			panelHistory.add(texBeginDate2);
-			texBeginDate2.setBounds(120, 60, 170, 30);
+			//---- txtBeginDate ----
+			txtBeginDate.setPreferredSize(new Dimension(70, 30));
+			panelHistory.add(txtBeginDate);
+			txtBeginDate.setBounds(120, 60, 170, 30);
 
 			//---- labelUI10 ----
 			labelUI10.setText("To");
@@ -140,10 +149,10 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 			panelHistory.add(labelUI10);
 			labelUI10.setBounds(305, 65, 25, 18);
 
-			//---- textEndDate2 ----
-			textEndDate2.setPreferredSize(new Dimension(70, 30));
-			panelHistory.add(textEndDate2);
-			textEndDate2.setBounds(350, 60, 170, 30);
+			//---- txtEndDate ----
+			txtEndDate.setPreferredSize(new Dimension(70, 30));
+			panelHistory.add(txtEndDate);
+			txtEndDate.setBounds(350, 60, 170, 30);
 
 			//======== scrollPane3 ========
 			{
@@ -172,10 +181,10 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 			panelHistory.add(labelUI11);
 			labelUI11.setBounds(30, 110, 60, 30);
 
-			//---- textEndDate3 ----
-			textEndDate3.setPreferredSize(new Dimension(70, 30));
-			panelHistory.add(textEndDate3);
-			textEndDate3.setBounds(120, 110, 170, 30);
+			//---- txtSearch ----
+			txtSearch.setPreferredSize(new Dimension(70, 30));
+			panelHistory.add(txtSearch);
+			txtSearch.setBounds(120, 110, 170, 30);
 
 			//---- labHint ----
 			labHint.setText("Hint text");
@@ -266,12 +275,12 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 	private JScrollPane scrollPane2;
 	private JTable tableDetail;
 	private JButton btnCancelReservation;
-	private JButton btnFavourite;
-	private JTextField texBeginDate2;
-	private JTextField textEndDate2;
+	private JButton btnAddFavourite;
+	private JFormattedTextField txtBeginDate;
+	private JFormattedTextField txtEndDate;
 	private JScrollPane scrollPane3;
 	private JList<String> listReservation;
-	private JTextField textEndDate3;
+	private JTextField txtSearch;
 	private JLabel labHint;
 	private JComboBox<String> comboFilter;
 	private JPanel panelTracking;
@@ -286,6 +295,9 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 
     @Autowired
     AirportController airportController;
+
+    @Autowired
+	FavouriteController favouriteController;
 
     private Boolean isFirstLoad = true;
     private ArrayList<ReservationDetailModel> allReservations;
@@ -314,7 +326,6 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
         put("Passenger Name", "");
         put("Passenger ID", "");
         put("Passenger Phone", "");
-
     }};
 
     class ReservationListCellRenderer extends DefaultListCellRenderer {
@@ -415,11 +426,11 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 		btnCancelReservation.setEnabled(false);
 		btnCancelReservation.setText("Cancel Reservation");
 		panelTracking.setVisible(false);
-		btnFavourite.setEnabled(false);
+		btnAddFavourite.setEnabled(false);
 		if (getSelectedDetail() == null) {
 			return;
 		}
-		btnFavourite.setEnabled(true);
+		btnAddFavourite.setEnabled(true);
 		panelTracking.setVisible(true);
 		if (getSelectedDetail().getState() != Const.RESERVATION_STATE_CANCELED) {
 			btnCancelReservation.setEnabled(true);
@@ -429,6 +440,12 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 	private void tryCancelReservation() {
 		ConfirmDialog c = new ConfirmDialog("Doing so will cancel your reservation. Do you confirm?", 1, this);
 		c.setVisible(true);
+	}
+
+	private void addFavourite() {
+    	favouriteController.registerFavourite(getSelectedDetail().getFlightDescriptionId(),
+											  getSelectedDetail().getPassengerId());
+    	new InfoDialogue("Registered to favourite. You can check in the 'Buy Tickets in On Click tab.'").setVisible(true);
 	}
 
 	@Override
@@ -480,6 +497,8 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 				updateUIStatus();
             }
         });
+
+        btnAddFavourite.addActionListener(e -> addFavourite());
     }
 
     public void load() {
@@ -487,6 +506,9 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmmableFrame
 
         labHint.setText("Canceled reservations are italic. Add history record to favourite to buy tickets in one click.");
 
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		txtBeginDate.setFormatterFactory(new DefaultFormatterFactory(new DateFormatter(df)));
+		txtEndDate.setFormatterFactory(new DefaultFormatterFactory(new DateFormatter(df)));
         if (isFirstLoad) {
             addListeners();
         }

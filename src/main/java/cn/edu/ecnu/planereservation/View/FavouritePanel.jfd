@@ -56,7 +56,7 @@ new FormModel {
 					"x": 565
 					"y": 65
 					"width": 555
-					"height": 340
+					"height": 365
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "btnBuy"
@@ -66,7 +66,7 @@ new FormModel {
 					"width": 545
 					"height": 36
 					"x": 565
-					"y": 510
+					"y": 520
 				} )
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "scrollPane3"
@@ -83,23 +83,23 @@ new FormModel {
 					"x": 30
 					"y": 65
 					"width": 500
-					"height": 340
+					"height": 365
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "labHint"
 					"text": "Hint text"
 					"font": #Font0
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"width": 670
+					"width": 300
 					"height": 20
 					"x": 30
-					"y": 580
+					"y": 575
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "comboDate"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 185
-					"y": 415
+					"y": 440
 					"width": 345
 					"height": 35
 				} )
@@ -111,7 +111,7 @@ new FormModel {
 					"width": 150
 					"height": 20
 					"x": 30
-					"y": 425
+					"y": 450
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "labHint3"
@@ -121,25 +121,26 @@ new FormModel {
 					"width": 110
 					"height": 20
 					"x": 30
-					"y": 465
+					"y": 530
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
-					name: "comboDate2"
+					name: "comboDiscount"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 185
-					"y": 460
+					"y": 520
 					"width": 345
 					"height": 35
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "labPrice"
-					"text": "￥1234"
+					"text": "￥----.--"
 					"font": new java.awt.Font( "SF Pro Text", 1, 24 )
+					"horizontalAlignment": 4
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"width": 84
+					"width": 139
 					"height": 29
-					"x": 1025
-					"y": 465
+					"x": 970
+					"y": 485
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "labUI9"
@@ -150,18 +151,18 @@ new FormModel {
 					"width": 170
 					"height": 16
 					"x": 870
-					"y": 440
+					"y": 460
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "labOriginalPrice"
-					"text": "￥1023.23"
+					"text": "￥----.--"
 					"font": new java.awt.Font( "SF Pro Display", 0, 14 )
 					"horizontalAlignment": 4
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"width": 75
 					"height": 16
 					"x": 1035
-					"y": 440
+					"y": 460
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "labUI10"
@@ -174,18 +175,36 @@ new FormModel {
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"width": 123
 					"height": 16
-					"x": 885
-					"y": 475
+					"x": 850
+					"y": 495
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "btnBuy2"
+					name: "btnRemoveFavourite"
 					"text": "Remove from Favourite"
 					"font": #Font0
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"width": 200
 					"height": 36
-					"x": 325
-					"y": 510
+					"x": 330
+					"y": 565
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboSeatClass"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 345
+					"height": 35
+					"x": 185
+					"y": 480
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "labHint4"
+					"text": "Select Seat Class:"
+					"font": #Font0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 110
+					"height": 20
+					"x": 30
+					"y": 490
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 1133

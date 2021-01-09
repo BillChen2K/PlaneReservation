@@ -1,6 +1,6 @@
 package cn.edu.ecnu.planereservation.Controller;
 
-import cn.edu.ecnu.planereservation.Core.UserNotLoggedInException;
+import cn.edu.ecnu.planereservation.Core.Exception.UserNotLoggedInException;
 import cn.edu.ecnu.planereservation.Mapper.*;
 import cn.edu.ecnu.planereservation.Model.*;
 import cn.edu.ecnu.planereservation.Model.Joined.FlightTableItem;
@@ -44,7 +44,7 @@ public class FlightSystemFacade {
         return r;
     }
 
-    public ArrayList<FlightTableItem> getAvailableFlightByAiports(AirportModel from, AirportModel to) {
+    public ArrayList<FlightTableItem> getAvailableFlightsByAiports(AirportModel from, AirportModel to) {
         ArrayList<FlightDescriptionModel> queryFlightDescriptions = flightDescriptionMapper.selectFlightByAirport(from.getAirportId(), to.getAirportId());
         ArrayList<FlightTableItem> queryFlight = new ArrayList<>();
         queryFlightDescriptions.forEach(one -> {

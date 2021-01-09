@@ -15,6 +15,13 @@ import javax.swing.border.*;
 public class ConfirmDialog extends JDialog {
 	private ConfirmmableFrame confirmmableFrame;
 	private int code;
+
+	/**
+	 * Initializer for a confirmmable dialog.
+	 * @param msg Message to show on title.
+	 * @param code A code to distinguish from multiple dialogues.
+	 * @param masterFrame Master frame, should implement `ConfirmmableFram` interface.
+	 */
 	public ConfirmDialog(String msg, int code, ConfirmmableFrame masterFrame) {
 		initComponents();
 		labMessage.setText(msg);
@@ -22,7 +29,13 @@ public class ConfirmDialog extends JDialog {
 		this.code = code;
 	}
 
+	public ConfirmDialog(String msg, String title, int code, ConfirmmableFrame masterFrame) {
+		this(msg, code, masterFrame);
+		this.setTitle(title);
+	}
+
 	private void cancelButtonActionPerformed(ActionEvent e) {
+		confirmmableFrame.onCanceled(code);
 		dispose();
 	}
 
@@ -33,7 +46,6 @@ public class ConfirmDialog extends JDialog {
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - unknown
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		labMessage = new JLabel();
@@ -49,13 +61,6 @@ public class ConfirmDialog extends JDialog {
 		//======== dialogPane ========
 		{
 			dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
-			dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new
-			javax. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax
-			. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java
-			.awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt
-			. Color. red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (new java. beans.
-			PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .
-			equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
 			dialogPane.setLayout(new BorderLayout());
 
 			//======== contentPanel ========
@@ -87,7 +92,10 @@ public class ConfirmDialog extends JDialog {
 				//---- cancelButton ----
 				cancelButton.setText("Cancel");
 				cancelButton.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-				cancelButton.addActionListener(e -> cancelButtonActionPerformed(e));
+				cancelButton.addActionListener(e -> {
+			cancelButtonActionPerformed(e);
+			cancelButtonActionPerformed(e);
+		});
 				buttonBar.add(cancelButton, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
 					GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 					new Insets(0, 0, 0, 0), 0, 0));
@@ -101,7 +109,6 @@ public class ConfirmDialog extends JDialog {
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - unknown
 	private JPanel dialogPane;
 	private JPanel contentPanel;
 	private JLabel labMessage;

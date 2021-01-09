@@ -7,4 +7,7 @@ package cn.edu.ecnu.planereservation.View.Components;
  **/
 public interface ConfirmmableFrame {
 	public void onComfirmed(int confirmationCode);
+	public default void onCanceled(int cancelCode) {
+		return;
+	}
 }

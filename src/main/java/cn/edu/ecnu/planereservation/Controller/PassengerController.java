@@ -50,4 +50,8 @@ public class PassengerController {
             return passenger;
         }
     }
+
+    public PassengerModel getExistedPassengerById(long passengerId) {
+        return passengerMapper.selectPassengersByPassengerId(passengerId);
+    }
 }

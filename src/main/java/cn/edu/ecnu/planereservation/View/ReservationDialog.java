@@ -17,6 +17,7 @@ import cn.edu.ecnu.planereservation.Model.SeatModel;
 import cn.edu.ecnu.planereservation.Util.SpringContextUtil;
 import cn.edu.ecnu.planereservation.Util.Utils;
 import cn.edu.ecnu.planereservation.View.Components.InfoDialogue;
+import cn.edu.ecnu.planereservation.View.Components.PaymentConfirmmable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,7 @@ import javax.swing.border.*;
  */
 @Component
 @Slf4j
-public class ReservationDialog extends JDialog {
+public class ReservationDialog extends JDialog implements PaymentConfirmmable {
     public ReservationDialog() {
         initComponents();
     }
@@ -92,12 +93,12 @@ public class ReservationDialog extends JDialog {
 		{
 			dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
 			dialogPane.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-			dialogPane.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border
-			.EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn" , javax. swing .border . TitledBorder. CENTER ,javax
-			. swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,
-			12 ) ,java . awt. Color .red ) ,dialogPane. getBorder () ) ); dialogPane. addPropertyChangeListener( new java. beans
-			.PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "\u0062ord\u0065r" .equals ( e.
-			getPropertyName () ) )throw new RuntimeException( ) ;} } );
+			dialogPane.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing.
+			border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn" , javax. swing .border . TitledBorder. CENTER
+			,javax . swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font
+			. BOLD ,12 ) ,java . awt. Color .red ) ,dialogPane. getBorder () ) ); dialogPane. addPropertyChangeListener(
+			new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "\u0062ord\u0065r"
+			.equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
 			dialogPane.setLayout(new BorderLayout());
 
 			//======== contentPanel ========
@@ -608,7 +609,7 @@ public class ReservationDialog extends JDialog {
         PaymentDialogue paymentDialogue = SpringContextUtil.getBean(PaymentDialogue.class);
         paymentDialogue.setSeatToPay(getSelectedSeat());
         paymentDialogue.setDiscountStrategy(getSelectedDiscount());
-        paymentDialogue.setReservationDialog(this);
+        paymentDialogue.setMasterFrame(this);
         paymentDialogue.load();
         paymentDialogue.setVisible(true);
     }
@@ -616,6 +617,7 @@ public class ReservationDialog extends JDialog {
     /**
      * Payment finished, insert the reservation together with flight id, payment id and passenger id.
      */
+    @Override
     public void paymentDidFinished(PaymentModel p) {
         this.setEnabled(true);
         reservationController.create();
@@ -634,6 +636,7 @@ public class ReservationDialog extends JDialog {
         }
     }
 
+    @Override
     public void paymentDidCanceled() {
         this.setEnabled(true);
     }
@@ -759,11 +762,10 @@ public class ReservationDialog extends JDialog {
 
         // Add discounts
 		fillDiscounts();
-		Map  attributes = labOriginalPrice.getFont().getAttributes();
+		Map attributes = labOriginalPrice.getFont().getAttributes();
 		attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
 		Font strikeThroughFont = new Font(attributes);
 		labOriginalPrice.setFont(strikeThroughFont);
-
 		if (firstLoad) {
             addListeners();
         }
