@@ -30,7 +30,7 @@ new FormModel {
 						name: "panel2"
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label7"
-							"text": "<html>ECNU OOAD Final project. <br>  Built with JAVA Swing and MySQL. <br><br>  2020.12</html>"
+							"text": "<html>ECNU OOAD Final project. <br>  Built with JAVA Swing and MySQL. <br><br>  2020.12 - 2021.1</html>"
 							"font": new java.awt.Font( "SF Pro Display", 0, 14 )
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {

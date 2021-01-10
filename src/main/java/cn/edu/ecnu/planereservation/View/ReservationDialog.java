@@ -22,6 +22,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
@@ -56,7 +57,7 @@ public class ReservationDialog extends JDialog implements PaymentConfirmable {
 		labPrice = new JLabel();
 		labOriginalPrice = new JLabel();
 		labUI9 = new JLabel();
-		var labUI11 = new JLabel();
+		labSaleEnds = new JLabel();
 		panel6 = new JPanel();
 		panel3 = new JPanel();
 		var labUI2 = new JLabel();
@@ -170,12 +171,12 @@ public class ReservationDialog extends JDialog implements PaymentConfirmable {
 					panel4.add(labUI9);
 					labUI9.setBounds(125, 330, 170, 16);
 
-					//---- labUI11 ----
-					labUI11.setText("Sale Ends in 00:01:00");
-					labUI11.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
-					labUI11.setHorizontalAlignment(SwingConstants.RIGHT);
-					panel4.add(labUI11);
-					labUI11.setBounds(195, 390, 180, 16);
+					//---- labSaleEnds ----
+					labSaleEnds.setText("Sale Ends in 00:01:00");
+					labSaleEnds.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
+					labSaleEnds.setHorizontalAlignment(SwingConstants.RIGHT);
+					panel4.add(labSaleEnds);
+					labSaleEnds.setBounds(195, 390, 180, 16);
 
 					{
 						// compute preferred size
@@ -437,6 +438,7 @@ public class ReservationDialog extends JDialog implements PaymentConfirmable {
 	private JLabel labPrice;
 	private JLabel labOriginalPrice;
 	private JLabel labUI9;
+	private JLabel labSaleEnds;
 	private JPanel panel6;
 	private JPanel panel3;
 	private JTabbedPane tabPassenger;
@@ -606,6 +608,14 @@ public class ReservationDialog extends JDialog implements PaymentConfirmable {
         paymentDialogue.setVisible(true);
     }
 
+	@Scheduled(cron = "0/1 * *  * * ?")
+	private void saleEndCounter() {
+		Calendar calendar = Calendar.getInstance();
+		int second = calendar.get(Calendar.SECOND);
+		int remain = Math.max(0, 30 - second);
+		labSaleEnds.setText(String.format("Sale Ends in 00:00:%02d", remain));
+	}
+
     /**
      * Payment finished, insert the reservation together with flight id, payment id and passenger id.
      */
@@ -762,4 +772,5 @@ public class ReservationDialog extends JDialog implements PaymentConfirmable {
             addListeners();
         }
     }
+
 }

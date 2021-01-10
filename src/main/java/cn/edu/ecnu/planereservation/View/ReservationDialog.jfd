@@ -104,13 +104,10 @@ new FormModel {
 							"y": 330
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "labUI11"
+							name: "labSaleEnds"
 							"text": "Sale Ends in 00:01:00"
 							"font": #Font0
 							"horizontalAlignment": 4
-							auxiliary() {
-								"JavaCodeGenerator.variableLocal": true
-							}
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"width": 180
 							"height": 16

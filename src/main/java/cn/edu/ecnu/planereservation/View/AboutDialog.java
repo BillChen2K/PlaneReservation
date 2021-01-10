@@ -25,7 +25,6 @@ public class AboutDialog extends JDialog {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - unknown
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		panel1 = new JPanel();
@@ -43,13 +42,6 @@ public class AboutDialog extends JDialog {
 		//======== dialogPane ========
 		{
 			dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
-			dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax
-			. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing
-			. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .
-			Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt. Color. red
-			) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override
-			public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName (
-			) )) throw new RuntimeException( ); }} );
 			dialogPane.setLayout(new BorderLayout());
 
 			//======== contentPanel ========
@@ -72,7 +64,7 @@ public class AboutDialog extends JDialog {
 					panel2.setLayout(new FlowLayout(FlowLayout.LEFT));
 
 					//---- label7 ----
-					label7.setText("<html>ECNU OOAD Final project. <br>  Built with JAVA Swing and MySQL. <br><br>  2020.12</html>");
+					label7.setText("<html>ECNU OOAD Final project. <br>  Built with JAVA Swing and MySQL. <br><br>  2020.12 - 2021.1</html>");
 					label7.setFont(new Font("SF Pro Display", Font.PLAIN, 14));
 					panel2.add(label7);
 				}
@@ -103,7 +95,6 @@ public class AboutDialog extends JDialog {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - unknown
 	private JPanel dialogPane;
 	private JPanel contentPanel;
 	private JPanel panel1;

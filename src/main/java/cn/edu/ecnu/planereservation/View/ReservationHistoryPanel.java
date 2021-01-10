@@ -444,7 +444,7 @@ public class ReservationHistoryPanel extends JPanel implements ConfirmableFrame 
 	private void addFavourite() {
     	favouriteController.registerFavourite(getSelectedDetail().getFlightDescriptionId(),
 											  getSelectedDetail().getPassengerId());
-    	new InfoDialogue("Registered to favourite. You can check in the 'Buy Tickets in On Click tab.'").setVisible(true);
+    	new InfoDialogue("Registered to favourite. You can check it out in the 'Buy Tickets in One Click' tab.").setVisible(true);
 	}
 
 	@Override
