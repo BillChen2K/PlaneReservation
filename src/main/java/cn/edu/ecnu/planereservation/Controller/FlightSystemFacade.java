@@ -44,7 +44,7 @@ public class FlightSystemFacade {
         return r;
     }
 
-    public ArrayList<FlightTableItem> getAvailableFlightsByAiports(AirportModel from, AirportModel to) {
+    public ArrayList<FlightTableItem> getAvailableFlightsByAirports(AirportModel from, AirportModel to) {
         ArrayList<FlightDescriptionModel> queryFlightDescriptions = flightDescriptionMapper.selectFlightByAirport(from.getAirportId(), to.getAirportId());
         ArrayList<FlightTableItem> queryFlight = new ArrayList<>();
         queryFlightDescriptions.forEach(one -> {

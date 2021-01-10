@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public interface PassengerMapper {
 
     @Select("SELECT * FROM passenger WHERE username=#{1}")
-    PassengerModel selectPassengerByname(String name);
+    PassengerModel selectPassengerByName(String name);
 
     @Select("SELECT * FROM passenger WHERE uid=#{1}")
     ArrayList<PassengerModel> selectPassengersByUid(long uid);

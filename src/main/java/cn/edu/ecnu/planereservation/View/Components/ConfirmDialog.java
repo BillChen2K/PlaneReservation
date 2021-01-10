@@ -17,10 +17,10 @@ public class ConfirmDialog extends JDialog {
 	private int code;
 
 	/**
-	 * Initializer for a confirmmable dialog.
+	 * Initializer for a confirmable dialog.
 	 * @param msg Message to show on title.
 	 * @param code A code to distinguish from multiple dialogues.
-	 * @param masterFrame Master frame, should implement `ConfirmmableFram` interface.
+	 * @param masterFrame Master frame, should implement `ConfirmableFrame` interface.
 	 */
 	public ConfirmDialog(String msg, int code, ConfirmableFrame masterFrame) {
 		initComponents();

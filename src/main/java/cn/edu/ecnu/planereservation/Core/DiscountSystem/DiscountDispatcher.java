@@ -49,7 +49,7 @@ public class DiscountDispatcher {
 	}
 
 	/**
-	 * @return Return a singleton instance of the discount dispacher.
+	 * @return Return a singleton instance of the discount dispatcher.
 	 */
 	public static DiscountDispatcher getInstance() {
 		if (discountDispatcher == null) {

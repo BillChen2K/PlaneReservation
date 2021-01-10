@@ -105,7 +105,7 @@ public class ReservationDialog extends JDialog implements PaymentConfirmable {
 					panel4.setLayout(null);
 
 					//---- labUI ----
-					labUI.setText("Reservation Infomation:");
+					labUI.setText("Reservation Information:");
 					labUI.setFont(new Font("SF Pro Display", Font.BOLD, 14));
 					panel4.add(labUI);
 					labUI.setBounds(new Rectangle(new Point(5, 5), labUI.getPreferredSize()));

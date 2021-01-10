@@ -426,7 +426,7 @@ public class MainPanel extends JPanel {
         }
     }
     public void btnSearchActionPerformed(ActionEvent e) {
-        var flights = systemFacade.getAvailableFlightsByAiports(
+        var flights = systemFacade.getAvailableFlightsByAirports(
                 airportController.getAirportByCode(comboDepartureAirport.getSelectedItem().toString().substring(0, 3)),
                 airportController.getAirportByCode(comboArrivalAirport.getSelectedItem().toString().substring(0, 3)));
         activeFlights = flights;

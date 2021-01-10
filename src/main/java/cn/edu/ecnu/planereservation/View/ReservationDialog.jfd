@@ -20,7 +20,7 @@ new FormModel {
 						"font": #Font0
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "labUI"
-							"text": "Reservation Infomation:"
+							"text": "Reservation Information:"
 							"font": &Font1 new java.awt.Font( "SF Pro Display", 1, 14 )
 							auxiliary() {
 								"JavaCodeGenerator.variableLocal": true
