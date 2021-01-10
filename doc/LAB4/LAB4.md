@@ -21,11 +21,23 @@
 
 再需求发生变更后，发生变化的交互图有：
 
-# To be done
+#### 机票预订
+
+![FlightReservation](./new_png/Flight_Reservation.jpg)
+
+#### 一键抢票
+
+![BuyTicketsinOneClick](./new_png/Buy_Tickets_in_One_Click_col.jpg)
+
+#### 打折通知
+
+![NotifyDiscount](./new_png/Notify_Discount.jpg)
 
 需求变更后，为了配合代码实现，数据库也进行了修改，修改后的 ER 图如下所示。进行的修改主要是增加了 favourite 表和 payment 里的 discount_strategy，为了实现一键抢票及多种折扣策略。
 
 ![ER](./new_png/ER_database.jpg)
+
+
 
 ## 详细说明及设计模式
 
@@ -138,7 +150,7 @@
 
 添加到一键抢票的提示：
 
-![image-20210109230536122](https://billc.oss-cn-shanghai.aliyuncs.com/img/2021-01-09-WSaj2t.png)
+![image-20210109230536122](./new_png/Buy_Tickets_in_One_Click_tab.jpg)
 
 从一键抢票中删除的确定提示：
 
