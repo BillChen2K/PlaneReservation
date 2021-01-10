@@ -66,9 +66,9 @@
 
 在这边，我们考虑三种不同的结算方式："无折扣付款（DiscountNoWay）","抵金券结算（DiscountByAmount）", "打折结算（DiscountByPercent）", "满减结算（DiscountNEveryN）"。
 
-这三个具体的策略都继承父类"结算策略（PriceStrategy）"，并且 overwrite 操作 "结算（SettleAccounts）"。
+这三个具体的策略都继承父类"打折策略（DiscountStrategy）"，并且 overwrite 操作 "结算（SettleAccounts）"。
 
-最后建立一个上下文类“PriceContext”，其有属性 "结算策略类型（TypeOfStartegy）"，用来决定如何选择结算策略，还有一个操作 "结算（SettleAccounts）"，通过调用"结算策略（PriceStrategy）"的"结算（SettleAccounts）"来获得结算结果。
+最后建立一个上下文类“DiscountContext”，其有属性 "结算策略类型（TypeOfStartegy）"，用来决定如何选择结算策略，还有一个操作 "结算（SettleAccounts）"，通过调用"打折策略（DiscountStrategy）"的"结算（SettleAccounts）"来获得结算结果。
 
 根据上述的设计方案，可以得到如下的类图：
 
